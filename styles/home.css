@@ -1,0 +1,75 @@
+
+#content {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 35%;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+/* || Logo */
+#logo-container {
+	box-sizing: border-box;
+	width: 100%;
+
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+#logo {
+	box-sizing: border-box;
+	width: 80vw;
+	max-width: 700px;
+
+	display: inline-block;
+}
+
+/* || Links */
+#button-container {
+	width: 100%;
+	text-align: center;
+}
+
+button.diamond-button {
+	border: none;
+	border-radius: 5px;
+	background-color: white;
+	padding: 0px;
+	outline: none;
+	z-index: 0;
+	transform: rotate(45deg);
+	transition: background-color 0.2s;
+}
+
+/* || Phone */
+button.diamond-button {
+	width: 130px;
+	height: 130px;
+	margin: 50px 50px;
+}
+
+/* || Screens */
+@media all and (min-width: 1024px) {
+	button.diamond-button {
+		width: 80px;
+		height: 80px;
+		margin: 30px 30px;
+	}
+}
+
+button.diamond-button > img {
+	width: 60%;
+	z-index: 5;
+	transform: rotate(-45deg);
+}
+
+#button-project:hover {
+	background-color: #A0C1B9;
+}
+#button-writeup:hover {
+	background-color: #70A0AF;
+}
+#button-art:hover {
+	background-color: #706993;
+}

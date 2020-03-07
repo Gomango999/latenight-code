@@ -1,0 +1,130 @@
+<b>Input File:</b> <tt>vasesin.txt</tt><br>
+<b>Output File:</b> <tt>vasesout.txt</tt><br>
+
+<b>Time Limit:</b> 1 second<br>
+<b>Memory Limit:</b> 1 GB<br>
+
+<p>
+You have bought <span class="MATH">N</span> identical flowers to arrange into three vases. As an expert in interior design,
+there are three important rules you must follow:
+
+</p><ol>
+	<li>Every flower must go into one of the three vases, since throwing flowers away is wasteful.</li>
+	<li>Each vase must contain at least one flower, since an empty vase looks very odd.</li>
+	<li>Each vase must contain a different number of flowers, so all the vases look different.</li>
+</ol>
+
+<p>
+Your task is to determine a possible way to arrange the flowers. Note that there may be multiple
+possible solutions, or none at all.
+
+</p><p>
+</p><h2>Input</h2>
+
+<p>
+The only line of input will contain a single integer: the number of flowers <span class="MATH">N</span>.
+
+</p><p>
+</p><h2>Output</h2>
+
+<p>
+Your program should output three space-separated integers, describing how many flowers to put
+into each vase. If there are multiple possible ways to arrange the flowers, any will do.
+
+</p><p>
+If it is impossible to place flowers according to the rules, print <tt>0 0 0</tt> instead.
+
+</p><p>
+</p><h2>Sample Input 1</h2>
+
+<pre>15
+</pre>
+
+<p>
+</p><h2>Sample Output 1</h2>
+
+<pre>4 5 6
+</pre>
+
+<p>
+</p><h2>Sample Input 2</h2>
+
+<pre>105
+</pre>
+
+<p>
+</p><h2>Sample Output 2</h2>
+
+<pre>100 2 3
+</pre>
+
+<p>
+</p><h2>Sample Input 3</h2>
+
+<pre>4
+</pre>
+
+<p>
+</p><h2>Sample Output 3</h2>
+
+<pre>0 0 0
+</pre>
+
+<p>
+</p><h2>Explanation</h2>
+
+<p>
+In the first sample input, you have <span class="MATH">N = 15</span> flowers. One way you can arrange the flowers is to put
+4 flowers in the first vase, 5 flowers in the second vase and 6 flowers in the third vase. There are other possible solutions.
+
+</p><p>
+In the second sample input, you have <span class="MATH">N = 105</span> flowers. One way you can arrange the flowers
+is to put 100 flowers in the first vase, 2 flowers in the second vase and 3 flowers in the third vase.
+There are other possible solutions.
+
+</p><p>
+In the third sample input, you have <span class="MATH">N = 4</span> flowers. It is impossible to arrange flowers in vases
+according to your interior design rules, so the only correct output is <tt>0 0 0</tt>.
+
+</p><p>
+</p><h2>Subtasks &amp; Constraints</h2>
+
+<p>
+For all cases, <span class="MATH">1 ≤ N ≤ 100,000</span>.
+
+</p><p>
+
+</p><ul>
+<li>
+	<p>
+	For Subtask 1 (20 marks), <span class="MATH">N = 10</span>.
+	</p>
+	<p>
+		<i>Hint:</i> There is only one test case in this subtask, so try working out the answer by hand.
+	</p>
+</li>
+<li>
+	<p>
+	For Subtask 2 (30 marks), <span class="MATH">N = 1000</span>.
+	</p>
+	<p>
+		<i>Hint:</i> There is only one test case in this subtask, so try working out the answer by hand.
+	</p>
+</li>
+<li>
+	<p>
+	For Subtask 3 (35 marks), <span class="MATH">N ≥ 1000</span>.
+	</p>
+	<p>
+		<i>Hint:</i> Can you modify your answer for <span class="MATH">N = 1000</span> to work for larger values of <span class="MATH">N</span>?
+	</p>
+</li>
+<li>
+	<p>
+	For Subtask 4 (15 marks), no further constraints apply.
+	</p>
+	<p>
+		<i>Hint:</i> Think about when it is impossible to arrange the flowers.
+	</p>
+</li>
+</ul>

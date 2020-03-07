@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Roboto&display=swap');
+
+/*:root {
+	--midnight-black: #121216;
+	--midnight-lightblue: #A0C1B9;
+	--midnight-blue: #70A0AF;
+	--midnight-purple: #706993;
+	--midnight-white: white;
+};*/
+
+body {
+	position: relative;
+	width: 100vw;
+	max-width: 100%;
+	height: 100vh;
+	max-height: 100%;
+	min-height: 100vh;
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+
+	background-color: #121216;
+	color: #dfdfdf;	
+
+	font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Amatic SC', cursive;
+	margin: 0px;
+}
+
+h1 {
+	font-size: 50px;
+}
+h2 {
+	font-size: 30px;
+	padding: 20px 0px;
+}
+
+p,li,b {
+	padding: 0px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1rem;
+	font-variant-ligatures: none;
+	line-height: 1.5;
+}
+tt,pre {
+	font-size: 16px;
+}
+ul.menu {
+	list-style-type: none;	
+	margin: 0px;
+	padding: 0px;
+}
+ul.menu > li {
+	padding: 5px 20px;
+	font-size: 16px;
+	line-height: 2.7;
+	max-height: 54px;
+	white-space: nowrap;
+	overflow: hidden;
+	border-left: 3px #211f25 solid;	
+}
+
+ul.menu > li:hover {
+	background-color: #292933;
+	cursor: pointer;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.show {
+	border: solid red 1px;
+}
+
+.MATH {
+	font-style: italic;
+}
+
+button {
+	cursor: pointer;
+}
+/*
+https://codepen.io/sosuke/pen/Pjoqqp
+121216
+FFFFFF
+A0C1B9
+70A0AF
+706993
+*/

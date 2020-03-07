@@ -1,0 +1,99 @@
+header {
+	/*background-color: #27232e;*/
+	background-color: #211f25;
+	box-sizing: border-box;
+	margin: 0px;
+	height: 80px;
+	padding: 20px 20px;
+	padding-top: 20px;
+}
+
+header > img {
+	height: 100%;
+	cursor: pointer;
+}
+footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 200px;
+	background-color: #211f25;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 50px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #c4fbff;
+}
+
+#contentwrap {
+	position: relative;
+	width: 100%;
+	/*padding: 30px 30px;*/
+	padding-bottom: calc(200px + 100px);
+}
+
+#menu {
+	margin: 0px 20px;
+	margin-top: 83px;
+	margin-left: 1.5%;
+	padding: 10px 0px;
+	width: 270px;
+	height: 100%;
+	float: left;
+	background-color: #121216;
+}
+
+#menu > ul > li {
+	transition: background-color 0.2s;
+}
+
+#analysiswrapper {
+	width: 800px;
+	margin: 40px 10px;
+	margin-left: calc(calc(100% - 800px)/2);
+}
+
+#analysis {
+	padding: 40px 60px;
+	/*padding-bottom: 100px;*/
+	background-color: #121216;
+	border-bottom: 1px #211f25 solid;
+	margin-bottom: 100px;
+}
+
+#buttoncontainer {
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 80px;
+}
+
+button {
+	/*position: absolute;*/
+	outline: none;
+	border: none;
+	color: white;
+	font-size: 16px;
+	width: 400px;
+	padding: 20px 0px;
+	margin: 0px;
+	transition: background-color 0.2s;
+}
+
+#buttoncontainer > button:hover {
+	background-color: #292933;
+}
+
+#problembutton {
+	float:left;
+	left: 0px;
+	background-color: #121216;
+	border-top: 3px #706993 solid;
+}
+#analysisbutton {
+	right: 0px;
+	float:left;
+	background-color: #121216;
+	border-top: 3px #211f25 solid;
+}

@@ -1,0 +1,58 @@
+Lifen is 26, single, female, Chinese.
+
+She lives in a small cramped apartment in NYC.
+She has just moved in to her new apartment a few days ago, and is slowly beginning to settle in. 
+It is the first time she is living without parents.
+
+Lifen is a freelance front end designer, who works from home.
+She has a keen eye for design and fashion.
+She makes a decent income, but she does not buy expensive things. She prefers a minimalist design instead.
+She has taken on many Americanised design trends, but is still inspired by traditional chinese art.
+She keeps her apartment messy, but in a cozy and clean sort of way
+
+Lifen does not have too many friends, as she has only just moved to America to pursue her career,
+but she keeps in close contact with the ones she has.
+She often likes to send pictures of her new life in America to family and friends.
+Some nights, she likes to stay up and work to the sound of the city at night.
+
+Lifen likes tea, bass guitar and night time.
+
+Lifen's apartment is very small, so she prefers to work outside. Things she keeps outside with her are:
+- a cup of tea (on a coaster)
+- laptop (which she works off of)
+- paper for designs (which he stores inside)
+- cute backpack for taking her work outside
+- folding clothes drying rack (pastel coloured hoodies, skirt)
+- plants (3-4)
+- watering can (and other plant care devices)
+- tissues
+- a medium desk for working
+- a comfy chair to work and relax in, with soft fluffy pillows
+- some fairy lights, maybe japanese lanterns
+- she has a mood painting
+- she wears glasses
+- she has an ipad which she uses as a second monitor/drawing on for her designs.
+- a notepad and a diary, one for work and one for personal.
+- a patterned, warm blanket
+- a rug to keep her feet warm
+- a nice cushion
+- a few unpacked moving boxes (she uses one as a side table)
+- a waste paper bin for her tissues
+- many books. Lifen is learning English, and backend programming
+- magazines, where Lifen gets her inspiration from
+- bulk pack of water
+- a small black turtle for fun and debugging.
+- soft toy penguin friend?
+- stationary, with a cute pencil case
+- umbrella
+- airpods
+- watch
+- some midnight snacks (yoghurt with berries)
+- an extra pair of platform shoes
+- slippers
+- bass guitar (on the inside, leaning against the window)
+- a clock, angled towards the chair
+
+Many ideas here, but don't forget the main focus of the website: 
+				Coding and Design!
+Make sure to highlight these parts of her lifestyle!

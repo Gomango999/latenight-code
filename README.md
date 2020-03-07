@@ -1,4 +1,5 @@
 ![Logo](https://github.com/Gomango999/midnight-code/blob/master/images/logo/1x/logo_full_purple.png)
+---
 My personal site where I can post all things me: from helpful coding writeups, to fun visual projects.
 This site is still heavily under construction, and only has two pages currently.
 

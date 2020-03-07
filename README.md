@@ -1,7 +1,7 @@
 ![Logo](https://github.com/Gomango999/midnight-code/blob/master/images/logo/1x/logo_full_purple.png)
 ---
 My personal site where I can post all things me: from helpful coding writeups, to fun visual projects.
-This site is still heavily under construction, and only has two pages currently.
+This site is still under construction, and will be updated regularly.
 
 ### Screenshots
 ![Home Page](https://github.com/Gomango999/midnight-code/blob/master/images/screenshots/home_page.png)

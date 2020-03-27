@@ -1,7 +1,6 @@
 
 $(document).ready(function() {
-	const projectLink = 'http://www.youtube.com'
-	// const writeupLink = 'file:///C:/Users/kevin/Dropbox/website/writeups/index.html'
+	const projectLink = 'http://localhost:8080/projects/'
 	const writeupLink = 'http://localhost:8080/writeups/'
 	const artLink = 'http://localhost:8080/art/'
 
@@ -31,4 +30,3 @@ $(document).ready(function() {
 		}
 	})
 })
-

@@ -1,20 +1,20 @@
 function includeHTML() {
-	elements = $("*");
-	for (var i = 0; i < elements.length; i++) {
-		element = elements[i];
+	elements = $("[include-html]");
+	for (const element of elements) {
 		file = element.getAttribute("include-html");
 		if (file) {
 			xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState == 4) {
 					if (this.status == 200) {
-						element.innerHTML = this.responseText;
+						result = this.responseText
 					}
 					if (this.status == 404) {
-						element.innerHTML = "Content not found";
+						result = "Uh oh. Looks like the content couldn't be found!"
 					}
+					element.innerHTML = result;
 					element.removeAttribute("include-html");
-					includeHTML();
+					includeHTML(); // Recursively include files
 				}
 			}
 			xhr.open("GET", file, true);

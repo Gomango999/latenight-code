@@ -17,15 +17,17 @@ function updateHTML(element, file) {
 
 
 $(document).ready(function() {
-	const problemFile = "vases-problem.html";
-	const analysisFile = "vases-analysis.html"
+	const problemButton = $('#problembutton');
+	const analysisButton = $('#analysisbutton');
 
-	$('#problembutton').on('click', function(e) {
+	problemButton.on('click', function(e) {
+		const problemFile = problemButton.attr("file");
 		updateHTML($("#analysis")[0], problemFile);
 		$("#problembutton").css("border-top", "3px #706993 solid")
 		$("#analysisbutton").css("border-top", "3px #211f25 solid")
 	})
-	$('#analysisbutton').on('click', function(e) {
+	analysisButton.on('click', function(e) {
+		const analysisFile = analysisButton.attr("file");
 		updateHTML($("#analysis")[0], analysisFile);
 		$("#problembutton").css("border-top", "3px #211f25 solid")
 		$("#analysisbutton").css("border-top", "3px #706993 solid")

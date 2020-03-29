@@ -1,0 +1,27 @@
+extends layout
+
+block head
+    link(rel='stylesheet' href='/styles/writeup.css')
+    script(src='/scripts/writeups/prism.js')
+    script(src='/scripts/writeups/include-html.js')
+    script(src='/scripts/writeups/buttons.js')
+
+block content
+    header
+        img(id='logo' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
+    
+    div(id='contentwrap')
+        div(id='analysiswrapper')
+            center
+                h1 #{title}
+            div(id='buttoncontainer')
+                button(id='problembutton' file=`${problemFile}`) PROBLEM
+                button(id='analysisbutton' file=`${analysisFile}`) ANALYSIS
+            div(include-html=`${problemFile}` id='analysis')
+                
+        
+        footer
+            br
+            br
+            br
+            center Find me at kv.zhu999@gmail.com

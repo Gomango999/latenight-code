@@ -29,8 +29,8 @@ and connect to `https://localhost:8080` in the browser. Currently, many of the l
 - [x] Design a home page
 - [x] Design a writeup page
 - [x] Add buttons for switching between problem and analysis
-- [ ] Replace all HTML files with pug files
-- [ ] Create a simplified writeup page
+- [x] Replace all HTML files with pug files
+- [x] Create a simplified writeup page
 - [ ] Add a menu for finding writeups
 - [ ] Create a simplified gallery page
 - [ ] Upload some fun visual projects built drom Processing.

@@ -20,7 +20,7 @@ body {
 	margin: 0px;
 
 	background-color: #121216;
-	color: #dfdfdf;	
+	color: #dfdfdf;
 
 	font-family: 'Roboto', sans-serif;
 }
@@ -35,21 +35,25 @@ h1 {
 }
 h2 {
 	font-size: 30px;
-	padding: 20px 0px;
+	margin: 20px 0px;
+	/* padding: 20px 0px; */
 }
 
-p,li,b {
+p,li,b,a {
 	padding: 0px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 1rem;
 	font-variant-ligatures: none;
 	line-height: 1.5;
 }
+a:visited {
+	color: #dfdfdf;
+}
 tt,pre {
 	font-size: 16px;
 }
 ul.menu {
-	list-style-type: none;	
+	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 }
@@ -60,7 +64,7 @@ ul.menu > li {
 	max-height: 54px;
 	white-space: nowrap;
 	overflow: hidden;
-	border-left: 3px #211f25 solid;	
+	border-left: 3px #211f25 solid;
 }
 
 ul.menu > li:hover {

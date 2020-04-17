@@ -1,7 +1,6 @@
 ![Logo](https://github.com/Gomango999/midnight-code/blob/master/public/images/logo/1x/logo_full_purple.png)
 ---
-My personal site where I can post all things me: from helpful coding writeups, to fun visual projects.
-This site is still under construction, and will be updated regularly.
+My personal site where I can post all things me: from helpful coding writeups, to fun visual projects. The making of the site was completely self-taught, and was built from the ground up using NodeJS and express. It is still under construction, and will be updated regularly.
 
 ### Screenshots
 ![Home Page](https://github.com/Gomango999/midnight-code/blob/master/public/images/screenshots/home_page.png)
@@ -13,7 +12,7 @@ To run the server, simply use
 ```
 npm run start
 ```
-and connect to `https://localhost:8080` in the browser. Currently, many of the links do not work yet, as they have not been implemented.
+and connect to `https://localhost:8080` in the browser.
 
 ### Technologies
 - HTML
@@ -31,6 +30,7 @@ and connect to `https://localhost:8080` in the browser. Currently, many of the l
 - [x] Add buttons for switching between problem and analysis
 - [x] Replace all HTML files with pug files
 - [x] Create a simplified writeup page
-- [ ] Add a menu for finding writeups
+- [x] Add a menu for finding writeups
+- [ ] Make dynamic generation of writeup list based on directory
 - [ ] Create a simplified gallery page
 - [ ] Upload some fun visual projects built drom Processing.

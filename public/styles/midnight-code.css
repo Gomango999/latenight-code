@@ -36,7 +36,6 @@ h1 {
 h2 {
 	font-size: 30px;
 	margin: 20px 0px;
-	/* padding: 20px 0px; */
 }
 
 p,li,b,a {
@@ -46,7 +45,7 @@ p,li,b,a {
 	font-variant-ligatures: none;
 	line-height: 1.5;
 }
-a:visited {
+a,a:link,a:visited {
 	color: #dfdfdf;
 }
 tt,pre {

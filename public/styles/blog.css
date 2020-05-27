@@ -1,0 +1,32 @@
+#content {
+  width: 50%;
+  /* height: 100%;
+  min-height: 100%; */
+  background-color: #211f25;
+  padding: 40px 20px;
+  margin-top: 120px;
+  border-radius: 10px;
+
+  box-shadow: 0px 3px 10px rgb(9, 9, 9), 0px -3px 10px rgb(9, 9, 9);
+  /* border-left: 1px solid rgb(98, 98, 92);
+  border-right: 1px solid rgb(98, 98, 92); */
+}
+
+.blogpost {
+  width: calc(100% - 80px);
+  height: 190px;
+  margin: 10px 40px;
+  padding: 0px 40px;
+  border: 1px solid rgb(98, 98, 92);
+  border-radius: 3px;
+}
+
+.date {
+  padding-top: 30px;
+  text-align: right;
+}
+
+.blogpost:hover {
+  background-color: #312e37;
+  cursor: pointer;
+}

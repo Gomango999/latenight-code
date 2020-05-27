@@ -1,7 +1,21 @@
 extends layout
 
 block head
-
+  link(rel='stylesheet' href='/styles/blog.css')
 
 block content
-  p Welcome to my blog!
+  header
+    img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
+    h1 Blog 
+
+  #content.container
+    each blog in blogList
+      .row
+        .col.blogpost
+            .row
+              .col-sm-8
+                h2 #{blog}
+              .col-sm-4.date 13/06/12
+              
+            p What is the meaning of life? This is a question many have pondered 
+              | for many a millenia, yet, none have quite seem to have have approa...

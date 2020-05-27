@@ -6,6 +6,7 @@ var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
 var writeupsRouter = require('./routes/writeups');
 var artRouter = require('./routes/art');
+var blogRouter = require('./routes/blog');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/", indexRouter);
 app.use("/projects", projectsRouter);
 app.use("/writeups", writeupsRouter);
 app.use("/art", artRouter);
+app.use("/blog", blogRouter);
 
 app.listen(8080, function() {
 	console.log("Listening on port 8080");

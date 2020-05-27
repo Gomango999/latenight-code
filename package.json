@@ -5,15 +5,14 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "devstart": "nodemon app.js"
+    "start": "node app.js & browser-sync start --proxy 'localhost:8080' --port '8080' --files '.'",
   },
   "author": "Kevin Zhu",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "pug": "^2.0.0-beta11",
-    "acorn": ">=5.7.4" 
+    "acorn": ">=5.7.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"

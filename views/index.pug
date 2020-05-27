@@ -1,17 +1,19 @@
 extends layout
 
 block head
-    script(src='scripts/buttons.js')
-    link(rel='stylesheet' href='styles/home.css')
+  script(src='scripts/buttons.js')
+  link(rel='stylesheet' href='styles/home.css')
 
 block content
-    div(id='content')
-        div(id='logo-container')
-            img(src='images/logo/4x/logo_full_dark@4x.png' alt='Midnight Code Logo.' id='logo')
-        div(id='button-container')
-            button(id='button-project' class='diamond-button')
-                img(src='images/logo/SVG/icon_graph.svg' alt='Graph' id='icon-project' class='button-icon')
-            button(id='button-writeup' class='diamond-button')
-                img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')
-            button(id='button-art' class='diamond-button')
-                img(src='images/logo/SVG/icon_art.svg' alt='Painters Pallete' id='icon-project' class='button-icon')
+  div(id='content container')
+    div(id='logo-container' class='row')
+      img(src='images/logo/4x/logo_full_dark@4x.png' alt='Midnight Code Logo.' id='logo')
+    div(id='button-container' class="row justify-content-center")
+      //- button(id='button-project' class='diamond-button col-1')
+      //-   img(src='images/logo/SVG/icon_graph.svg' alt='Graph' id='icon-project' class='button-icon')
+      //- button(id='button-writeup' class='diamond-button col-1')
+      //-   img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')
+      //- button(id='button-art' class='diamond-button col-1')
+      //-   img(src='images/logo/SVG/icon_art.svg' alt='Painters Pallete' id='icon-project' class='button-icon')
+      button(id='button-blog' class='diamond-button col-1')
+        img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')

@@ -110,7 +110,7 @@ header {
 	box-shadow: 5px 0px 18px black;
 	z-index: 5;
 }
-header > img {
+header > a > img {
 	height: 70%;
 	cursor: pointer;
 	float:left;

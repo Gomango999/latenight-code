@@ -13,6 +13,7 @@
   "dependencies": {
     "acorn": ">=5.7.4",
     "express": "^4.17.1",
+    "moment": "^2.26.0",
     "pug": "^2.0.0-beta11",
     "showdown": "^1.9.1"
   },

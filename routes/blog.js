@@ -3,8 +3,8 @@ var router = express.Router();
 var blogController = require('../controllers/blogController');
 
 router.get('/', blogController.index);
-blogController.blogList.forEach(blog => {
-  router.get(blog.url, blogController.renderer[blog.url]);
+blogController.blogs.forEach(blog => {
+  router.get(blog.url, blog.renderer);
 });
 
 module.exports = router;

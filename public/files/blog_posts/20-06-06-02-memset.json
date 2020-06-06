@@ -1,0 +1,10 @@
+{
+  "title": "Memset",
+  "description": "What is memset, and how can we use it to speed up coding array initalisation?",
+  "author": "Kevin Zhu",
+  "uploadDate": "2020-06-06 14:00",
+  "lastModified": "2020-06-06 14:00",
+  "notes": "",
+  "tags": ["competitive programming"],
+  "name": "20-06-06-02-memset"
+}

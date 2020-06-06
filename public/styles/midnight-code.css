@@ -37,12 +37,15 @@ p,li,b,a {
 	font-variant-ligatures: none;
 	line-height: 1.5;
 }
+
 a,a:link,a:visited {
 	color: #dfdfdf;
 }
+
 tt,pre {
 	font-size: 16px;
 }
+
 ul.menu {
 	list-style-type: none;
 	margin: 0px;

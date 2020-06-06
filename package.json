@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js & browser-sync start --proxy 'localhost:8080' --port '8080' --files '**/*'"
+    "start": "nodemon app.js",
+    "teststart": "node app.js & browser-sync start --proxy 'localhost:8080' --port '8080' --files '**/*'"
   },
   "author": "Kevin Zhu",
   "license": "ISC",
@@ -16,6 +17,10 @@
     "showdown": "^1.9.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.26.7",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }

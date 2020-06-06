@@ -4,7 +4,7 @@ var writeupsController = require('../controllers/writeupsController');
 
 router.get('/', writeupsController.index);
 writeupsController.writeups.forEach(writeup => {
-    router.get(writeup.url, writeupsController.renderer[writeup.url]);
+  router.get(writeup.url, writeupsController.renderer[writeup.url]);
 });
 
 module.exports = router;

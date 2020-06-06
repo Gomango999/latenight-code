@@ -1,0 +1,14 @@
+extends layout
+
+block head
+  link(rel='stylesheet' href='/styles/blog.css')
+  
+block content
+  header
+    img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
+    h1 Blog 
+  
+  
+  #blogpost.content.container.card
+    p!= blog.content 
+    //- !{blog.content}

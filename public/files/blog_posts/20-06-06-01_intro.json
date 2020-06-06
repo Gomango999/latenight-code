@@ -1,0 +1,9 @@
+{
+  title: 'Introduction'
+  description: 'Welcome to my very first blog post!'
+  author: 'Kevin Zhu',
+  uploadDate: '3/6/2020 12:00',
+  lastModified: '3/6/2020 12:00',
+  notes: '',
+  tags: ['general']
+}

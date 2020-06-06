@@ -8,14 +8,14 @@ block content
     img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
     h1 Blog 
 
-  #content.container
+  #bloglist.content.container.card
     each blog in blogList
-      .row
-        .col.blogpost
-            .row
-              .col-sm-8
-                h2 #{blog}
-              .col-sm-4.date 13/06/12
-              
-            p What is the meaning of life? This is a question many have pondered 
-              | for many a millenia, yet, none have quite seem to have have approa...
+      .row.blogpostcard.outline
+        a.col(href='.'+blog.url)
+          .row
+            .col-sm-8
+              h2 #{blog.title}
+            .col-sm-4.date 13/06/12
+            
+          p What is the meaning of life? This is a question many have pondered 
+            | for many a millenia, yet, none have quite seem to have have approa...

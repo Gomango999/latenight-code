@@ -28,5 +28,4 @@ and connect to `https://localhost:8080` in the browser.
 
 ### Todo
 - Clean up the CSS styling
-- Investigate scrolling infinitely bug
 - Add dynamic blog list based on folder structure

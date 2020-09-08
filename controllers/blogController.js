@@ -6,8 +6,9 @@ const moment = require('moment');
 // Metadata files for blogs
 // Update me when adding new blog posts
 files = [
-  '20-06-06-01-intro.json',
-  '20-06-06-02-memset.json',
+  '2020_06_06_0_intro.json',
+  '2020_06_06_1_memset.json',
+  '2020_09_09_0_aio_1.json',
 ]
 
 // Generate blogs list, and populate it with information

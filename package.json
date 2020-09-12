@@ -11,14 +11,14 @@
   "author": "Kevin Zhu",
   "license": "ISC",
   "dependencies": {
-    "acorn": ">=5.7.4",
+    "acorn": "^8.0.1",
     "express": "^4.17.1",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "pug": "^2.0.0-beta11",
     "showdown": "^1.9.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.12",
     "nodemon": "^2.0.4"
   },
   "engines": {

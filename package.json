@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "acorn": "^8.0.1",
+    "axios": ">=0.21.1",
     "express": "^4.17.1",
     "moment": "^2.27.0",
     "pug": "^2.0.0-beta11",

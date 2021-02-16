@@ -1,7 +1,7 @@
 ![Logo](https://github.com/Gomango999/midnight-code/blob/master/public/images/logo/1x/logo_full_purple.png)
 ---
-Check it out on Heroku:
-https://midnight-code.herokuapp.com/blog/
+Check it out!
+http://www.midnightcode.io/
 
 My personal site where I can post all things me: from helpful coding writeups, to fun visual projects. The making of the site was completely self-taught, and was built from the ground up using NodeJS and express. It is still under construction, and will be updated regularly.
 

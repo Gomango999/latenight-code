@@ -19,7 +19,7 @@
 }
 
 .outline {
-  border: 1px solid rgb(98, 98, 92);
+  border: 1px solid rgb(94, 92, 101);
   border-radius: 3px;
 }
 
@@ -38,4 +38,9 @@
 .date {
   padding-top: 30px;
   text-align: right;
+}
+
+code {
+  background-color: #474747;
+  color: #ceadec;
 }

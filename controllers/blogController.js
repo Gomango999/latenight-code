@@ -9,6 +9,8 @@ files = [
   '2020_06_06_0_intro.json',
   '2020_06_06_1_memset.json',
   '2020_09_09_0_aio_1.json',
+  '2021_02_16_0_food.json',
+  '2021_02_16_1_hoppers.json',
 ]
 
 // Generate blogs list, and populate it with information

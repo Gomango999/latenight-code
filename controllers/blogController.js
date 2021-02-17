@@ -1,16 +1,18 @@
-const showdown  = require('showdown');
+const showdown = require('showdown');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
+const showdownKatex = require('showdown-katex')
 
 // Metadata files for blogs
 // Update me when adding new blog posts
 files = [
-  '2020_06_06_0_intro.json',
-  '2020_06_06_1_memset.json',
-  '2020_09_09_0_aio_1.json',
-  '2021_02_16_0_food.json',
-  '2021_02_16_1_hoppers.json',
+  '00_intro.json',
+  '01_memset.json',
+  '02_baubles.json',
+  '03_food.json',
+  '04_hoppers.json',
+  '05_primes.json',
 ]
 
 // Generate blogs list, and populate it with information
@@ -18,7 +20,11 @@ let blogs = []
 files.forEach(filename => {
   rawText = fs.readFileSync(path.join('./public/files/blog_posts/', filename), 'utf-8');
   blog = JSON.parse(rawText);
-  let converter = new showdown.Converter();
+  const converter = new showdown.Converter({
+    extensions: [showdownKatex({
+      delimiters: [{ left: '$', right: '$', asciimath: false }],
+    })]
+  });
   let rawMarkdown = fs.readFileSync(path.join('./public/files/blog_posts/', blog.name + '.md'), 'utf-8');
   blog.content = converter.makeHtml(rawMarkdown);
   blog.url = '/'+blog.name;

@@ -2,6 +2,12 @@
 
 ---
 
+**Contest**: 2018 Asia Singapore ICPC Regionals
+
+**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
+
+---
+
 The problem asks for the number of days free food is available. However, we have to careful not to double count days, since we only care if there is free food at _any_ event on a given day.
 
 Since the bounds are very small, we can simply keep track of the free food days in an array `food`. For each day, we store whether there was free food on that day or not. We update the array by looping through it for every single event. At the end, we simply count up the number of days that contain free food.

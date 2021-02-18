@@ -2,6 +2,12 @@
 
 ---
 
+**Contest**: 2018 Asia Singapore ICPC Regionals
+
+**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
+
+---
+
 Suppose the graph is split into `M` components. For the hopper to spread to all other nodes, then clearly we will have to connect all of these components at some points. The minimum number of edges required for this is `M-1`.
 
 We call a component "good" if we can infect a node in that component and have it spread to every other node in the system. If there is even one good component in the system, then we can simply use `M-1` additional edges to connect it to all the other components, which is clearly the minimum possible. Hence, we need a way to find whether a component is good.

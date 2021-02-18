@@ -13,6 +13,7 @@ files = [
   '03_food.json',
   '04_hoppers.json',
   '05_primes.json',
+  '06_token.json',
 ]
 
 // Generate blogs list, and populate it with information

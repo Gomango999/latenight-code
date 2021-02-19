@@ -2,8 +2,8 @@
   "title": "Memset",
   "description": "Using memset to speed up array initialisation.",
   "author": "Kevin Zhu",
-  "uploadDate": "2020-06-06 14:00",
-  "lastModified": "2020-06-06 14:00",
+  "uploadDate": "2020-06-06 14:00+11:00",
+  "lastModified": "2020-06-06 14:00+11:00",
   "notes": "",
   "tags": ["competitive programming"],
   "name": "01_memset"

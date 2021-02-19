@@ -76,9 +76,10 @@ int main () {
 		int a;
 		cin >> a;
 		vector<pii> v = prime_factorise(a);
+
 		ll factors = 1;
 		for (pii p : v) factors *= (p.y+1);
-		// printf("%lld\n", factors);
+
 		ll ans = factors - (int) v.size();
 		printf("%lld\n", ans);
 	}

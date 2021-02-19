@@ -49,7 +49,7 @@ void dfs(int at, bool iseven) {
 	}
 }
 
-vector<bool> good;
+vector<bool> good; // stores true if the subgraph is good, false otherwise.
 
 int main () {
 	ios_base::sync_with_stdio(0); cin.tie(0);

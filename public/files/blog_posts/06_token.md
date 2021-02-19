@@ -39,14 +39,6 @@ typedef vector<int> vi;
 
 ll modsub(ll a, ll b) { return (((a - b) % MOD) + MOD) % MOD; }
 
-long long H(long long previousHash, string &transaction, long long token) {
-	long long v = previousHash;
-	for (int i = 0; i < (int)transaction.length(); i++) {
-		v = (v * 31 + transaction[i]) % MOD;
-	}
-	return (v * 7 + token) % MOD;
-}
-
 ll gettoken(int prev, char c) {
 	ll v = prev;
 	v = (v * 31 + c) % MOD;
@@ -55,14 +47,8 @@ ll gettoken(int prev, char c) {
 	ll target2 = 20000000;
 	ll token = modsub(target1, v*7);
 	if (token >= MAXT) token = modsub(target2, v*7);
+
 	assert(token < MAXT);
-
-	// printf("%lld\n", token);
-	// printf("%lld\n", (v * 7 + token) % MOD);
-
-	string str;
-	str += c;
-	assert(H(prev, str, token) % 10000000 == 0);
 
 	return token;
 }
@@ -72,8 +58,12 @@ int main () {
 
 	ll N;
 	cin >> N;
+
+    // calculate token 1
 	ll token = gettoken(N, 'a');
 	printf("%c %lld\n", 'a', token);
+
+    // calculate token 2
 	string str = "a";
 	ll newhash = H(N, str, token);
 	printf("%c %lld\n", 'b', gettoken(newhash, 'b'));

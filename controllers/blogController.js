@@ -14,6 +14,8 @@ files = [
   '04_hoppers.json',
   '05_primes.json',
   '06_token.json',
+  '07_rect.json',
+  '08_triangle.json',
 ]
 
 // Generate blogs list, and populate it with information

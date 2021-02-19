@@ -6,7 +6,7 @@ http://www.moonlitcode.com/
 My personal site where I can post all things me: from helpful coding writeups, to fun visual projects. The making of the site was completely self-taught, and was built from the ground up using NodeJS and express. It is still under construction, and will be updated regularly.
 
 ### Screenshots
-![Home Page](https://github.com/Gomango999/moonlit-code/blob/master/public/images/screenshots/home_page.png)
+![Home Page](https://github.com/Gomango999/moonlit-code/blob/master/public/images/screenshots/home_page2.png)
 ![Writeup Problem](https://github.com/Gomango999/moonlit-code/blob/master/public/images/screenshots/writeup_problem.png)
 ![Writeup Analysis](https://github.com/Gomango999/moonlit-code/blob/master/public/images/screenshots/writeup_analysis.png)
 

@@ -33,37 +33,16 @@ h2 {
 p,li,b,a {
 	padding: 0px;
 	font-family: 'Roboto', sans-serif;
-	font-size: 1.7rem;
 	font-variant-ligatures: none;
 	line-height: 1.5;
 }
 
 a,a:link,a:visited {
-	color: #dfdfdf;
+	color: #a8d8e3;
 }
 
 tt,pre {
 	font-size: 16px;
-}
-
-ul.menu {
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-ul.menu > li {
-	padding: 5px 20px;
-	font-size: 16px;
-	line-height: 2.7;
-	max-height: 54px;
-	white-space: nowrap;
-	overflow: hidden;
-	border-left: 3px #211f25 solid;
-}
-
-ul.menu > li:hover {
-	background-color: #292933;
-	cursor: pointer;
 }
 
 .center {
@@ -85,10 +64,6 @@ ul.menu > li:hover {
 
 .show {
 	border: solid red 1px;
-}
-
-.MATH {
-	font-style: italic;
 }
 
 button {
@@ -127,7 +102,16 @@ footer {
 	padding: 50px;
 }
 
+@media (max-width: 978px) {
+    .container-fluid {
+      padding:0;
+      margin:0;
+    }
 
+    body {
+      padding:0;
+    }
+}
 
 
 /*:root {

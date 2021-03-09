@@ -1,18 +1,4 @@
-#bloglist {
-  padding: 40px 20px;
-}
-
-#blogpost {
-  padding: 40px 70px;
-  /* font-size: 1.7rem; */
-}
-
-.content {
-  margin-top: 120px;
-  width: 50%;
-  background-color: #211f25;
-}
-
+/* General */
 .card {
   border-radius: 10px;
   box-shadow: 0px 3px 10px rgb(9, 9, 9), 0px -3px 10px rgb(9, 9, 9);
@@ -21,6 +7,70 @@
 .outline {
   border: 1px solid rgb(94, 92, 101);
   border-radius: 3px;
+}
+
+/* Blog Post */
+
+#menu-container {
+  max-width: 250px;
+}
+
+#blogpost {
+  padding: 30px 60px;
+  /* font-size: 1.7rem; */
+  max-width: 800px;
+}
+
+@media (max-width: 480px) {
+  #blogpost {
+    padding: 30px 50px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+
+.content {
+  margin-top: 120px;
+  background-color: #211f25;
+}
+
+a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-link:focus {
+  text-decoration:none;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+ul > a > li, ul > li {
+	padding: 8px 15px;
+	font-size: 16px;
+	max-height: 54px;
+	white-space: nowrap;
+	overflow: hidden;
+	border-left: 3px #211f25 solid;
+}
+a > li{
+  color: #a8d8e3;
+}
+li.dead-link {
+  color: #acacac;
+}
+
+ul > a.live-link > li:hover {
+	background-color: #292933;
+	cursor: pointer;
+}
+ul > li.dead-link:hover {
+	background-color: #292933;
+}
+
+/* Blog Post List */
+
+#bloglist {
+  padding: 40px 20px;
 }
 
 .blogpostcard {

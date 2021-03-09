@@ -12,7 +12,7 @@ block content
   #bloglist.content.container.card
     each blog in blogs
       .row.blogpostcard.outline
-        a.col(href='.'+blog.url)
+        a.col(href='./blog'+blog.url)
           .row
             .col-sm-8
               h2 #{blog.title}

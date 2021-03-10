@@ -57,18 +57,18 @@ a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-
   text-decoration:none;
 }
 
-ul {
+#menu ul {
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 }
-ul > a > li, ul > li {
+#menu ul > a > li, #menu ul > li {
 	padding: 8px 15px;
 	font-size: 16px;
-	max-height: 54px;
 	white-space: nowrap;
 	overflow: hidden;
 	border-left: 3px #211f25 solid;
+  line-height: 1.5em;
 }
 a > li{
   color: #a8d8e3;

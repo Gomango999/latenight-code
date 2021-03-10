@@ -1,13 +1,16 @@
 extends layout
 
 block head
+  title Moonlit Code
+
   script(src='scripts/buttons.js')
   link(rel='stylesheet' href='styles/home.css')
 
 block content
-  div(id='content container')
-    div(id='logo-container' class='row')
-      img(src='images/logo/4x/logo_full_dark@4x.png' alt='Midnight Code Logo.' id='logo')
-    div(id='button-container' class="row justify-content-center")
-      button(id='button-blog' class='diamond-button col-1')
-        img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')
+  .content.container
+    #logo-container.row
+      img(src='images/logo/4x/logo_full_dark@4x.png' alt='Midnight Code Logo.' id='logo').center
+    #button-container.row.justify-content-center
+      .col
+        button#button-blog.diamond-button
+          img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')

@@ -91,17 +91,13 @@ ul > li.dead-link:hover {
 /* Blog Post List */
 #bloglist {
   padding: 40px 20px;
-}
-
-.blogpostcard {
-  /* width: calc(100% - 80px); */
-  /* height: 190px; */
-  /* margin: 10px 40px; */
-  /* padding: 0px 40px; */
+  max-width: 900px;
 }
 
 a.blogpostcard {
   color: #dfdfdf;
+  margin-left: 48px;
+  margin-right: 48px;
 }
 
 .blogpostcard:hover {
@@ -113,4 +109,11 @@ a.blogpostcard {
 .date {
   /* padding-top: 30px; */
   text-align: right;
+}
+
+@media (max-width: 720px) {
+  a.blogpostcard {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }

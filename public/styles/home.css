@@ -1,9 +1,6 @@
 /* || Logo */
 #logo-container {
-	position: absolute;
-	width: 100%;
-	text-align: center;
-	top: 25%;
+	margin-top: 25%;
 }
 
 #logo {
@@ -11,15 +8,11 @@
 	height: auto;
 }
 
-/* || Links */
-#button-container {
-	position: absolute;
-	top: 40%;
-	width: 100%;
-	text-align: center;
-}
-
 button.diamond-button {
+  width: 80px;
+	height: 80px;
+	margin: 30px 30px;
+
 	border: none;
 	border-radius: 5px;
 	background-color: white;
@@ -30,28 +23,29 @@ button.diamond-button {
 	transition: background-color 0.1s;
 }
 
-button.diamond-button {
-	width: 80px;
-	height: 80px;
-	margin: 30px 30px;
+@media (max-width: 720px) {
+  #logo {
+  	width: 300px;
+  	height: auto;
+  }
+  #button-container {
+  	margin-top: 40px;
+  }
+  button.diamond-button {
+    width: 60px;
+  	height: 60px;
+  }
 }
 
-/* @media all and (min-width: 1024px) {} */
+/* || Links */
+#button-container {
+	text-align: center;
+}
 
 button.diamond-button > img {
 	width: 60%;
 	z-index: 5;
 	transform: rotate(-45deg);
-}
-
-#button-project:hover {
-	background-color: #A0C1B9;
-}
-#button-writeup:hover {
-	background-color: #70A0AF;
-}
-#button-art:hover {
-	background-color: #706993;
 }
 
 #button-blog:hover {

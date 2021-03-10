@@ -16,6 +16,7 @@ files = [
   '06_token.json',
   '07_rect.json',
   '08_triangle.json',
+  '09_belts.json',
 ]
 
 // generate blogs list, and populate it with information

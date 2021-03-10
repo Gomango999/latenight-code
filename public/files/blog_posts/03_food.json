@@ -17,19 +17,11 @@
                 {"title":"E. Magical String",       "href":"",              "live":false},
                 {"title":"F. Wi know",              "href":"",              "live":false},
                 {"title":"G. Rectangular City",     "href":"07_rect",       "live":true },
-                {"title":"H. Sliding Blocks",       "href":"",              "live":true },
-                {"title":"I. Prolonged Password",   "href":"",              "live":true },
+                {"title":"H. Sliding Blocks",       "href":"",              "live":false},
+                {"title":"I. Prolonged Password",   "href":"",              "live":false},
                 {"title":"J. Free Food",            "href":"03_food",       "live":true },
-                {"title":"K. Conveyor Belts",       "href":"",              "live":true },
+                {"title":"K. Conveyor Belts",       "href":"",              "live":false},
                 {"title":"L. Non-Prime Factors",    "href":"05_primes",     "live":true }
-            ]
-        },
-        {
-            "title":"menu 2",
-            "relatedLinks": [
-                {"title":"Google",     "href":"https://www.google.com",   "live":true },
-                {"title":"Youtube",     "href":"",   "live":false },
-                {"title":"W3Schools",     "href":"https://www.w3schools.com/",   "live":true }
             ]
         }
     ],

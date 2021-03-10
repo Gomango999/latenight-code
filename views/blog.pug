@@ -1,6 +1,8 @@
 extends layout
 
 block head
+  title #{blog.title + " - Midnight Code"} 
+  
   link(rel='stylesheet' href='/styles/blog.css')
   link(rel='stylesheet' href='/styles/prism.css')
   script(src='/scripts/writeups/prism.js')
@@ -10,27 +12,30 @@ block head
   script(defer='' src='https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js' integrity='sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4' crossorigin='anonymous')
       
   script(defer='' src='https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js' integrity='sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa' crossorigin='anonymous' onload='renderMathInElement(document.body);')
+    
 
   
 block content
   header
     a(href='/')
       img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
-    a(href='/blog').blog-link
-      h1 Blog 
+    a(href='/blog/').blog-link
+      h1.display.white Blog 
+    
 
   .container-fluid.pb-5
     .row
-      #blogpost.col-md-10.col-lg-6.offset-sm-0.offset-md-1.offset-lg-2.card.content
+      #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content
         p!= blog.content 
       if blog.menus
-        #menu-container.col-md-3.mx-5
+        #menu-container.col-md-12.offset-md-0.col-lg-8.offset-lg-2
           .row
-            #menu.col-12.card.content.px-4.pt-4
+            #menu.col-12.card.content
               each submenu in blog.menus
                 .row.mb-5
                   .col-12
-                    h3.mb-2 #{submenu.title}
+                    hr
+                    h5 #{submenu.title}
                     ul
                       each link in submenu.relatedLinks
                         if link.live
@@ -38,4 +43,5 @@ block content
                             li #{link.title}
                         else 
                           li.dead-link.noselect #{link.title}
+                    
   

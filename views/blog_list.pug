@@ -1,21 +1,25 @@
 extends layout
 
 block head
+  title Blog - Moonlit Code
+  
   link(rel='stylesheet' href='/styles/blog.css')
+  
 
 block content
   header
     a(href='/')
       img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
-    h1 Blog 
-
+    a(href='/blog/').blog-link
+      h1.display.white Blog 
+      
   #bloglist.content.container.card
     each blog in blogs
-      .row.blogpostcard.outline
-        a.col(href='./blog'+blog.url)
+      a.row.blogpostcard.outline(href='.'+blog.url).my-2.mx-5
+        .col.pt-3
           .row
             .col-sm-8
-              h2 #{blog.title}
+              h2.mlc-blue #{blog.title}
             .col-sm-4.date #{blog.timeFromUpload}
             
           p #{blog.description}

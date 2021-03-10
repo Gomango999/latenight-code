@@ -108,6 +108,4 @@ int main () {
 <br>
 > _I use [monotone scan](https://www.commonlounge.com/discussion/a8f953d33c4547b8863b79b18f1795cd) to generate my convex hull._
 
-<br>
-
 > _When dealing with cyclic data structures such as convex hulls, it is sometimes helpful to simply double up the array back to back, so that you don't have to deal with edge cases where you go off the end._

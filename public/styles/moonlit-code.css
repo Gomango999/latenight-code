@@ -68,6 +68,9 @@ pre.line-numbers[class*="language-"] {
   margin-right: auto;
   width: 50%;
 }
+.centering{
+  text-align: center;
+}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */

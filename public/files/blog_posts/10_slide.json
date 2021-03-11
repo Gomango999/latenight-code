@@ -1,6 +1,6 @@
 {
-    "title": "K. Conveyor Belts",
-    "description": "2018 ICPC Asia Singapore Regional Contest, Problem K Solution",
+    "title": "H. Sliding Blocks",
+    "description": "2018 ICPC Asia Singapore Regional Contest, Problem H Solution",
     "author": "Kevin Zhu",
     "uploadDate": "2021-03-10 18:30+11:00",
     "lastModified": "2021-03-10 18:30+11:00",
@@ -25,5 +25,5 @@
             ]
         }
     ],
-    "name": "09_belts"
+    "name": "10_slide"
 }

@@ -17,7 +17,7 @@
               {"title":"E. Magical String",       "href":"",              "live":false},
               {"title":"F. Wi know",              "href":"",              "live":false},
               {"title":"G. Rectangular City",     "href":"07_rect",       "live":true },
-              {"title":"H. Sliding Blocks",       "href":"",              "live":false},
+              {"title":"H. Sliding Blocks",       "href":"10_slide",      "live":true },
               {"title":"I. Prolonged Password",   "href":"",              "live":false},
               {"title":"J. Free Food",            "href":"03_food",       "live":true },
               {"title":"K. Conveyor Belts",       "href":"09_belts",      "live":true},

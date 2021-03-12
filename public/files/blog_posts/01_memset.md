@@ -1,4 +1,4 @@
-# Memset, 0xcf and 0x3f
+# Memset
 
 ---
 

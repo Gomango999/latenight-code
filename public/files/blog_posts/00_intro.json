@@ -2,6 +2,7 @@
   "title": "Introduction",
   "description": "Welcome to my very first blog post.",
   "author": "Kevin Zhu",
+  "public": true,
   "uploadDate": "2020-06-06 12:00+11:00",
   "lastModified": "2020-06-06 12:00+11:00",
   "notes": "",

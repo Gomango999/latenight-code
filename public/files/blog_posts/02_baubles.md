@@ -1,4 +1,4 @@
-# Problem 1 Baubles
+# 1. Baubles
 
 ---
 

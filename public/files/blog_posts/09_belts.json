@@ -2,28 +2,14 @@
     "title": "K. Conveyor Belts",
     "description": "2018 ICPC Asia Singapore Regional Contest, Problem K Solution",
     "author": "Kevin Zhu",
+    "public": true,
     "uploadDate": "2021-03-10 18:30+11:00",
     "lastModified": "2021-03-10 18:30+11:00",
     "notes": "",
     "tags": ["competitive programming", "icpc", "asiasg"],
-    "menus": [
-        {
-            "title": "2018 ICPC Asia Signapore Regional Contest",
-            "relatedLinks":[
-                {"title":"A. Largest Triangle",     "href":"08_triangle",   "live":true },
-                {"title":"B. Hoppers",              "href":"04_hoppers",    "live":true },
-                {"title":"C. SG Coin",              "href":"06_token",      "live":true },
-                {"title":"D. Bitwise",              "href":"",              "live":false},
-                {"title":"E. Magical String",       "href":"",              "live":false},
-                {"title":"F. Wi know",              "href":"",              "live":false},
-                {"title":"G. Rectangular City",     "href":"07_rect",       "live":true },
-                {"title":"H. Sliding Blocks",       "href":"10_slide",      "live":true },
-                {"title":"I. Prolonged Password",   "href":"",              "live":false},
-                {"title":"J. Free Food",            "href":"03_food",       "live":true },
-                {"title":"K. Conveyor Belts",       "href":"09_belts",      "live":true},
-                {"title":"L. Non-Prime Factors",    "href":"05_primes",     "live":true }
-            ]
-        }
-    ],
+    "menu": {
+      "groups": ["2018_asiasg_icpc_regionals"],
+      "submenus": []
+    },
     "name": "09_belts"
 }

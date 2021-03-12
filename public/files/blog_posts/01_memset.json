@@ -2,6 +2,7 @@
   "title": "Memset",
   "description": "Using memset to speed up array initialisation.",
   "author": "Kevin Zhu",
+  "public": true,
   "uploadDate": "2020-06-06 14:00+11:00",
   "lastModified": "2020-06-06 14:00+11:00",
   "notes": "",

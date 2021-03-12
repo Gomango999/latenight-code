@@ -4,43 +4,67 @@ const path = require('path');
 const moment = require('moment');
 const showdownKatex = require('showdown-katex')
 
-// Metadata files for blogs
-// Update me when adding new blog posts
-files = [
-  '00_intro.json',
-  '01_memset.json',
-  '02_baubles.json',
-  '03_food.json',
-  '04_hoppers.json',
-  '05_primes.json',
-  '06_token.json',
-  '07_rect.json',
-  '08_triangle.json',
-  '09_belts.json',
-  '10_slide.json',
-]
+// get groups
+const groups = JSON.parse(fs.readFileSync('./public/files/blog_posts/metadata/groups.json', 'utf-8'));
+
+// find blog post files
+let blogPosts = []
+const dir = fs.opendirSync('./public/files/blog_posts/')
+let dirent
+while ((dirent = dir.readSync()) !== null) {
+  if (path.extname(dirent.name) != '.json') continue;
+  blogPosts.push(dirent.name)
+}
+dir.closeSync()
+
+// gets the blog header
+function getBlog(filename) {
+  rawText = fs.readFileSync(path.join('./public/files/blog_posts/', filename), 'utf-8');
+  let blog = JSON.parse(rawText);
+
+  blog.url = '/'+blog.name;
+  blog.timeFromUpload = moment(blog.uploadDate).fromNow();
+
+  return blog
+}
 
 // generate blogs list, and populate it with information
 let blogs = []
-files.forEach(filename => {
+blogPosts.forEach(filename => {
   // get json data
-  rawText = fs.readFileSync(path.join('./public/files/blog_posts/', filename), 'utf-8');
-  blog = JSON.parse(rawText);
+  blog = getBlog(filename)
+  if (!blog.public) return;
+
+  // populate blog menu data with group data
+  if ('menu' in blog && 'groups' in blog.menu) {
+    blog.menu.groups.forEach(groupName => {
+      group = groups[groupName];
+      let submenu = {};
+      submenu.title = group.title;
+      submenu.relatedLinks = [];
+      group.posts.forEach(post =>{
+        let relatedBlog = getBlog(post+'.json');
+        let link = {};
+        link.title = relatedBlog.title;
+        link.href = relatedBlog.name;
+        link.live = relatedBlog.public;
+        submenu.relatedLinks.push(link);
+      });
+      blog.menu.submenus.push(submenu);
+    });
+  }
 
   // get blog content and convert from markdown
   let rawMarkdown = fs.readFileSync(path.join('./public/files/blog_posts/', blog.name + '.md'), 'utf-8');
 
   const converter = new showdown.Converter({
     extensions: [showdownKatex({
+      throwOnError: false,
       delimiters: [{ left: '$', right: '$', asciimath: false }],
+      delimiters: [{ left: '$$', right: '$$', asciimath: false, displayMode: true }],
     })]
   });
-
   blog.content = converter.makeHtml(rawMarkdown);
-
-  // add blog metadata
-  blog.url = '/'+blog.name;
-  blog.timeFromUpload = moment(blog.uploadDate).fromNow();
 
   blogs.push(blog);
 });

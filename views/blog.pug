@@ -27,11 +27,11 @@ block content
     .row
       #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content
         p!= blog.content 
-      if blog.menus
+      if blog.menu && blog.menu.submenus.length
         #menu-container.col-md-12.offset-md-0.col-lg-8.offset-lg-2
           .row
             #menu.col-12.card.content
-              each submenu in blog.menus
+              each submenu in blog.menu.submenus
                 .row.mb-5
                   .col-12
                     hr

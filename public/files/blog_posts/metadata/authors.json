@@ -1,7 +1,7 @@
 {
   "Kevin Zhu" : {
-    "fullName": "Kevin Zhu",
-    "image": "./images/profile_picture/Terrarium.png",
+    "name": "Kevin Zhu",
+    "image": "/images/profile_picture/Terrarium.png",
     "email": "kv.zhu999@gmail.com"
   }
 }

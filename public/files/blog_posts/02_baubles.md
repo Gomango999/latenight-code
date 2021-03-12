@@ -1,7 +1,3 @@
-# 1. Baubles
-
----
-
 If `rp` is 0, then Olaf will paint all his spares blue. Hence, we just to make sure that he fails the blue order, in which case, we print `max(s+bo-(bp-1), 0)`. Note that we use max here, in the case where Olaf was not able to fulfil the order to begin with. In this case, we do not need to destroy any baubles. Similarly, if `bp` is 0, then we print `max(s+ro-(rp-1), 0)`
 
 Now notice that given the option to destroy a red, blue, or spare bauble, we always want to destroy spare baubles first, since they have the most versatility. Thus, we calculate the number of spare baubles Olaf needs to paint as `needed = max(rp-ro,0) + max(bp-bo,0)`. If `s < needed`, then Olaf doesn't have spare baubles to make the order, so we don't need to destroy any baubles. Otherwise, we destroy as many spare baubles as we can so that Olaf cannot meet the criteria. This is given by `min(s, s - (needed-1))`.

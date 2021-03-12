@@ -1,12 +1,4 @@
-# A. Largest Triangle
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 The key thing to notice is that the largest triangle must lie on the convex hull. Suppose you have a triangle $\triangle ABC$ such that one of its points is not on the convex hull. Without loss of generality, let that point be $A$. We would like to pick a new point $A'$ such that the perpendicular distance of $A'$ to $BC$ is maximised. This distance is only maximised on the convex hull, and thus, there exists a point $A'$ on the convex hull such that the area of $\triangle A'BC$ is greater than or equal to the area of $\triangle ABC$.
 

@@ -6,6 +6,7 @@ const showdownKatex = require('showdown-katex')
 
 // get groups
 const groups = JSON.parse(fs.readFileSync('./public/files/blog_posts/metadata/groups.json', 'utf-8'));
+const authors = JSON.parse(fs.readFileSync('./public/files/blog_posts/metadata/authors.json', 'utf-8'));
 
 // find blog post files
 let blogPosts = []
@@ -24,6 +25,7 @@ function getBlog(filename) {
 
   blog.url = '/'+blog.name;
   blog.timeFromUpload = moment(blog.uploadDate).fromNow();
+  blog.displayUploadDate = moment(blog.uploadDate).format('MMM D, YYYY')
 
   return blog
 }
@@ -34,6 +36,9 @@ blogPosts.forEach(filename => {
   // get json data
   blog = getBlog(filename)
   if (!blog.public) return;
+
+  // populate authors
+  blog.author = authors[blog.author]
 
   // populate blog menu data with group data
   if ('menu' in blog && 'groups' in blog.menu) {

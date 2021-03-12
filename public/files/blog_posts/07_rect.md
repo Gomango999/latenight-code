@@ -1,12 +1,4 @@
-# G. Rectangular City
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 First, let's reword the question in a more formal sense:
 > _How many ways are there of choosing $N$ rectangles in a $R \times C$ grid such that the intersection of all of them has area at least $K$?_

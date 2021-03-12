@@ -1,12 +1,4 @@
-# J. Free Food
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 The problem asks for the number of days free food is available. However, we have to careful not to double count days, since we only care if there is free food at _any_ event on a given day.
 

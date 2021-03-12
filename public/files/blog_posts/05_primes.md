@@ -1,13 +1,4 @@
-# L. Non-Prime Factors
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
-
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 We know that every positive integer larger than 1 can be written as a product of primes, otherwise known as the prime factorisation. Suppose $x$ is made up of $k$ primes $p\_1, p\_2, \ldots, p\_k$. In other words:
 
 ```latex

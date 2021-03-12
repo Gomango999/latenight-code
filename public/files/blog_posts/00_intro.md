@@ -1,7 +1,3 @@
-# Introduction
-
----
-
 Welcome to Moonlit Code, my personal blog where I write about all my adventures in computer science!
 
 My name is Kevin Zhu, and I'm a uni student at UNSW doing Bachelor of Science (Advanced Mathematics)(Honours)/Science (Computer Science). My current passions include AI/ML as well as competitive programming.

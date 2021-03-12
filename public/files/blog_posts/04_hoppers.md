@@ -1,12 +1,4 @@
-# B. Hoppers
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 Suppose the graph is split into $M$ components. For the hopper to spread to all other nodes, then clearly we will have to connect all of these components at some points. The minimum number of edges required for this is $M-1$.
 

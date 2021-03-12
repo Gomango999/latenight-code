@@ -1,12 +1,4 @@
-# H. Sliding Blocks
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 We are given that the blocks in the target board form a tree, so naturally it makes the most sense to root it at the one block that is already on the board at the start. Hence, it is also quite clear to see that for a given block $b\_i$, all of it's ancestors must be placed first before $b\_i$ itself can be placed. Not only that, the block that $b\_i$ will hit when it is slid in must be the parent of $b\_i$ in the tree. Hence, by doing a simple DFS of the tree, we can easily find the direction and column or row that each block must have used to reach it's target position. Let's call this direction the block's 'slide direction', or simply, the block's direction. Now all that's left for us to do is account for the ordering.
 

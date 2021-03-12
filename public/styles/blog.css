@@ -88,6 +88,14 @@ ul > li.dead-link:hover {
 	background-color: #292933;
 }
 
+#profile-picture {
+  height: 35px;
+  border-radius: 50%;
+}
+.info {
+  font-size: 0.9em;
+}
+
 /* Blog Post List */
 #bloglist {
   padding: 40px 20px;

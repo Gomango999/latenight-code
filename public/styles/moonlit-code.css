@@ -16,8 +16,12 @@ body {
 
 	/* font-family: 'Roboto', sans-serif; */
   font-family: 'Helvetica', sans-serif;
+  font-size: 1em;
 }
 
+h1 {
+  font-size: 3em;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Georgia';
 }

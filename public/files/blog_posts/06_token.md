@@ -1,12 +1,4 @@
-# C. SG Coin
-
----
-
-**Contest**: 2018 Asia Singapore ICPC Regionals
-
-**Contest Link**: [https://asiasg18.kattis.com/problems](https://asiasg18.kattis.com/problems)
-
----
+_Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 We'll start by coming up with a way to make a block that can follow any hash. Here is the hash function given to us:
 <pre class="line-numbers"><code class="language-c++">long long H(long long previousHash, string &transaction,

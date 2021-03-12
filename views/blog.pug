@@ -18,7 +18,7 @@ block head
 block content
   header
     a(href='/')
-      img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo.')
+      img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Midnight Code Logo')
     a(href='/blog/').blog-link
       h1.display.white Blog 
     
@@ -26,7 +26,20 @@ block content
   .container-fluid.pb-5
     .row
       #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content
-        p!= blog.content 
+        .row
+          .col-12
+            h1 #{blog.title}
+        .row.info.mt-3
+          .col-6
+            img(id='profile-picture' class='float-left' src=blog.author.image alt='Profile Picture')
+            p.pt-2
+              i.ml-3 by #{blog.author.name}
+          .col-6.text-right
+            p.pt-2 #{blog.displayUploadDate}
+        hr
+        .row
+          .col-12
+            p!= blog.content 
       if blog.menu && blog.menu.submenus.length
         #menu-container.col-md-12.offset-md-0.col-lg-8.offset-lg-2
           .row

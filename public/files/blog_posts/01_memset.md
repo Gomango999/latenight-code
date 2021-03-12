@@ -1,7 +1,3 @@
-# Memset
-
----
-
 You may have noticed the following line of code in peoples answers to programming competitions:
 ```cpp
 #include <cstring>

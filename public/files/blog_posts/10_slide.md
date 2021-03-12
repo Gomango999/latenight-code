@@ -214,7 +214,7 @@ int main () {
 	int root = -1;
 	for (int i = 0; i < B; i++) if (blocks[i] == rootblock) root = i;
 
-	// work out directions and back edges
+	// work out directions and tree edges
 	slidedir[0] = 4;
 	dfs1(root);
 
@@ -256,7 +256,7 @@ int main () {
 
 <br>
 
-> _A neat trick that we use is choosing `LEFT = 0` and `RIGHT = 1`. This way, if `dir` is `LEFT`, then `dir^1` is `RIGHT`. The same applies to `UP` and `DOWN`._
+> _A neat trick that we use is choosing `LEFT = 0` and `RIGHT = 1`. This way, if `dir` is either left or right, then we can use `dir ^ 1` to mean the opposite direction. The same goes for up and down.
 
 > _Defining `const string dir2char = "<>^vo";` is a nice way of making sure you don't have to write four if statements to print out the correct character for every direction._
 

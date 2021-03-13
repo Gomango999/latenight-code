@@ -65,8 +65,10 @@ blogPosts.forEach(filename => {
   const converter = new showdown.Converter({
     extensions: [showdownKatex({
       throwOnError: false,
-      delimiters: [{ left: '$', right: '$', asciimath: false }],
-      delimiters: [{ left: '$$', right: '$$', asciimath: false, displayMode: true }],
+      delimiters: [
+        { left: '$', right: '$', asciimath: false },
+        { left: '$$', right: '$$', asciimath: false, displayMode: true }
+      ]
     })]
   });
   blog.content = converter.makeHtml(rawMarkdown);

@@ -9,3 +9,22 @@ In the future, I'm expecting to make posts about all forms of programming, rangi
 If you'd like to follow the development of this site, check out the github page [here](https://github.com/Gomango999/latenight-code).
 
 Anyways, it's getting late... Nice chatting with you and I hope you enjoy your stay :)
+
+<div class="centering w-100 mt-5">
+    <img id="snoozing-fox" width=30% src="/images/fox/tp_fox1.png">
+
+    <i class="mt-3" style="display:block;"> ... zzz ... </i>
+</div>
+
+<script>
+    state = 0
+    setInterval(() => {
+        if (state == 0) {
+            $('#snoozing-fox').attr("src","/images/fox/tp_fox2.png");
+            state = 1
+        } else if (state == 1) {
+            $('#snoozing-fox').attr("src","/images/fox/tp_fox1.png");
+            state = 0
+        }
+    }, 1500);
+</script>

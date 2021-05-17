@@ -11,7 +11,7 @@ My personal site where I can post all things me: from helpful coding writeups, t
 ![Writeup](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot3.png)
 
 ### Usage
-To run the server locally, simply use
+To run the server locally, run
 ```sh
 npm install
 npm start

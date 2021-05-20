@@ -1,3 +1,22 @@
+---
+title: J. Free Food
+description: 2018 ICPC Asia Singapore Regional Contest, Problem J Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-02-16 21:00+11:00
+lastModified: 2021-02-16 21:00+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: 03_food
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 The problem asks for the number of days free food is available. However, we have to careful not to double count days, since we only care if there is free food at _any_ event on a given day.
@@ -9,7 +28,8 @@ This solution runs in $O(365 * N)$ time, since each event could make us potentia
 > Note that there exists an $O(N \log N)$ solution which runs faster in the worst case, but is overkill to implement for this question when the bounds are so small.
 
 ## C++
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 
 #define MAXN 400
@@ -29,4 +49,4 @@ int main () {
 	for (int i = 1; i <= 365; i++) cnt += food[i];
 	printf("%d\n", cnt);
 }
-</code></pre>
+```

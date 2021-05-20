@@ -1,15 +1,35 @@
+---
+title: A. Largest Triangle
+description: 2018 ICPC Asia Singapore Regional Contest, Problem A Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-02-19 19:30+11:00
+lastModified: 2021-02-19 19:30+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: '08_triangle'
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 The key thing to notice is that the largest triangle must lie on the convex hull. Suppose you have a triangle $\triangle ABC$ such that one of its points is not on the convex hull. Without loss of generality, let that point be $A$. We would like to pick a new point $A'$ such that the perpendicular distance of $A'$ to $BC$ is maximised. This distance is only maximised on the convex hull, and thus, there exists a point $A'$ on the convex hull such that the area of $\triangle A'BC$ is greater than or equal to the area of $\triangle ABC$.
 
-With this observation out of the way, we now proceed to solve the problem. By forming the convex hull, we can check every pair of three points and obtain the largest area in $O(N^3)$, but this is too slow. Instead, we try a smarter approach. Let the points on the convex hull be points $p\_1, p\_2, ... p\_k$ ordered clockwise, and let's fix point A at $p_1$. We then let points $B$ and $C$ be the next two points after A, i.e. $p\_2$ and $p\_3$ respectively. We now move $C$ clockwise along the convex hull until we reach the point at which the area of $\triangle ABC$ no longer increases. This must be the largest triangle with side $AB$. We then increase $B$ by one to the next point, and repeat the process: moving $C$ clockwise around the hull until the area no longer increases, and then updating the maximum. We repeat this until we have considered all segments $AB$. The important point is that each time we shift $B$ clockwise, the gradient of $AB$ 'rotates clockwise', and so the point $C$ that maximises the area of $\triangle ABC$ also moves clockwise from it's previous position.
+With this observation out of the way, we now proceed to solve the problem. By forming the convex hull, we can check every pair of three points and obtain the largest area in $O(N^3)$, but this is too slow. Instead, we try a smarter approach. Let the points on the convex hull be points $p_1, p_2, ... p_k$ ordered clockwise, and let's fix point A at $p_1$. We then let points $B$ and $C$ be the next two points after A, i.e. $p_2$ and $p_3$ respectively. We now move $C$ clockwise along the convex hull until we reach the point at which the area of $\triangle ABC$ no longer increases. This must be the largest triangle with side $AB$. We then increase $B$ by one to the next point, and repeat the process: moving $C$ clockwise around the hull until the area no longer increases, and then updating the maximum. We repeat this until we have considered all segments $AB$. The important point is that each time we shift $B$ clockwise, the gradient of $AB$ 'rotates clockwise', and so the point $C$ that maximises the area of $\triangle ABC$ also moves clockwise from it's previous position.
 
 Thus, for a fixed value of $A$, we can find the largest triangle with a point at $A$ in $O(k)$ time. We simply repeat this for all starting points to find the largest triangle in $O(k^2)$ time. Since in the worst case, $k=N$, our final complexity is $O(N^2)$.
 
 
 ## C++
 
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 typedef long double ld;
@@ -96,7 +116,7 @@ int main () {
 	printf("%Lf\n", best);
 }
 
-</code></pre>
+```
 <br>
 > _I use [monotone scan](https://www.commonlounge.com/discussion/a8f953d33c4547b8863b79b18f1795cd) to generate my convex hull._
 

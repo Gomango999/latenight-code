@@ -1,3 +1,22 @@
+---
+title: G. Rectangular City
+description: 2018 ICPC Asia Singapore Regional Contest, Problem G Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-02-19 18:30+11:00
+lastModified: 2021-02-19 18:30+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: 07_rect
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 First, let's reword the question in a more formal sense:
@@ -10,19 +29,21 @@ When we are working with rectangles, a common technique is to reduce the dimensi
 Let's suppose we solve this problem for when $M = R$ and store the results in `ycnt`, such that `ycnt[i]` is the number of ways to choose $N$ ranges to get length $i$. Additionally, we can do the same thing for $M=C$ and store that in `xcnt`. Then, we can simply loop through all possible $x$-axis ranges $i$ and $y$-axis ranges $j$. If $i \times j \ge K$, then we can simply add on `xcnt[i] * ycnt[j]` to our answer, since any choice of $N$ ranges on the x-axis can be uniquely combined with any choice of $N$ ranges on the y-axis to form $N$ rectangles with intersection area $i \times j$.
 
 Now, how do we solve our subproblem? For length $i$, let's suppose we fix a position for the overlapping segment at $[j, j+i-1]$. To choose $N$ events that have this exact interval of overlap, we have to find $N$ positions for the endpoints in the range $[j+i-1, M-1]$ such that at least one of the endpoints lies on $j+i-1$. Similarly, we have to find $N$ positions for the startpoints in the range $[0, j]$ such that at least one of the endpoints lies on $j$. The number of ways of choosing endpoints such that at least one of them lies on $j+i-1$ is equal to the number of ways of choosing endpoints in the range $[j+i-1, M-1]$ minus the number of ways of choosing endpoints in the range $[j+i, M-1]$, i.e. we take off the number of ways where there are no endpoints that lie on $j+i-1$. Hence, we can get the formula for the number of ways to choose endpoints:
-```latex
+
+$$
 \begin{aligned}
     ways &= ((M-1)-(j+i-1)+1)^N - ((M-1)-(j+i)+1)^N \\
         &= (M-j-i+1)^N - (M-j-i)^N \\
 \end{aligned}
-```
+$$
+
 We can apply the same method to find the number of ways to choose startpoints, and then multiply the two values together to get the number of ways to choose ranges that cover the exact interval $[j, j+i-1]$. Using binary exponentiation for the powers, this takes $O(\log N)$ time. Then, we can loop over every interval length $i$, and every starting point $j$ in order to calculate `xcnt` and `ycnt` in $O(N^2 \log N)$. Unfortunately, this is too slow and will get you a `TIME LIMIT EXCEEDED` when submitting.
 
 We can speed things up by noticing that when we run binary exponentiation, we only take things to the power of $N$. Hence, we can just cache all the values of $1$ to $5000$ taken to the value of $N$ and reuse them to lower our complexity down to $O(N^2)$. Combining the results of the two dimensions together to get our final solution is also $O(N^2)$, so our final complexity is $O(N^2)$.
 
 ## C++
-
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 #define MOD ll(1e9+7)
@@ -83,4 +104,4 @@ int main () {
 	}
 	printf("%lld\n", ways);
 }
-</code></pre>
+```

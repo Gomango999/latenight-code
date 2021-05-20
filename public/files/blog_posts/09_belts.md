@@ -1,15 +1,35 @@
+---
+title: K. Conveyor Belts
+description: 2018 ICPC Asia Singapore Regional Contest, Problem K Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-03-10 18:30+11:00
+lastModified: 2021-03-10 18:30+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: '09_belts'
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
-Suppose that a product $p\_i$ is on edge $e$ at time $t$. Since the product's route is fixed, and is produced every $K$ minutes, then $p\_i$ will be on $e$ at times $t+K$, $t+2K$... etc. This tells us that if we are able to route each product in a way such that they reach the end, and there are no collisions within $K$ timesteps, then there will never be any collisions no matter how far in the future we go.
+Suppose that a product $p_i$ is on edge $e$ at time $t$. Since the product's route is fixed, and is produced every $K$ minutes, then $p_i$ will be on $e$ at times $t+K$, $t+2K$... etc. This tells us that if we are able to route each product in a way such that they reach the end, and there are no collisions within $K$ timesteps, then there will never be any collisions no matter how far in the future we go.
 
-The fact that we have belts that have a capacity of one item, and the fact that we have sources and sinks of products tells us that this is a max flow problem. We model it as follows. For each node $v\_i$ in the graph, we make $K$ nodes $w\_{i,t}$ ($0 \le t < K$) in our flow graph which presents the node $v\_i$ at time $t$. Since each conveyor belt takes exactly 1 minute to traverse, then if there is belt from $v\_i$ to $v\_j$, we connect $w\_{i,t}$ to $w\_{j,t+1}$ for $0 \le t < K-1$, and $w\_{j,K-1}$ to $w\_{j,0}$ to capture the $K$ periodic nature of the system. Of course, all edges in the flow graph should have a capacity of $1$ since there can be only one product on a conveyor belt at a given time.
+The fact that we have belts that have a capacity of one item, and the fact that we have sources and sinks of products tells us that this is a max flow problem. We model it as follows. For each node $v_i$ in the graph, we make $K$ nodes $w_{i,t}$ ($0 \le t < K$) in our flow graph which presents the node $v_i$ at time $t$. Since each conveyor belt takes exactly 1 minute to traverse, then if there is belt from $v_i$ to $v_j$, we connect $w_{i,t}$ to $w_{j,t+1}$ for $0 \le t < K-1$, and $w_{j,K-1}$ to $w_{j,0}$ to capture the $K$ periodic nature of the system. Of course, all edges in the flow graph should have a capacity of $1$ since there can be only one product on a conveyor belt at a given time.
 
-We connect our source to $w\_{i,i}$ for $0 \le i < K$ to represent how each producer produces a product one minute after the previous. Finally, we connect $w\_{N,k}$ for all $k$ to the sink. Make sure that the sink connections all have capacity $K$, since multiple products can enter the junction $N$ at the same time.
+We connect our source to $w_{i,i}$ for $0 \le i < K$ to represent how each producer produces a product one minute after the previous. Finally, we connect $w_{N,k}$ for all $k$ to the sink. Make sure that the sink connections all have capacity $K$, since multiple products can enter the junction $N$ at the same time.
 
 Hence, the maximum number of producers we can leave running at once is the same as the maximum flow of the flow graph. If we use Edmond Karp's the complexity of the max flow is $O(Ef)$, where $E$ is the number of edges, and $f$ is the maximum flow. $E$ is equal to $MK + 2K$ and $f$ is equal to $K$, so our solution will run in time.
 
 ## C++
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -114,4 +134,4 @@ int main () {
 	int ans = max_flow();
 	printf("%d\n", ans);
 }
-</code></pre>
+```

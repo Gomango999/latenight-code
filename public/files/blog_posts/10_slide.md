@@ -1,54 +1,61 @@
+---
+title: H. Sliding Blocks
+description: 2018 ICPC Asia Singapore Regional Contest, Problem H Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-03-11 18:30+11:00
+lastModified: 2021-03-11 18:30+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: 10_slide
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
-We are given that the blocks in the target board form a tree, so naturally it makes the most sense to root it at the one block that is already on the board at the start. Hence, it is also quite clear to see that for a given block $b\_i$, all of it's ancestors must be placed first before $b\_i$ itself can be placed. Not only that, the block that $b\_i$ will hit when it is slid in must be the parent of $b\_i$ in the tree. Hence, by doing a simple DFS of the tree, we can easily find the direction and column or row that each block must have used to reach it's target position. Let's call this direction the block's 'slide direction', or simply, the block's direction. Now all that's left for us to do is account for the ordering.
+We are given that the blocks in the target board form a tree, so naturally it makes the most sense to root it at the one block that is already on the board at the start. Hence, it is also quite clear to see that for a given block $b_i$, all of it's ancestors must be placed first before $b_i$ itself can be placed. Not only that, the block that $b_i$ will hit when it is slid in must be the parent of $b_i$ in the tree. Hence, by doing a simple DFS of the tree, we can easily find the direction and column or row that each block must have used to reach it's target position. Let's call this direction the block's 'slide direction', or simply, the block's direction. Now all that's left for us to do is account for the ordering.
 
 <div class="centering w-100" markdown="1">
-![Block Directions](/images/blog/10_slide_06.png =50%x*)
-
-_We can easily find the direction and row or column for each block. The circle represents the initial block, and all other blocks have an arrow indicating the direction they need to slide in._
+![_We can easily find the direction and row or column for each block. The circle represents the initial block, and all other blocks have an arrow indicating the direction they need to slide in._](/images/blog/10_slide_06.png){width=50%}
 </div>
 
-Let's suppose block $b\_i$ is slid in from the left. Then every single other block in the target board to the left of $b\_i$'s final position must have been placed _after_ $b\_i$ was put into position. We can represent this ordering as a directed graph. Block $b\_i$ points to block $b\_j$ if block $b\_i$ must be placed after $b\_j$. Thus if there is a cycle in the graph, then the target board is impossible, and if there is no cycle, then we can find the ordering of the blocks using a topological sort.
+Let's suppose block $b_i$ is slid in from the left. Then every single other block in the target board to the left of $b_i$'s final position must have been placed _after_ $b_i$ was put into position. We can represent this ordering as a directed graph. Block $b_i$ points to block $b_j$ if block $b_i$ must be placed after $b_j$. Thus if there is a cycle in the graph, then the target board is impossible, and if there is no cycle, then we can find the ordering of the blocks using a topological sort.
 
 Now we aim to generate the graph $G$, by creating edges between blocks to indicate their ordering. We can begin by adding the edges implied by the tree structure, which we call 'tree edges'.
 
 <div class="centering w-100" markdown="1">
-![Tree Edges](/images/blog/10_slide_01.png =50%x*)
-
-_Visualisation of tree edges, highlighted in purple. These edges will point in the same direction of the block slide directions._
+![_Visualisation of tree edges, highlighted in purple. These edges will point in the same direction of the block slide directions._](/images/blog/10_slide_01.png){width=50%}
 </div>
 
 Now we have to add the rest of the edges in. For now, let's consider only blocks that need to slide right to get to their destination. The other $3$ directions will follow a similar process. To handle those, we loop over each row looking for blocks that have to slide right.
 
 <div class="centering w-100" markdown="1">
-![Back Edge Blocks](/images/blog/10_slide_03.png =70%x*)
-
-_Here is a diagram containing a subset of the blocks. We focus on the row highlighted in purple. We show the tree edges in this row as white arrows, but omit all other tree edges for clarity._
+![_Here is a diagram containing a subset of the blocks. We focus on the row highlighted in purple. We show the tree edges in this row as white arrows, but omit all other tree edges for clarity._](/images/blog/10_slide_03.png){width=70%}
 </div>
 
-For each of those blocks $b\_i$, we draw an edge in $G$ from every other block to the left of $b\_i$ pointing towards that block $b\_i$. We call these edges 'back edges'. However, notice that this can generate an execessive number of back edges, up to $O(B^2)$.
+For each of those blocks $b_i$, we draw an edge in $G$ from every other block to the left of $b_i$ pointing towards that block $b_i$. We call these edges 'back edges'. However, notice that this can generate an execessive number of back edges, up to $O(B^2)$.
 
 <div class="centering w-100" markdown="1">
-![Naive Back Edges](/images/blog/10_slide_04.png =70%x*)
-
-_Naively adding back edges will lead to an excessive amount being added._
+![_Naively adding back edges will lead to an excessive amount being added._](/images/blog/10_slide_04.png){width=70%}
 </div>
 
-Hence we use the property of transitivity. I.e. if $b\_i$ points to $b\_j$ and $b\_j$ points to $b\_k$, then the fact that $b\_i$ points to $b\_k$ can be implied implicitly, and does not actually need to be stored. Hence, when looping backwards from block $b\_i$, we can stop at the next block that points to the right $b\_j$. We know that anything that we connect to block $b\_j$ will now implicitly point to block $b\_i$. This means that only need to generate at most one back edge per block. If we factor in all $3$ other directions, the number of additional back edges added is a managable $O(B)$. Once both the tree and back edges have been generated, we can run cycle detection and topological sort to get our final answer.
+Hence we use the property of transitivity. I.e. if $b_i$ points to $b_j$ and $b_j$ points to $b_k$, then the fact that $b_i$ points to $b_k$ can be implied implicitly, and does not actually need to be stored. Hence, when looping backwards from block $b_i$, we can stop at the next block that points to the right $b_j$. We know that anything that we connect to block $b_j$ will now implicitly point to block $b_i$. This means that only need to generate at most one back edge per block. If we factor in all $3$ other directions, the number of additional back edges added is a managable $O(B)$. Once both the tree and back edges have been generated, we can run cycle detection and topological sort to get our final answer.
 
 <div class="centering w-100" markdown="1">
-![Good Back Edges](/images/blog/10_slide_05.png =70%x*)
-
-_The number of edges added is greatly reduced._
+![_The number of edges added is greatly reduced._](/images/blog/10_slide_05.png){width=70%}
 </div>
 
 
-Now, let's address how we will store our blocks. Ideally, we would like a way such that for every block $b\_i$, we can find the next block above, below, to the left, and to the right of it in constant time, since that will ensure looping through rows takes amortised $O(B+N+M)$ instead of $O(NM)$. There are several ways to do this, but one way is to generate a 'linked grid' which we call `L`. A linked grid stores a separate doubly linked list for each row and each column. Each linked list contains the blocks in that row or column, so that each block exists in exactly one row linked list, and one column linked list. In order to generate `L`, we sort the block positions by $x$ position first, then $y$ position. That way, if we insert the blocks in order, every insertion will be at the end of it's respective column and row linked list, so that insertion of a single block has complexity $O(1)$. By the end of it, every block should store a pointer to the block up, down, left, and right of it. The finished structure should look something like this:
+Now, let's address how we will store our blocks. Ideally, we would like a way such that for every block $b_i$, we can find the next block above, below, to the left, and to the right of it in constant time, since that will ensure looping through rows takes amortised $O(B+N+M)$ instead of $O(NM)$. There are several ways to do this, but one way is to generate a 'linked grid' which we call `L`. A linked grid stores a separate doubly linked list for each row and each column. Each linked list contains the blocks in that row or column, so that each block exists in exactly one row linked list, and one column linked list. In order to generate `L`, we sort the block positions by $x$ position first, then $y$ position. That way, if we insert the blocks in order, every insertion will be at the end of it's respective column and row linked list, so that insertion of a single block has complexity $O(1)$. By the end of it, every block should store a pointer to the block up, down, left, and right of it. The finished structure should look something like this:
 
 <div class="centering w-100" markdown="1">
-![Linked Grid](/images/blog/10_slide_07.png =90%x*)
-
-_Linked grid structure. Each block stores a pointer to the block up, down, left and right of it._
+![_Linked grid structure. Each block stores a pointer to the block up, down, left and right of it._](/images/blog/10_slide_07.png){width=90%}
 </div>
 
 Then, looping through the rows is as simple as going to the next block in that direction. For the DFS, when we want to find neighbouring blocks, we can simply use the [manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) to double check that the block is actually adjacent, and that there is no gap in between.
@@ -56,7 +63,8 @@ Then, looping through the rows is as simple as going to the next block in that d
 Now let's look at the final complexity. Sorting the blocks is $O(B\log B)$. Inserting them into the linked grid is $O(B)$. Running the DFS to evaluate the slide direction and row/column number of each block as well as finding tree edges into our graph $G$ is $O(B)$. Looping over each row and column to to add the back edges is amortised $O(B + N + M)$. The final graph $G$ has $B$ nodes and $O(B)$ edges, so checking for cycles and generating the postfix order should take $O(B)$. This gives us the final overall complexity of $O(B\log B)$.
 
 ## C++
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -244,7 +252,7 @@ int main () {
 	}
 }
 
-</code></pre>
+```
 
 <br>
 

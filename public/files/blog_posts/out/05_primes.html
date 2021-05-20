@@ -1,0 +1,67 @@
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<p>We know that every positive integer larger than 1 can be written as a product of primes, otherwise known as the prime factorisation. Suppose <span class="math inline">\(x\)</span> is made up of <span class="math inline">\(k\)</span> primes <span class="math inline">\(p_1, p_2, \ldots, p_k\)</span>. In other words:</p>
+<p><span class="math display">\[
+x = p_1^{a_1} \times p_2^{a_2} \times \ldots \times p_k^{a_k}.
+\]</span></p>
+<p>Then all factors <span class="math inline">\(y\)</span> of <span class="math inline">\(x\)</span> are given by some combination of the primes in <span class="math inline">\(x\)</span>, i.e. <span class="math display">\[
+y = p_1^{b_1} \times p_2^{b_2} \times \ldots \times p_k^{b_k},
+\]</span> where <span class="math inline">\(0 \le b_i \le a_i\)</span> for all <span class="math inline">\(1 \le i \le k\)</span>. Since there are exactly <span class="math inline">\(a_i+1\)</span> choices for every <span class="math inline">\(b_i\)</span>, then the number of factors of <span class="math inline">\(x\)</span> is just <span class="math inline">\((a_1+1) \times (a_2+1) \times \ldots \times (a_k+1)\)</span>. To get the number of non-prime factors, we can simply subtract off <span class="math inline">\(k\)</span>.</p>
+<p>Now the question is how to efficiently find the prime factorisation of each query. There exist prime factorisation methods in <span class="math inline">\(O(\sqrt{N})\)</span> time, but that is too slow for our purposes. One way to do this is to use the <a href="https://www.geeksforgeeks.org/prime-factorization-using-sieve-olog-n-multiple-queries/">Sieve of Erathosthenes</a> so that for every integer, you store it’s smallest prime factor. This will allow you to prime factorise any number in <span class="math inline">\(O(\log N)\)</span>, which will be fast enough. The final complexity comes down to <span class="math inline">\(O(N \log\log N + Q\log N)\)</span>, where <span class="math inline">\(N\)</span> is the maximum value of query <span class="math inline">\(i\)</span>.</p>
+<h2 id="c">C++</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> ll;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">typedef</span> pair&lt;ll, ll&gt; pii;</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">typedef</span> vector&lt;<span class="dt">int</span>&gt; vi;</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="pp">#define x </span>first</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="pp">#define y </span>second</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="pp">#define pb </span>push_back</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="pp">#define all</span>(x)<span class="pp"> </span>x.begin(),<span class="pp"> </span>x.end()</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="pp">#define MAXN </span><span class="dv">2000005</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>ll prime[MAXN];</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">// 1 for prime, otherwise  prime[i] = smallest factor of i</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="dt">void</span> sieve() {</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    fill(prime, prime+MAXN, <span class="dv">1</span>);</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">2</span>; i*i &lt;= MAXN; i++) {</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        <span class="cf">if</span> (prime[i] == <span class="dv">1</span>) {</span>
+<span id="cb1-19"><a href="#cb1-19"></a>            <span class="dt">int</span> step = i == <span class="dv">2</span> ? i : i*<span class="dv">2</span>;</span>
+<span id="cb1-20"><a href="#cb1-20"></a>            <span class="cf">for</span> (<span class="dt">int</span> j = i*i; j &lt;= MAXN; j += step) {</span>
+<span id="cb1-21"><a href="#cb1-21"></a>                <span class="cf">if</span> (prime[j] == <span class="dv">1</span>) prime[j] = i;</span>
+<span id="cb1-22"><a href="#cb1-22"></a>            }</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        }</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    }</span>
+<span id="cb1-25"><a href="#cb1-25"></a>}</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>vector&lt;pii&gt; prime_factorise(<span class="dt">int</span> N) {</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    vector&lt;pii&gt; pf;</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="cf">while</span> (prime[N] != <span class="dv">1</span>) {</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        <span class="dt">int</span> pow = <span class="dv">0</span>;</span>
+<span id="cb1-31"><a href="#cb1-31"></a>        <span class="dt">int</span> p = prime[N];</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        <span class="cf">while</span> (N % p == <span class="dv">0</span>) N /= p, pow++;</span>
+<span id="cb1-33"><a href="#cb1-33"></a>        pf.pb({p, pow});</span>
+<span id="cb1-34"><a href="#cb1-34"></a>    }</span>
+<span id="cb1-35"><a href="#cb1-35"></a>    <span class="cf">if</span> (N != <span class="dv">1</span>) pf.pb({N, <span class="dv">1</span>});</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    <span class="cf">return</span> pf;</span>
+<span id="cb1-37"><a href="#cb1-37"></a>}</span>
+<span id="cb1-38"><a href="#cb1-38"></a></span>
+<span id="cb1-39"><a href="#cb1-39"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    ios_base::sync_with_stdio(<span class="dv">0</span>); cin.tie(<span class="dv">0</span>);</span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    sieve();</span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a>    <span class="dt">int</span> Q;</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    cin &gt;&gt; Q;</span>
+<span id="cb1-46"><a href="#cb1-46"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; Q; i++) {</span>
+<span id="cb1-47"><a href="#cb1-47"></a>        <span class="dt">int</span> a;</span>
+<span id="cb1-48"><a href="#cb1-48"></a>        cin &gt;&gt; a;</span>
+<span id="cb1-49"><a href="#cb1-49"></a>        vector&lt;pii&gt; v = prime_factorise(a);</span>
+<span id="cb1-50"><a href="#cb1-50"></a></span>
+<span id="cb1-51"><a href="#cb1-51"></a>        ll factors = <span class="dv">1</span>;</span>
+<span id="cb1-52"><a href="#cb1-52"></a>        <span class="cf">for</span> (pii p : v) factors *= (p.y+<span class="dv">1</span>);</span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a>        ll ans = factors - (<span class="dt">int</span>) v.size();</span>
+<span id="cb1-55"><a href="#cb1-55"></a>        printf(<span class="st">&quot;</span><span class="sc">%lld\n</span><span class="st">&quot;</span>, ans);</span>
+<span id="cb1-56"><a href="#cb1-56"></a>    }</span>
+<span id="cb1-57"><a href="#cb1-57"></a>}</span></code></pre></div>

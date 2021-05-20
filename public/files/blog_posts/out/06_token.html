@@ -1,0 +1,63 @@
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<p>We’ll start by coming up with a way to make a block that can follow any hash. Here is the hash function given to us:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">long</span> <span class="dt">long</span> H(<span class="dt">long</span> <span class="dt">long</span> previousHash, string &amp;transaction,</span>
+<span id="cb1-2"><a href="#cb1-2"></a>            <span class="dt">long</span> <span class="dt">long</span> token) {</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">long</span> <span class="dt">long</span> v = previousHash;</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; transaction.length(); i++) {</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    v = (v * <span class="dv">31</span> + transaction[i]) % <span class="dv">1000000007</span>;</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  }</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="cf">return</span> (v * <span class="dv">7</span> + token) % <span class="dv">1000000007</span>;</span>
+<span id="cb1-8"><a href="#cb1-8"></a>}</span></code></pre></div>
+<p>Note that in the final step, we calculate <code>v * 7</code>, add on a token, and then modulo by 1,000,000,007 (henceforth denoted as <code>MOD</code>). This means that if we have some sort of target, let’s say <code>target1 = 10,000,000</code> with 7 trailing zeros, then we can easily work out the value of token required to reach the target, regardless of what the value of <code>v * 7</code> was. More specifically, <code>token = ((target1 - previousHash) % MOD + MOD) % MOD</code>. This implies that the transaction string can be whatever we want, because we can always correct the hash afterwards by using our token.</p>
+<p>Now note that there are some cases where this doesn’t work. Namely, the problem specifies that our token must be smaller than 1 billion. This means that certain values of <code>v * 7</code>, namely 10,000,001 to 10,000,007 will require a token that is too large if we would like to reach out target. We can solve this by simply using a second target, such as <code>target2 = 20,000,000</code>, which we use in case we cannot reach our first target. Clearly, if we can’t make the first, then we will always be able to make the second.</p>
+<h2 id="c">C++</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> ll;</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">typedef</span> pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; pii;</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">typedef</span> vector&lt;<span class="dt">int</span>&gt; vi;</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="pp">#define x </span>first</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="pp">#define y </span>second</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="pp">#define pb </span>push_back</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="pp">#define all</span>(x)<span class="pp"> </span>x.begin(),<span class="pp"> </span>x.end()</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="pp">#define MOD </span>((ll)<span class="fl">1e9</span>+<span class="dv">7</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="pp">#define MAXT </span><span class="dv">1000000000</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>ll modsub(ll a, ll b) { <span class="cf">return</span> (((a - b) % MOD) + MOD) % MOD; }</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a>ll gettoken(<span class="dt">int</span> prev, <span class="dt">char</span> c) {</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    ll v = prev;</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    v = (v * <span class="dv">31</span> + c) % MOD;</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a>    ll target1 = <span class="dv">10000000</span>;</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    ll target2 = <span class="dv">20000000</span>;</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    ll token = modsub(target1, v*<span class="dv">7</span>);</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="cf">if</span> (token &gt;= MAXT) token = modsub(target2, v*<span class="dv">7</span>);</span>
+<span id="cb2-24"><a href="#cb2-24"></a></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="ot">assert</span>(token &lt; MAXT);</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="cf">return</span> token;</span>
+<span id="cb2-28"><a href="#cb2-28"></a>}</span>
+<span id="cb2-29"><a href="#cb2-29"></a></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="dt">int</span> main () {</span>
+<span id="cb2-31"><a href="#cb2-31"></a>    ios_base::sync_with_stdio(<span class="dv">0</span>); cin.tie(<span class="dv">0</span>);</span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a>    ll N;</span>
+<span id="cb2-34"><a href="#cb2-34"></a>    cin &gt;&gt; N;</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a>    <span class="co">// calculate token 1</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>    ll token = gettoken(N, <span class="ch">&#39;a&#39;</span>);</span>
+<span id="cb2-38"><a href="#cb2-38"></a>    printf(<span class="st">&quot;</span><span class="sc">%c</span><span class="st"> </span><span class="sc">%lld\n</span><span class="st">&quot;</span>, <span class="ch">&#39;a&#39;</span>, token);</span>
+<span id="cb2-39"><a href="#cb2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a>    <span class="co">// calculate token 2</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>    string str = <span class="st">&quot;a&quot;</span>;</span>
+<span id="cb2-42"><a href="#cb2-42"></a>    ll newhash = H(N, str, token);</span>
+<span id="cb2-43"><a href="#cb2-43"></a>    printf(<span class="st">&quot;</span><span class="sc">%c</span><span class="st"> </span><span class="sc">%lld\n</span><span class="st">&quot;</span>, <span class="ch">&#39;b&#39;</span>, gettoken(newhash, <span class="ch">&#39;b&#39;</span>));</span>
+<span id="cb2-44"><a href="#cb2-44"></a>}</span></code></pre></div>
+<blockquote>
+<p>Here, I choose the arbitrary transaction strings <code>"a"</code> and <code>"b"</code> as the strings of my two blocks</p>
+</blockquote>
+<blockquote>
+<p>It is actually very unlikely that we need the second target, since it is only needed for 7 out of 1,000,000,007 values of <code>v*7</code>. There is no way that the test data can cover all of these cases, especially since the target1 we chose could have been any number with 7 trailing zeros. If you really wanted to, you could choose to omit the second target from your code entirely and take your chances.</p>
+</blockquote>

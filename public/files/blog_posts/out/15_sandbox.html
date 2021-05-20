@@ -1,0 +1,33 @@
+<p>The markdown sandbox is designed to contain all the common things that I would likely use in a normal markdown writeup. Anytime I switch converters, I must check that it is compatible with all the features displayed on this page.</p>
+<h2 id="normal-text">Normal Text</h2>
+<p>Even aside from the rain and wind it hadn’t been a happy practice session. Fred and George, who had been spying on the Slytherin team, had seen for themselves the speed of those new Nimbus Two Thousand and Ones. They reported that the Slytherin team was no more than seven greenish blurs, shooting through the air like missiles.</p>
+<p>As Harry squelched along the deserted corridor he came across somebody who looked just as preoccupied as he was. Nearly Headless Nick, the ghost of Gryffindor Tower, was staring morosely out of a window, muttering under his breath, “. . . don’t fulfill their requirements . . . half an inch, if that . . .”</p>
+<p>“Hello, Nick,” said Harry.</p>
+<h2 id="code-block">Code Block</h2>
+<p>This is some <code>inline[0]</code> code. Here is some cpp code</p>
+<div class="sourceCode" id="cb1" data-startFrom="1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    printf(<span class="st">&quot;Hello World!</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="dt">int</span> a = <span class="dv">2</span>, b = <span class="dv">3</span>;</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, a + b);</span>
+<span id="cb1-6"><a href="#cb1-6"></a>}</span></code></pre></div>
+<p>Here is some python code</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># this is a comment</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="bu">print</span>(<span class="st">&quot;Hello World!&quot;</span>)</span></code></pre></div>
+<p>And here is the command to compile</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> ./public/files/blog_posts/sandbox.md -o ./public/files/blog_posts/out/sandbox.html --mathjax</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> ./public/files/blog_posts/sandbox.md -o ./public/files/blog_posts/out/sandbox_full</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">.html</span> --mathjax --standalone</span></code></pre></div>
+<h2 id="lists">Lists</h2>
+<p>Here are my famous patented lists</p>
+<ul>
+<li>item 1</li>
+<li>item 2
+<ul>
+<li>sub item 1</li>
+<li>sub item 2</li>
+</ul></li>
+<li>item 3</li>
+</ul>
+<h2 id="latex">Latex</h2>
+<p>And finally, displaying some maths. Here is some inline maths: <span class="math inline">\(k\)</span>, <span class="math inline">\(S\)</span>, <span class="math inline">\(A_i\)</span>, <span class="math inline">\(\lim_{t \to \infty} f(t)\)</span>, <span class="math inline">\(\sum_{i=1}^n i^2\)</span>, <span class="math inline">\((P \cup Q)^c\)</span>. Next up, here is some display maths <span class="math display">\[x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\]</span> I hope it pleases you greatly.</p>

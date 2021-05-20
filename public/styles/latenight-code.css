@@ -21,6 +21,16 @@ body {
 
 h1 {
   font-size: 3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+h2 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+h3 {
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Georgia';
@@ -43,6 +53,7 @@ a,a:link,a:visited {
 
 tt,pre {
 	font-size: 16px;
+  overflow: visible;
 }
 
 hr {
@@ -54,16 +65,38 @@ blockquote > p {
   padding-left: 1em;
 }
 
-code:not(.language-c) {
-  background-color: #474747;
-  border: #474747 solid 3px;
-  border-radius: 4px;
-  color: #ceadec;
+/* fix pandoc default code style */
+pre, code {
+  color: #ebdbb2; /*default text colour*/
+  background-color: #2d2d2d;
+}
+pre.sourceCode {
+  padding: 5px 10px !important;
+  border-radius: 5px;
+}
+pre {
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+}
+code:not(.sourceCode) {
+  border-radius: 5px;
 }
 
-pre.line-numbers[class*="language-"] {
-  line-height: 0.85em;
-  font-size: 0.85em;
+/* fix pandoc line numbers */
+code.sourceCode a {
+  cursor: auto;
+  color: #928374; /*comment colour*/
+  pointer-events: none;
+  text-decoration: none;
+  width: 5em;
+}
+code.sourceCode a:before {
+  text-decoration: none !important;
+}
+
+figcaption {
+  margin-top: 1em;
 }
 
 .center {
@@ -136,9 +169,6 @@ footer {
       padding:0;
     }
 }
-
-
-
 
 .mlc-blue {
   color: #a8d8e3; /* links */

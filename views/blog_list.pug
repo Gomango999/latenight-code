@@ -11,7 +11,7 @@ block content
     a(href='/')
       img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.')
     a(href='/blog/').blog-link
-      h1.display.white Blog 
+      h1.display.white.mt-0 Blog 
       
   #bloglist.content.container.card.mb-5
     each blog in blogs
@@ -19,7 +19,7 @@ block content
         .col.pt-3
           .row
             .col-sm-8
-              h2.mlc-blue #{blog.title}
+              h2.mlc-blue.mt-0 #{blog.title}
             .col-sm-4.date 
               i #{blog.timeFromUpload}
             

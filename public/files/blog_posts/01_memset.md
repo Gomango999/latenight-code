@@ -1,5 +1,18 @@
+---
+title: Memset
+description: Using memset to speed up array initialisation.
+author: Kevin Zhu
+public: true
+uploadDate: 2020-06-06 14:00+11:00
+lastModified: 2020-06-06 14:00+11:00
+notes: ''
+tags:
+- competitive programming
+name: 01_memset
+---
+
 You may have noticed the following line of code in peoples answers to programming competitions:
-```cpp
+```{.cpp .numberLines}
 #include <cstring>
 int main () {
   //...
@@ -22,7 +35,7 @@ So memset is a cool one liner that allows me to initialise my array to any value
 
 ## The Catch
  Consider the following example:
-```cpp
+```{.cpp .numberLines}
 #include <cstring>
 int main () {
   int a[3], b[3], c[3];
@@ -48,7 +61,7 @@ Notice that the reason that `0` and `-1` work is because their `unsigned char` c
 
 ## Usage
 Now that we're aware of that pitfall, we can investigate how we can use this to our advantage in competitive programming. It is commonly the case that we need to initialise some sort (potentially multidimensional) array to INT_MAX, like so:
-```cpp
+```{.cpp .numberLines}
 int dp[R][C];
 for (int y = 0; y < R; y++) {
   for (int x = 0; x < C; x++) {
@@ -57,7 +70,7 @@ for (int y = 0; y < R; y++) {
 }
 ```
 This takes forever to write out. Instead, we can simply replace it with the following memset:
-```cpp
+```{.cpp .numberLines}
 int dp[R][C];
 memset(dp, 0x3f, sizeof(dp))
 ```
@@ -66,10 +79,10 @@ Here `sizeof` works regardless of the number of dimensions in dp. `0x3f` repeate
 Here are some common values to use memset with.
 - `0` to set to `0`
 - `-1` to set to `-1`
-- `0x3f` to set to approx. half INT_MAX (`1061109567`)
-- `0xc0` to set to approx. half INT_MIN (`-1061109568`)
-- `0x7f` to set to approx. INT_MAX (`2139062143`)
-- `0x80` to set to approx. INT_MIN (`-2139062144`)
+- `0x3f` to set to approx. half `INT_MAX` (`1061109567`)
+- `0xc0` to set to approx. half `INT_MIN` (`-1061109568`)
+- `0x7f` to set to approx. `INT_MAX` (`2139062143`)
+- `0x80` to set to approx. `INT_MIN` (`-2139062144`)
 
 And for reference,
 - `INT_MAX` is `2147483647`

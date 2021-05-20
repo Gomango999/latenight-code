@@ -1,3 +1,16 @@
+---
+title: Welcome!
+description: What is Late Night Code?
+author: Kevin Zhu
+public: true
+uploadDate: 2020-06-06 12:00+11:00
+lastModified: 2020-06-06 12:00+11:00
+notes: ''
+tags:
+- general
+name: 00_intro
+---
+
 Welcome to Late Night Code, my very own personal blog!
 
 My name is Kevin, and I'm a uni student at UNSW currently pursuing a Bachelor of Science in Advanced Mathematics and Computer Science. My majors are in pure maths and artificial intelligence.
@@ -11,10 +24,8 @@ If you'd like to follow the development of this site, check out the github page 
 Anyways, it's getting late... Nice chatting with you and I hope you enjoy your stay :)
 
 <div class="centering w-100 mt-5">
-    <img id="snoozing-fox" width=30% src="/images/fox/tp_fox1.png" style="min-width:170px;">
-
-
-    <i class="mt-3" style="display:block;"> ... zzz ... </i>
+<img id="snoozing-fox" width=30% src="/images/fox/tp_fox1.png" style="min-width:170px;">
+<i class="mt-3" style="display:block;">... zzz ...</i>
 </div>
 
 <script>

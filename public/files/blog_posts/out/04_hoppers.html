@@ -1,0 +1,62 @@
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<p>Suppose the graph is split into <span class="math inline">\(M\)</span> components. For the hopper to spread to all other nodes, then clearly we will have to connect all of these components at some points. The minimum number of edges required for this is <span class="math inline">\(M-1\)</span>.</p>
+<p>We call a component “good” if we can infect a node in that component and have it spread to every other node in the system. If there is even one good component in the system, then we can simply use <span class="math inline">\(M-1\)</span> additional edges to connect it to all the other components, which is clearly the minimum possible. Hence, we need a way to find whether a component is good.</p>
+<p>Observe that a component is good if and only if there exists an odd cycle in within the component. We can check if there is an odd cycle by running a depth first search, where our state is recorded as the node we’re at, as well as the parity of the distance from the starting node. If are able to reach a node at both an even and an odd distance from our starting node, then we know there is an odd cycle in that component.</p>
+<p>Now we handle the case where there are no good components. It can be shown that after connecting all the components together with <span class="math inline">\(M-1\)</span> edges, you will need exactly 1 extra edge to make the entire graph good. To do this, we merely consider the following cases: - If all the components are of size 1, then we pick one component, and connect all other components to it. Since there are at least 3 nodes, then we can always add one more edge to make a triangle, which is an odd cycle. - Now if there is at least one component <span class="math inline">\(C\)</span> of size 3 or greater, then there must exist 3 connected nodes somewhere inside <span class="math inline">\(C\)</span>. By our assumption, the graph isn’t good, these 3 nodes do not form a triangle, but rather a straight line. We can make it a triangle with one extra edge. - Finally, we consider the case where there is at least one component <span class="math inline">\(C\)</span> with size exactly 2. Clearly there must be at least one other component in the graph, since <span class="math inline">\(N\)</span> is at least 3. When we connect the components, we will form a straight line of 3 nodes with <span class="math inline">\(C\)</span>, and we can then form a triangle with one extra edge.</p>
+<p>Therefore, if there are no good components, then the answer is <span class="math inline">\(M\)</span>. If there is at least one good component, the answer is <span class="math inline">\(M-1\)</span>. The complexity of this algorithm is <span class="math inline">\(O(N)\)</span>, which is the complexity of using the DFS’s to detect odd cycles and count components.</p>
+<h2 id="c">C++</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> ll;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">typedef</span> pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; pii;</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">typedef</span> vector&lt;<span class="dt">int</span>&gt; vi;</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="pp">#define x </span>first</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="pp">#define y </span>second</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="pp">#define pb </span>push_back</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="pp">#define all</span>(x)<span class="pp"> </span>x.begin(),<span class="pp"> </span>x.end()</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="pp">#define MAXN </span><span class="dv">500005</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>vector&lt;<span class="dt">int</span>&gt; G[MAXN];</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="dt">bool</span> seen[MAXN][<span class="dv">2</span>];</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">// returns true if this subgraph is good</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="dt">bool</span> isgood = <span class="kw">false</span>;</span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="dt">void</span> dfs(<span class="dt">int</span> at, <span class="dt">bool</span> iseven) {</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="cf">if</span> (seen[at][iseven]) <span class="cf">return</span>;</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    seen[at][iseven] = <span class="kw">true</span>;</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    <span class="cf">if</span> (seen[at][iseven] &amp;&amp; seen[at][!iseven]) isgood = <span class="kw">true</span>;</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="cf">for</span> (<span class="dt">int</span> to : G[at]) {</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        <span class="cf">if</span> (seen[to][!iseven]) <span class="cf">continue</span>;</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        dfs(to, !iseven);</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    }</span>
+<span id="cb1-26"><a href="#cb1-26"></a>}</span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>vector&lt;<span class="dt">bool</span>&gt; good; <span class="co">// stores true if the subgraph is good, false otherwise.</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    ios_base::sync_with_stdio(<span class="dv">0</span>); cin.tie(<span class="dv">0</span>);</span>
+<span id="cb1-32"><a href="#cb1-32"></a></span>
+<span id="cb1-33"><a href="#cb1-33"></a>    <span class="dt">int</span> N, M;</span>
+<span id="cb1-34"><a href="#cb1-34"></a>    cin &gt;&gt; N &gt;&gt; M;</span>
+<span id="cb1-35"><a href="#cb1-35"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; M; i++) {</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        <span class="dt">int</span> a, b;</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        cin &gt;&gt; a &gt;&gt; b;</span>
+<span id="cb1-38"><a href="#cb1-38"></a>        G[a-<span class="dv">1</span>].pb(b-<span class="dv">1</span>);</span>
+<span id="cb1-39"><a href="#cb1-39"></a>        G[b-<span class="dv">1</span>].pb(a-<span class="dv">1</span>);</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    }</span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="dt">bool</span> atleastonegood = <span class="kw">false</span>;</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
+<span id="cb1-44"><a href="#cb1-44"></a>        isgood = <span class="kw">false</span>;</span>
+<span id="cb1-45"><a href="#cb1-45"></a>        <span class="cf">if</span> (!seen[i][<span class="dv">0</span>] &amp;&amp; !seen[i][<span class="dv">1</span>]) {</span>
+<span id="cb1-46"><a href="#cb1-46"></a>            dfs(i, <span class="dv">0</span>);</span>
+<span id="cb1-47"><a href="#cb1-47"></a>            good.pb(isgood);</span>
+<span id="cb1-48"><a href="#cb1-48"></a>            atleastonegood |= isgood;</span>
+<span id="cb1-49"><a href="#cb1-49"></a>        }</span>
+<span id="cb1-50"><a href="#cb1-50"></a>    }</span>
+<span id="cb1-51"><a href="#cb1-51"></a></span>
+<span id="cb1-52"><a href="#cb1-52"></a>    <span class="dt">int</span> cnt = good.size();</span>
+<span id="cb1-53"><a href="#cb1-53"></a>    <span class="cf">if</span> (atleastonegood) printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, cnt-<span class="dv">1</span>);</span>
+<span id="cb1-54"><a href="#cb1-54"></a>    <span class="cf">else</span> printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, cnt);</span>
+<span id="cb1-55"><a href="#cb1-55"></a>}</span></code></pre></div>

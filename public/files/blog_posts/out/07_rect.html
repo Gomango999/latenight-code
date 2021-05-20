@@ -1,0 +1,78 @@
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<p>First, let’s reword the question in a more formal sense: &gt; <em>How many ways are there of choosing <span class="math inline">\(N\)</span> rectangles in a <span class="math inline">\(R \times C\)</span> grid such that the intersection of all of them has area at least <span class="math inline">\(K\)</span>?</em></p>
+<p>When we are working with rectangles, a common technique is to reduce the dimensionality of the problem. In this case, the 1D equivalent of finding the intersection of rectangles is finding the intersection of ranges on a line. One way we can formulate our 1D subproblem is:</p>
+<blockquote>
+<p><em>For every range of length <span class="math inline">\(i\)</span>, how many ways are there of choosing <span class="math inline">\(N\)</span> ranges from <span class="math inline">\(0\)</span> to <span class="math inline">\(M-1\)</span> such that their intersection has length exactly <span class="math inline">\(i\)</span>?</em></p>
+</blockquote>
+<p>Let’s suppose we solve this problem for when <span class="math inline">\(M = R\)</span> and store the results in <code>ycnt</code>, such that <code>ycnt[i]</code> is the number of ways to choose <span class="math inline">\(N\)</span> ranges to get length <span class="math inline">\(i\)</span>. Additionally, we can do the same thing for <span class="math inline">\(M=C\)</span> and store that in <code>xcnt</code>. Then, we can simply loop through all possible <span class="math inline">\(x\)</span>-axis ranges <span class="math inline">\(i\)</span> and <span class="math inline">\(y\)</span>-axis ranges <span class="math inline">\(j\)</span>. If <span class="math inline">\(i \times j \ge K\)</span>, then we can simply add on <code>xcnt[i] * ycnt[j]</code> to our answer, since any choice of <span class="math inline">\(N\)</span> ranges on the x-axis can be uniquely combined with any choice of <span class="math inline">\(N\)</span> ranges on the y-axis to form <span class="math inline">\(N\)</span> rectangles with intersection area <span class="math inline">\(i \times j\)</span>.</p>
+<p>Now, how do we solve our subproblem? For length <span class="math inline">\(i\)</span>, let’s suppose we fix a position for the overlapping segment at <span class="math inline">\([j, j+i-1]\)</span>. To choose <span class="math inline">\(N\)</span> events that have this exact interval of overlap, we have to find <span class="math inline">\(N\)</span> positions for the endpoints in the range <span class="math inline">\([j+i-1, M-1]\)</span> such that at least one of the endpoints lies on <span class="math inline">\(j+i-1\)</span>. Similarly, we have to find <span class="math inline">\(N\)</span> positions for the startpoints in the range <span class="math inline">\([0, j]\)</span> such that at least one of the endpoints lies on <span class="math inline">\(j\)</span>. The number of ways of choosing endpoints such that at least one of them lies on <span class="math inline">\(j+i-1\)</span> is equal to the number of ways of choosing endpoints in the range <span class="math inline">\([j+i-1, M-1]\)</span> minus the number of ways of choosing endpoints in the range <span class="math inline">\([j+i, M-1]\)</span>, i.e. we take off the number of ways where there are no endpoints that lie on <span class="math inline">\(j+i-1\)</span>. Hence, we can get the formula for the number of ways to choose endpoints:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    ways &amp;= ((M-1)-(j+i-1)+1)^N - ((M-1)-(j+i)+1)^N \\
+        &amp;= (M-j-i+1)^N - (M-j-i)^N \\
+\end{aligned}
+\]</span></p>
+<p>We can apply the same method to find the number of ways to choose startpoints, and then multiply the two values together to get the number of ways to choose ranges that cover the exact interval <span class="math inline">\([j, j+i-1]\)</span>. Using binary exponentiation for the powers, this takes <span class="math inline">\(O(\log N)\)</span> time. Then, we can loop over every interval length <span class="math inline">\(i\)</span>, and every starting point <span class="math inline">\(j\)</span> in order to calculate <code>xcnt</code> and <code>ycnt</code> in <span class="math inline">\(O(N^2 \log N)\)</span>. Unfortunately, this is too slow and will get you a <code>TIME LIMIT EXCEEDED</code> when submitting.</p>
+<p>We can speed things up by noticing that when we run binary exponentiation, we only take things to the power of <span class="math inline">\(N\)</span>. Hence, we can just cache all the values of <span class="math inline">\(1\)</span> to <span class="math inline">\(5000\)</span> taken to the value of <span class="math inline">\(N\)</span> and reuse them to lower our complexity down to <span class="math inline">\(O(N^2)\)</span>. Combining the results of the two dimensions together to get our final solution is also <span class="math inline">\(O(N^2)\)</span>, so our final complexity is <span class="math inline">\(O(N^2)\)</span>.</p>
+<h2 id="c">C++</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> ll;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">#define MOD </span>ll(<span class="fl">1e9</span>+<span class="dv">7</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="pp">#define MAXN </span><span class="dv">5005</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>ll modadd(ll a, ll b) { <span class="cf">return</span> (a + b) % MOD; }</span>
+<span id="cb1-8"><a href="#cb1-8"></a>ll modsub(ll a, ll b) { <span class="cf">return</span> ((a - b) % MOD + MOD) % MOD; }</span>
+<span id="cb1-9"><a href="#cb1-9"></a>ll modmult(ll a, ll b) { <span class="cf">return</span> (a * b) % MOD; }</span>
+<span id="cb1-10"><a href="#cb1-10"></a>ll modpow(ll b, ll e) {</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    ll a = <span class="dv">1</span>;</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="cf">while</span> (e) {</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        <span class="cf">if</span> (e &amp; <span class="dv">1</span>) a = modmult(a, b);</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        b = modmult(b, b);</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        e &gt;&gt;= <span class="dv">1</span>;</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    }</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="cf">return</span> a;</span>
+<span id="cb1-18"><a href="#cb1-18"></a>}</span>
+<span id="cb1-19"><a href="#cb1-19"></a>ll totheN[MAXN];</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co">// given length M and N ranges, find the number of ways to have intersection = i for all i.</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>vector&lt;ll&gt; getcnt(ll N, ll M) {</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    vector&lt;ll&gt; cnt = {<span class="dv">0</span>};</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    <span class="co">// for each interval length i...</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>    <span class="cf">for</span> (ll i = <span class="dv">1</span>; i &lt;= M; i++) {</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        ll ways = <span class="dv">0</span>;</span>
+<span id="cb1-27"><a href="#cb1-27"></a>        <span class="co">// for each starting point j...</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>        <span class="cf">for</span> (ll j = <span class="dv">0</span>; j &lt; M-i+<span class="dv">1</span>; j++) {</span>
+<span id="cb1-29"><a href="#cb1-29"></a>            ll A = j + <span class="dv">1</span>;</span>
+<span id="cb1-30"><a href="#cb1-30"></a>            ll B = M - (j + i - <span class="dv">1</span>);</span>
+<span id="cb1-31"><a href="#cb1-31"></a>            <span class="co">// choose N starting points such that at least one is at j</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a>            ll aways = modsub(totheN[A], totheN[A-<span class="dv">1</span>]);</span>
+<span id="cb1-33"><a href="#cb1-33"></a>            <span class="co">// choose N end points such that at least one of them is at j+i-1</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>            ll bways = modsub(totheN[B], totheN[B-<span class="dv">1</span>]);</span>
+<span id="cb1-35"><a href="#cb1-35"></a>            ways = modadd(ways, modmult(aways, bways));</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        }</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        cnt.push_back(ways);</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    }</span>
+<span id="cb1-39"><a href="#cb1-39"></a>    <span class="cf">return</span> cnt;</span>
+<span id="cb1-40"><a href="#cb1-40"></a>}</span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    ll N, R, C, K;</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    cin &gt;&gt; N &gt;&gt; R &gt;&gt; C &gt;&gt; K;</span>
+<span id="cb1-45"><a href="#cb1-45"></a></span>
+<span id="cb1-46"><a href="#cb1-46"></a>    <span class="co">// preprocess values of i^N</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; MAXN; i++) totheN[i] = modpow(i, N);</span>
+<span id="cb1-48"><a href="#cb1-48"></a></span>
+<span id="cb1-49"><a href="#cb1-49"></a>    vector&lt;ll&gt; ycnt = getcnt(N, R);</span>
+<span id="cb1-50"><a href="#cb1-50"></a>    vector&lt;ll&gt; xcnt = getcnt(N, C);</span>
+<span id="cb1-51"><a href="#cb1-51"></a></span>
+<span id="cb1-52"><a href="#cb1-52"></a>    ll ways = <span class="dv">0</span>;</span>
+<span id="cb1-53"><a href="#cb1-53"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= R; i++) {</span>
+<span id="cb1-54"><a href="#cb1-54"></a>        <span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">1</span>; j &lt;= C; j++) {</span>
+<span id="cb1-55"><a href="#cb1-55"></a>            <span class="cf">if</span> (i * j &gt;= K) {</span>
+<span id="cb1-56"><a href="#cb1-56"></a>                ways = modadd(ways, modmult(ycnt[i], xcnt[j]));</span>
+<span id="cb1-57"><a href="#cb1-57"></a>            }</span>
+<span id="cb1-58"><a href="#cb1-58"></a>        }</span>
+<span id="cb1-59"><a href="#cb1-59"></a>    }</span>
+<span id="cb1-60"><a href="#cb1-60"></a>    printf(<span class="st">&quot;</span><span class="sc">%lld\n</span><span class="st">&quot;</span>, ways);</span>
+<span id="cb1-61"><a href="#cb1-61"></a>}</span></code></pre></div>

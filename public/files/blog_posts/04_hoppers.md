@@ -1,3 +1,22 @@
+---
+title: B. Hoppers
+description: 2018 ICPC Asia Singapore Regional Contest, Problem B Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2021-02-16 21:30+11:00
+lastModified: 2021-02-16 21:30+11:00
+notes: ''
+tags:
+- competitive programming
+- icpc
+- asiasg
+menu:
+  groups:
+  - 2018_asiasg_icpc_regionals
+  submenus: []
+name: 04_hoppers
+---
+
 _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.com/problems)_
 
 Suppose the graph is split into $M$ components. For the hopper to spread to all other nodes, then clearly we will have to connect all of these components at some points. The minimum number of edges required for this is $M-1$.
@@ -14,7 +33,8 @@ Now we handle the case where there are no good components. It can be shown that 
 Therefore, if there are no good components, then the answer is $M$. If there is at least one good component, the answer is $M-1$. The complexity of this algorithm is $O(N)$, which is the complexity of using the DFS's to detect odd cycles and count components.
 
 ## C++
-<pre class="line-numbers"><code class="language-c++">#include <bits/stdc++.h>
+```{.cpp .numberLines}
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -69,4 +89,4 @@ int main () {
 	if (atleastonegood) printf("%d\n", cnt-1);
 	else printf("%d\n", cnt);
 }
-</code></pre>
+```

@@ -1,0 +1,28 @@
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<p>The problem asks for the number of days free food is available. However, we have to careful not to double count days, since we only care if there is free food at <em>any</em> event on a given day.</p>
+<p>Since the bounds are very small, we can simply keep track of the free food days in an array <span class="math inline">\(food\)</span>. For each day, we store whether there was free food on that day or not. We update the array by looping through it for every single event. At the end, we simply count up the number of days that contain free food.</p>
+<p>This solution runs in <span class="math inline">\(O(365 * N)\)</span> time, since each event could make us potentially loop through all 365 days.</p>
+<blockquote>
+<p>Note that there exists an <span class="math inline">\(O(N \log N)\)</span> solution which runs faster in the worst case, but is overkill to implement for this question when the bounds are so small.</p>
+</blockquote>
+<h2 id="c">C++</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">#define MAXN </span><span class="dv">400</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="dt">bool</span> food[MAXN];</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="dt">int</span> N;</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;N);</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        <span class="dt">int</span> a, b;</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        scanf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> </span><span class="sc">%d</span><span class="st">&quot;</span>, &amp;a, &amp;b);</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        <span class="cf">for</span> (<span class="dt">int</span> j = a; j &lt;= b; j++) food[j] = <span class="kw">true</span>;</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    }</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= <span class="dv">365</span>; i++) cnt += food[i];</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, cnt);</span>
+<span id="cb1-20"><a href="#cb1-20"></a>}</span></code></pre></div>

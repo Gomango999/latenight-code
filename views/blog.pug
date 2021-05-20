@@ -4,8 +4,7 @@ block head
   title #{blog.title + " - Late Night Code"} 
   
   link(rel='stylesheet' href='/styles/blog.css')
-  link(rel='stylesheet' href='/styles/prism.css')
-  script(src='/scripts/prism.js')
+  link(rel='stylesheet' href='/styles/syntax-highlighting.css')
   
   link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css' integrity='sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X' crossorigin='anonymous')
       
@@ -20,7 +19,7 @@ block content
     a(href='/')
       img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo')
     a(href='/blog/').blog-link
-      h1.display.white Blog 
+      h1.display.white.mt-0 Blog 
     
 
   .container-fluid.pb-5
@@ -28,7 +27,7 @@ block content
       #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content
         .row
           .col-12
-            h1 #{blog.title}
+            h1.mb-0 #{blog.title}
         .row.info.mt-3
           .col-6
             img(id='profile-picture' class='float-left' src=blog.author.image alt='Profile Picture')

@@ -3,5 +3,5 @@
     ".git",
     "node_modules"
   ],
-  "ext": "js,json,md"
+  "ext": "js,json,md,html"
 }

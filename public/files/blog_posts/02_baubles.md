@@ -1,3 +1,17 @@
+---
+title: 1. Baubles
+description: 2020 AIO Problem 1 Solution
+author: Kevin Zhu
+public: true
+uploadDate: 2020-09-09 00:00+11:00
+lastModified: 2020-09-09 00:00+11:00
+notes: ''
+tags:
+- competitive programming
+- aio
+name: 02_baubles
+---
+
 If `rp` is 0, then Olaf will paint all his spares blue. Hence, we just to make sure that he fails the blue order, in which case, we print `max(s+bo-(bp-1), 0)`. Note that we use max here, in the case where Olaf was not able to fulfil the order to begin with. In this case, we do not need to destroy any baubles. Similarly, if `bp` is 0, then we print `max(s+ro-(rp-1), 0)`
 
 Now notice that given the option to destroy a red, blue, or spare bauble, we always want to destroy spare baubles first, since they have the most versatility. Thus, we calculate the number of spare baubles Olaf needs to paint as `needed = max(rp-ro,0) + max(bp-bo,0)`. If `s < needed`, then Olaf doesn't have spare baubles to make the order, so we don't need to destroy any baubles. Otherwise, we destroy as many spare baubles as we can so that Olaf cannot meet the criteria. This is given by `min(s, s - (needed-1))`.
@@ -5,7 +19,9 @@ Now notice that given the option to destroy a red, blue, or spare bauble, we alw
 Finally, if Olaf originally had enough red and blue baubles to meet the order without painting any spares, we have to destroy some blues and reds to make this impossible. We take the minimum of deleting blues and deleting reds, since we only need to ruin one of the colours to ensure that Olaf cannot meet the order. This is given by `min(ro-(rp-1), bo-(bp-1))`.
 
 ## C++ Solution
-<pre class="line-numbers"><code class="language-c++">#include <cstdio>
+```{.cpp .numberLines}
+#include <cstdio>
+#include <algorithm>
 #include <algorithm>
 using namespace std;
 
@@ -52,4 +68,4 @@ int main () {
     printf("%d\n", ans);
     return 0;
 }
-</code></pre>
+```

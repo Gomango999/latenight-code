@@ -39,8 +39,7 @@ print("Hello World!")
 And here is the command to compile
 ```sh
 pandoc ./public/files/blog_posts/sandbox.md -o ./public/files/blog_posts/out/sandbox.html --mathjax
-pandoc ./public/files/blog_posts/sandbox.md -o ./public/files/blog_posts/out/sandbox_full
-.html --mathjax --standalone
+pandoc ./public/files/blog_posts/sandbox.md -o ./public/files/blog_posts/out/sandbox_full.html --mathjax --standalone
 ```
 
 ## Lists

@@ -5,7 +5,7 @@
 }
 
 .outline {
-  border: 1px solid rgb(94, 92, 101);
+  border: 1px solid #545869;
   border-radius: 3px;
 }
 
@@ -50,7 +50,7 @@ h1.display {
 
 .content {
   margin-top: 120px;
-  background-color: #211f25;
+  background-color: #191f2b;
 }
 
 a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-link:focus {
@@ -67,7 +67,7 @@ a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-
 	font-size: 16px;
 	white-space: nowrap;
 	overflow: hidden;
-	border-left: 3px #211f25 solid;
+	border-left: 3px #11161f solid;
   line-height: 1.5em;
 }
 a > li{
@@ -103,13 +103,13 @@ ul > li.dead-link:hover {
 }
 
 a.blogpostcard {
-  color: #dfdfdf;
+  color: #e2e2e2;
   margin-left: 48px;
   margin-right: 48px;
 }
 
 .blogpostcard:hover {
-  background-color: #312e37;
+  background-color: #2a3241;
   text-decoration: none;
   cursor: pointer;
 }

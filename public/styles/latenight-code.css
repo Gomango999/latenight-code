@@ -81,10 +81,12 @@ pre {
   padding: 5px 2px;
   border-radius: 5px;
   background-color: #1f2430;
+  font-size: 0.9em;
 }
 code {
   color: #cbccc6; /*default text colour*/
   background-color: #1f2430;
+  font-size: 0.9em;
 }
 div.sourceCode {
   background-color: #1f2430;
@@ -96,12 +98,12 @@ pre.sourceCode {
 /* Fix number background */
 pre.sourceCode.numberSource.numberLines {
   margin-left: 0px;
-  border-left: 48px #252c39 solid; /*secondary background colour*/
-  padding-left: 10px;
+  border-left: 48px #252c39 solid; /*secondary background colour */
 }
 code.sourceCode {
-  background-color: #1f2430;
+  background-color: transparent;
   display: block;
+  padding-left: 6px;
 }
 pre:not(.sourceCode) {
   padding-left: 8px;
@@ -113,7 +115,6 @@ code.sourceCode a {
   color: #5c6773; /*comment colour*/
   pointer-events: none;
   text-decoration: none;
-  width: 5em;
   margin-right: 2px;
 }
 code.sourceCode a:before {

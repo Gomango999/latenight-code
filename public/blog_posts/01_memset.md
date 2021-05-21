@@ -23,7 +23,7 @@ int main () {
 ```
 But what does it mean, and how can we take advantage of it in our own code? First lets have a look at what `memset` is.
 
-## What is memset?
+## What is Memset?
 `memset` is a function from the `cstring` library. According to [cplusplus.com](http://www.cplusplus.com/reference/cstring/memset/), we have:
 > `void * memset ( void * ptr, int value, size_t num );`
 >
@@ -59,7 +59,7 @@ Notice how the definition tells us that `value` is converted into type `unsigned
 
 Notice that the reason that `0` and `-1` work is because their `unsigned char` conversion repeated 4 times is equal to its integer representation in memory. However, this is generally not true, as we see with the case of `1`.
 
-## Usage
+## When To Use It
 Now that we're aware of that pitfall, we can investigate how we can use this to our advantage in competitive programming. It is commonly the case that we need to initialise some sort (potentially multidimensional) array to INT_MAX, like so:
 ```{.cpp .numberLines}
 int dp[R][C];

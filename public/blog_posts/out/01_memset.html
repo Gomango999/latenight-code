@@ -7,7 +7,7 @@
 <span id="cb1-6"><a href="#cb1-6"></a>  <span class="co">//...</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a>}</span></code></pre></div>
 <p>But what does it mean, and how can we take advantage of it in our own code? First lets have a look at what <code>memset</code> is.</p>
-<h2 id="what-is-memset">What is memset?</h2>
+<h2 id="what-is-memset">What is Memset?</h2>
 <p><code>memset</code> is a function from the <code>cstring</code> library. According to <a href="http://www.cplusplus.com/reference/cstring/memset/">cplusplus.com</a>, we have: &gt; <code>void * memset ( void * ptr, int value, size_t num );</code> &gt; &gt; Sets the first num bytes of the block of memory pointed by <em>ptr</em> to the specified <em>value</em> (interpreted as an <code>unsigned char</code>).</p>
 <p>In other words, memset replaces the first <code>num</code> bytes in memory to become equal to <code>value</code>. For example <code>memset(dp, 0, sizeof(dp))</code> allows us to initialise an array to all <code>0</code> in one line.</p>
 <p>So memset is a cool one liner that allows me to initialise my array to any value right? Well, not quite….</p>
@@ -27,7 +27,7 @@ c = {16843009, 16843009, 16843009}</code></pre>
 <p>What? <code>memset</code> worked for 0 and -1, but gave some strange value for 1!</p>
 <p>Notice how the definition tells us that <code>value</code> is converted into type <code>unsigned char</code> before use, which only holds 1 byte of information. The trap is that memset only fills one <strong>byte</strong> at a time. If our array is of type <code>int</code>, with 4 bytes in an <code>int</code>, then memset will fill every <code>int</code> with the same byte repeated 4 times. Lets look at what these looks like for these 3 numbers: - <code>(unsigned char)(0)</code> = <code>0x00</code> which when repeated 4 times gives <code>0x00000000</code> = <code>0</code> - <code>(unsigned char)(-1)</code> = <code>0xff</code> which when repeated 4 times gives <code>0xffffffff</code> = <code>-1</code> - <code>(unsigned char)(1)</code> = <code>0x01</code> which when repeated 4 times gives <code>0x01010101</code> = <code>16843009</code></p>
 <p>Notice that the reason that <code>0</code> and <code>-1</code> work is because their <code>unsigned char</code> conversion repeated 4 times is equal to its integer representation in memory. However, this is generally not true, as we see with the case of <code>1</code>.</p>
-<h2 id="usage">Usage</h2>
+<h2 id="when-to-use-it">When To Use It</h2>
 <p>Now that we’re aware of that pitfall, we can investigate how we can use this to our advantage in competitive programming. It is commonly the case that we need to initialise some sort (potentially multidimensional) array to INT_MAX, like so:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a><span class="dt">int</span> dp[R][C];</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="cf">for</span> (<span class="dt">int</span> y = <span class="dv">0</span>; y &lt; R; y++) {</span>

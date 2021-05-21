@@ -28,6 +28,13 @@ function getBlogPostNames() {
   return blogPostNames
 }
 
+function getBlogMetadata(filename) {
+  const filepath = path.join('./public/blog_posts/', filename);
+  const rawText = fs.readFileSync(filepath, 'utf-8');
+  const markdown = metadataParser(rawText);
+  return markdown.metadata;
+}
+
 // populates the header with some additional information
 function populateHeader(blog, groups, authors) {
   // populate misc information
@@ -44,24 +51,24 @@ function populateHeader(blog, groups, authors) {
   blog.author = authors[blog.author]
 
   // populate blog menu data based on the group
-  // if ('menu' in blog && 'groups' in blog.menu) {
-  //   blog.menu.groups.forEach(groupName => {
-  //     group = groups[groupName];
-  //
-  //     let submenu = {};
-  //     submenu.title = group.title;
-  //     submenu.relatedLinks = [];
-  //     group.posts.forEach(post =>{
-  //       let relatedBlog = getBlog(post+'.json');
-  //       let link = {};
-  //       link.title = relatedBlog.title;
-  //       link.href = relatedBlog.name;
-  //       link.live = relatedBlog.public;
-  //       submenu.relatedLinks.push(link);
-  //     });
-  //     blog.menu.submenus.push(submenu);
-  //   });
-  // }
+  if ('menu' in blog && 'groups' in blog.menu) {
+    blog.menu.groups.forEach(groupName => {
+      group = groups[groupName];
+
+      let submenu = {};
+      submenu.title = group.title;
+      submenu.relatedLinks = [];
+      group.posts.forEach(post =>{
+        let relatedBlog = getBlogMetadata(`${post}.md`)
+        let link = {};
+        link.title = relatedBlog.title;
+        link.href = relatedBlog.name;
+        link.live = relatedBlog.public;
+        submenu.relatedLinks.push(link);
+      });
+      blog.menu.submenus.push(submenu);
+    });
+  }
 
   return blog;
 }
@@ -72,12 +79,7 @@ function getBlogPosts(blogPostNames) {
   let blogs = []
   let {groups, authors} = getMetadata();
   for (let i = 0; i < blogPostNames.length; i++) {
-    filename = blogPostNames[i];
-
-    const filepath = path.join('./public/blog_posts/', filename);
-    const rawText = fs.readFileSync(filepath, 'utf-8');
-    const markdown = metadataParser(rawText);
-    let blog = markdown.metadata;
+    let blog = getBlogMetadata(blogPostNames[i])
     blog = populateHeader(blog, groups, authors)
 
     if (!blog.public) continue;

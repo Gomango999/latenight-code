@@ -67,7 +67,6 @@ a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-
 	font-size: 16px;
 	white-space: nowrap;
 	overflow: hidden;
-	border-left: 3px #11161f solid;
   line-height: 1.5em;
 }
 a > li{
@@ -82,10 +81,10 @@ ul > a.live-link:hover {
   text-decoration:none;
 }
 ul > a.live-link > li:hover {
-	background-color: #292933;
+	background-color: #2a3241;
 }
 ul > li.dead-link:hover {
-	background-color: #292933;
+	background-color: #2a3241;
 }
 
 #profile-picture {

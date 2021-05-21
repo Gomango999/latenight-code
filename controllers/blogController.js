@@ -43,7 +43,7 @@ function populateHeader(blog, groups, authors) {
   blog.outpath = path.join('./public/blog_posts/out/', blog.name+'.html');
   blog.timeFromUpload = moment(blog.uploadDate).fromNow();
   blog.displayUploadDate = moment(blog.uploadDate).format('MMM D, YYYY');
-  blog.displayUploadDate = moment(blog.uploadDate).format('DD/MM/YYYY');
+  blog.displayUploadDate = moment(blog.uploadDate).format('DD-MM-YYYY');
   currDate = moment.now();
   blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
 

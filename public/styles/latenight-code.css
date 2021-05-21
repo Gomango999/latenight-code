@@ -14,6 +14,14 @@ body {
 	background-color: #080c11;
 	color: #e2e2e2;
 
+  /* aurora background */
+  background-image:
+    radial-gradient(at top left, #080c11, transparent),
+    radial-gradient(at top right, #0d0d1d, transparent),
+    radial-gradient(at bottom left, #071e3c, transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
 	/* font-family: 'Roboto', sans-serif; */
   font-family: 'Helvetica', sans-serif;
   font-size: 1em;

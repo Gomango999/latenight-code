@@ -1,6 +1,6 @@
 ---
-title: Welcome!
-description: What is Late Night Code?
+title: Welcome to Latenight Code!
+description: Find out more about who I am, and why I chose to make a site!
 author: Kevin Zhu
 public: true
 uploadDate: 2020-06-06 12:00+11:00

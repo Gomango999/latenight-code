@@ -19,8 +19,12 @@ block content
         .col.pt-3
           .row
             .col-sm-8
-              h2.mlc-blue.mt-0 #{blog.title}
+              h2.mlc-blue.mt-0.mb-2 #{blog.title}
             .col-sm-4.date 
-              i #{blog.timeFromUpload}
-            
-          p #{blog.description}
+              if blog.overOneWeek
+                i #{blog.displayUploadDate}
+              else
+                i #{blog.timeFromUpload}
+          .row.mb-2
+            .col-12
+              p #{blog.description}

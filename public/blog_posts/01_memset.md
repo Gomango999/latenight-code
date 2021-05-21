@@ -1,6 +1,6 @@
 ---
-title: Memset
-description: Using memset to speed up array initialisation.
+title: How to Use Memset
+description: Using memset to make array initialisation a breeze
 author: Kevin Zhu
 public: true
 uploadDate: 2020-06-06 14:00+11:00

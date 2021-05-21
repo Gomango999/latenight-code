@@ -5,8 +5,8 @@ const metadataParser = require('markdown-yaml-metadata-parser');
 
 // get group and author metadata
 function getMetadata() {
-  const groupFilePath = './public/files/blog_posts/metadata/groups.json'
-  const authorFilePath = './public/files/blog_posts/metadata/authors.json'
+  const groupFilePath = './public/blog_posts/metadata/groups.json'
+  const authorFilePath = './public/blog_posts/metadata/authors.json'
   const groupRawData = fs.readFileSync(groupFilePath, 'utf-8');
   const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
   const groups = JSON.parse(groupRawData);
@@ -16,7 +16,7 @@ function getMetadata() {
 
 // generate a list of compiled blog post filenames.
 function getBlogPostNames() {
-  const dir = fs.opendirSync('./public/files/blog_posts/')
+  const dir = fs.opendirSync('./public/blog_posts/')
 
   let blogPostNames = []
   let dirent
@@ -32,10 +32,13 @@ function getBlogPostNames() {
 function populateHeader(blog, groups, authors) {
   // populate misc information
   blog.url = '/'+blog.name;
-  blog.filepath = path.join('./public/files/blog_posts/', blog.name+'.md');
-  blog.outpath = path.join('./public/files/blog_posts/out/', blog.name+'.html');
+  blog.filepath = path.join('./public/blog_posts/', blog.name+'.md');
+  blog.outpath = path.join('./public/blog_posts/out/', blog.name+'.html');
   blog.timeFromUpload = moment(blog.uploadDate).fromNow();
   blog.displayUploadDate = moment(blog.uploadDate).format('MMM D, YYYY');
+  blog.displayUploadDate = moment(blog.uploadDate).format('DD/MM/YYYY');
+  currDate = moment.now();
+  blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
 
   // populate authors
   blog.author = authors[blog.author]
@@ -71,7 +74,7 @@ function getBlogPosts(blogPostNames) {
   for (let i = 0; i < blogPostNames.length; i++) {
     filename = blogPostNames[i];
 
-    const filepath = path.join('./public/files/blog_posts/', filename);
+    const filepath = path.join('./public/blog_posts/', filename);
     const rawText = fs.readFileSync(filepath, 'utf-8');
     const markdown = metadataParser(rawText);
     let blog = markdown.metadata;

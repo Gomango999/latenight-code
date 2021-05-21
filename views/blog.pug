@@ -23,8 +23,8 @@ block content
     
 
   .container-fluid.pb-5
-    .row
-      #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content
+    .row.pt-6
+      #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content.mb-5
         .row
           .col-12
             h1.mb-0 #{blog.title}
@@ -40,13 +40,12 @@ block content
           .col-12
             p!= blog.content 
       if blog.menu && blog.menu.submenus.length
-        #menu-container.col-md-12.offset-md-0.col-lg-8.offset-lg-2
+        #menu-container.col-md-6.offset-md-0.col-lg-4.offset-lg-2
           .row
-            #menu.col-12.card.content
+            #menu.col-12.card.content.pt-4
               each submenu in blog.menu.submenus
-                .row.mb-5
+                .row
                   .col-12
-                    hr
                     h4 #{submenu.title}
                     ul
                       each link in submenu.relatedLinks

@@ -48,8 +48,11 @@ h1.display {
   }
 }
 
+.container-fluid {
+  padding-top: 120px;
+}
+
 .content {
-  margin-top: 120px;
   background-color: #191f2b;
 }
 
@@ -70,7 +73,7 @@ a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-
   line-height: 1.5em;
 }
 a > li{
-  color: #a8d8e3;
+  color: #abf0ff;
 }
 li.dead-link {
   color: #acacac;

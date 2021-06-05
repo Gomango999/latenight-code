@@ -1,1 +1,123 @@
-
+<p><em>Problem Source: <a href="https://asiasg18.kattis.com/problems">2018 Asia Singapore ICPC Regionals</a></em></p>
+<blockquote>
+<p><em>Note: My solution is based on the solution presented in the official contest writeup. You can the slides <a href="https://www.comp.nus.edu.sg/~acmicpc/icpcsg18-analysis_SHU.pdf">here</a>. My aim is to provide just a little more detail, for those who are also looking to upsolve.</em></p>
+</blockquote>
+<p>This problem was definitely the hardest one in the competition, with no teams solving it in the given time limit. While technically there is nothing too challenging about the implementation, the observations and proofs required to reach that solution are quite difficult to spot.</p>
+<h3 id="naive-dynamic-programming-solution">Naive Dynamic Programming Solution</h3>
+<p>We define ‘segments’ as substrings of <span class="math inline">\(S\)</span> such that if you change one of the letters within the segment, the entire segment becomes the same letter (and is turned into asterisks). We also ensure that the segment is as large as possible. E.g. if <code>"aabac"</code> is a string, <code>"aab"</code> is not a valid segment, since it is contained within the longer segment <code>"aaba"</code></p>
+<p>We now find some nice properties of segments. Firstly, any two segments that share the same left endpoint or the same right endpoint must be the same segment. This means that we can naturally sort the segments from left to right, and the number of these segments is at most <span class="math inline">\(O(|S|)\)</span>. Furthermore the maximum size of a segment is length 5, being of the pattern <code>"aabaa"</code>. Using these facts, we can find all segments of <span class="math inline">\(S\)</span> in <span class="math inline">\(O(|S|)\)</span> time by just testing every starting point and segment length.</p>
+<p>Then a brute force dynamic programming solution would be defining a function <span class="math inline">\(f(i, j, k)\)</span> which returns the maximum number of asterisks if you were only working on the substring <span class="math inline">\(s[i:j]\)</span> with <span class="math inline">\(k\)</span> conversions. Suppose segment <span class="math inline">\(s\)</span> has left side <span class="math inline">\(s_x\)</span> and right side <span class="math inline">\(s_y\)</span>. Then <span class="math display">\[f(i, j, k) = \max_{s \in segments} \max_{0 \le l &lt; k} f(i, s_x, l) + (s_y - s_x) + f(s_y, j, (k-1)-l).\]</span></p>
+<p>Unfortunately, this has complexity at least <span class="math inline">\(O(|S|^2 K)\)</span>, so this is too slow. We maintain our observations about segments, but try a different approach.</p>
+<h3 id="weighted-interval-scheduling-solution">Weighted Interval Scheduling Solution</h3>
+<p>Note how we are essentially choosing non-overlapping segments of <span class="math inline">\(S\)</span> and maximising their sizes (with some caveats, we will explain later). This bears alot of similarity to the Weighted Interval Scheduling Problem (WISP), which defines the following problem: Given a set of intervals each with their own weight, find a set of intervals such that none of them are overlapping, and the weight is maximised. This problem can be solved with dynamic programming, where <span class="math inline">\(dp[i][k]\)</span> is the maximum score within the first <span class="math inline">\(i\)</span> letters, and using at most <span class="math inline">\(k\)</span> intervals. Assuming there are <span class="math inline">\(N\)</span> segments, the complexity is amortised <span class="math inline">\(O(|S|K + KN)\)</span></p>
+<p>But we cannot apply WISP directly, since certain strings allow you to choose intervals that are otherwise overlapping. For example, consider the string <code>"abaacaa"</code> which has overlapping segments <code>"abaa"</code> and <code>"aacaa"</code>. However, we can “choose both segments” by first selecting <code>"abaa"</code>, and then selecting the remaining <code>"caa"</code>. To handle this case we simply treat <code>"caa"</code> as it’s own segment. We call the original segments “single” segments, and new segments of this form “extended” segments. Though this may seem incorrect, since in theory WISP might choose the extended segment in isolation as part of the optimal solution, it can be shown that we can always modify such a solution so that the segment immediately to the left (or right, depending on how the extension was generated) of the extended segment is chosen.</p>
+<p>In order to generate extended segments, we find the intersections between overlapping segments. Specifically, [a,b] is an extended segment if its size is 3 or greater, and there is an interval [l,r] in the set of single segments which can be cut into [a,b] by other overlapping segments. There are three cases of this occuring:</p>
+<div class="centering w-100 my-4">
+<figure>
+<img src="/images/blog/14_magic/01.png" style="width:50.0%" alt="Three cases for generating extensions. The generated extended segment is marked in purple" /><figcaption aria-hidden="true"><em>Three cases for generating extensions. The generated extended segment is marked in purple</em></figcaption>
+</figure>
+</div>
+<p>We can find extensions of case 1 and 2 by simply comparing every pair of single extensions. For case 3, we observe that if we were to sort all segments in an array, since the segments are at most length 5 and start points are unique, any intersecting segment of a segment <span class="math inline">\(s\)</span> must have a distance of at most 5 from <span class="math inline">\(s\)</span> in the sorted order. Hence we can calculate these extensions in <span class="math inline">\(O(|S|^2 + 25|S|)\)</span> time. Once we have these, we run WISP in order to obtain our final solution.</p>
+<h2 id="coded-solution">Coded Solution</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">long</span> ll;</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">typedef</span> pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt; pii;</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="pp">#define x </span>first</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="pp">#define y </span>second</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="pp">#define pb </span>push_back</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="pp">#define all</span>(x)<span class="pp"> </span>x.begin(),<span class="pp"> </span>x.end()</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="pp">#define sz</span>(x)<span class="pp"> </span><span class="dt">int</span>(x.size())</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="pp">#define rep</span>(i,<span class="pp"> </span>n)<span class="pp"> </span><span class="cf">for</span><span class="pp"> </span>(<span class="dt">int</span><span class="pp"> </span>i<span class="pp"> </span>=<span class="pp"> </span><span class="dv">0</span>;<span class="pp"> </span>i<span class="pp"> </span>&lt;<span class="pp"> </span>(n);<span class="pp"> </span>i++)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="pp">#define MAXN </span><span class="dv">1005</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="pp">#define MAXK </span><span class="dv">1005</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="dt">void</span> solve() {</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    string s;</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    cin &gt;&gt; s;</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="dt">int</span> N = s.length();</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="dt">int</span> K;</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    cin &gt;&gt; K;</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>    <span class="cf">if</span> (N &lt; <span class="dv">3</span>) {</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        printf(<span class="st">&quot;0</span><span class="sc">\n</span><span class="st">&quot;</span>);</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        <span class="cf">return</span>;</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    }</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>    <span class="co">// find singles</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    vector&lt;pii&gt; segs;</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N-<span class="dv">2</span>; i++) {</span>
+<span id="cb1-30"><a href="#cb1-30"></a>        <span class="co">// printf(&quot;%d\n&quot;, i);</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a>        <span class="dt">char</span> a = s[i], b = s[i+<span class="dv">1</span>], c = s[i+<span class="dv">2</span>];</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        <span class="dt">char</span> mode = -<span class="dv">1</span>;</span>
+<span id="cb1-33"><a href="#cb1-33"></a>        <span class="cf">if</span> (a == b) mode = a;</span>
+<span id="cb1-34"><a href="#cb1-34"></a>        <span class="cf">if</span> (a == c) mode = a;</span>
+<span id="cb1-35"><a href="#cb1-35"></a>        <span class="cf">if</span> (b == c) mode = b;</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        <span class="cf">if</span> (mode == -<span class="dv">1</span>) <span class="cf">continue</span>;</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        <span class="dt">int</span> j = i+<span class="dv">3</span>;</span>
+<span id="cb1-38"><a href="#cb1-38"></a>        <span class="cf">while</span> (j &lt; N &amp;&amp; s[j] == mode) j++;</span>
+<span id="cb1-39"><a href="#cb1-39"></a>        <span class="cf">if</span> (segs.empty() || j &gt; segs.back().y) segs.pb({i, j});</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    }</span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="co">// generate single cut extensions</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>    <span class="dt">int</span> M = sz(segs);</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    rep(i, M) <span class="cf">for</span> (<span class="dt">int</span> j = i+<span class="dv">1</span>; j &lt; M; j++) {</span>
+<span id="cb1-45"><a href="#cb1-45"></a>        pii a = segs[i]; <span class="co">// left segment</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a>        pii b = segs[j]; <span class="co">// right segment</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>        <span class="ot">assert</span>(a.x &lt;= b.x &amp;&amp; a.y &lt;= b.y); <span class="co">// assumes segs is sorted</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a></span>
+<span id="cb1-49"><a href="#cb1-49"></a>        <span class="cf">if</span> (a.y &lt;= b.x) <span class="cf">continue</span>; <span class="co">// no intersection</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a></span>
+<span id="cb1-51"><a href="#cb1-51"></a>        <span class="cf">if</span> (b.x - a.x &gt;= <span class="dv">3</span>) segs.pb({a.x, b.x});</span>
+<span id="cb1-52"><a href="#cb1-52"></a>        <span class="cf">if</span> (b.y - a.y &gt;= <span class="dv">3</span>) segs.pb({a.y, b.y});</span>
+<span id="cb1-53"><a href="#cb1-53"></a>    }</span>
+<span id="cb1-54"><a href="#cb1-54"></a></span>
+<span id="cb1-55"><a href="#cb1-55"></a>    <span class="co">// generate double cut extensions</span></span>
+<span id="cb1-56"><a href="#cb1-56"></a>    rep(i, M) {</span>
+<span id="cb1-57"><a href="#cb1-57"></a>        <span class="co">// since segs is sorted and max size of an interval is 5,</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a>        <span class="co">// anything that intersects a segment must be within 5 of it in segs.</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a>        <span class="cf">for</span> (<span class="dt">int</span> j = i-<span class="dv">5</span>; j &lt;= i; j++) {</span>
+<span id="cb1-60"><a href="#cb1-60"></a>            <span class="cf">if</span> (j &lt; <span class="dv">0</span> || j &gt; M) <span class="cf">continue</span>;</span>
+<span id="cb1-61"><a href="#cb1-61"></a>            <span class="cf">for</span> (<span class="dt">int</span> k = i; k &lt;= i+<span class="dv">5</span>; k++) {</span>
+<span id="cb1-62"><a href="#cb1-62"></a>                <span class="cf">if</span> (k &lt; <span class="dv">0</span> || k &gt; M) <span class="cf">continue</span>;</span>
+<span id="cb1-63"><a href="#cb1-63"></a>                pii a = segs[i]; <span class="co">// middle segment</span></span>
+<span id="cb1-64"><a href="#cb1-64"></a>                pii b = segs[j]; <span class="co">// left segment</span></span>
+<span id="cb1-65"><a href="#cb1-65"></a>                pii c = segs[k]; <span class="co">// right segment</span></span>
+<span id="cb1-66"><a href="#cb1-66"></a></span>
+<span id="cb1-67"><a href="#cb1-67"></a>                <span class="cf">if</span> (b.y &lt;= a.x) <span class="cf">continue</span>; <span class="co">// no intersect between ab</span></span>
+<span id="cb1-68"><a href="#cb1-68"></a>                <span class="cf">if</span> (c.x &gt;= a.y) <span class="cf">continue</span>; <span class="co">// no intersect between ac</span></span>
+<span id="cb1-69"><a href="#cb1-69"></a>                <span class="cf">if</span> (c.x - b.y &lt; <span class="dv">3</span>) <span class="cf">continue</span>; <span class="co">// middle is not big enough</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a></span>
+<span id="cb1-71"><a href="#cb1-71"></a>                segs.pb({b.y, c.x});</span>
+<span id="cb1-72"><a href="#cb1-72"></a>            }</span>
+<span id="cb1-73"><a href="#cb1-73"></a>        }</span>
+<span id="cb1-74"><a href="#cb1-74"></a>    }</span>
+<span id="cb1-75"><a href="#cb1-75"></a></span>
+<span id="cb1-76"><a href="#cb1-76"></a>    vector&lt;<span class="dt">int</span>&gt; starts[MAXN];</span>
+<span id="cb1-77"><a href="#cb1-77"></a>    <span class="cf">for</span>(pii seg : segs) starts[seg.y].pb(seg.x);</span>
+<span id="cb1-78"><a href="#cb1-78"></a></span>
+<span id="cb1-79"><a href="#cb1-79"></a>    <span class="co">// run dp (WISP)</span></span>
+<span id="cb1-80"><a href="#cb1-80"></a>    <span class="co">// weight of interval is equal to its size</span></span>
+<span id="cb1-81"><a href="#cb1-81"></a>    <span class="dt">int</span> dp[MAXN][MAXK] = {{<span class="dv">0</span>}}; <span class="co">// max score to get to &lt;= i with &lt;= k</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= N; i++) {</span>
+<span id="cb1-83"><a href="#cb1-83"></a>        <span class="cf">for</span> (<span class="dt">int</span> k = <span class="dv">1</span>; k &lt;= K; k++) {</span>
+<span id="cb1-84"><a href="#cb1-84"></a>            dp[i][k] = max(dp[i][k], dp[i][k-<span class="dv">1</span>]);</span>
+<span id="cb1-85"><a href="#cb1-85"></a>            dp[i][k] = max(dp[i][k], dp[i-<span class="dv">1</span>][k]);</span>
+<span id="cb1-86"><a href="#cb1-86"></a>            <span class="cf">for</span> (<span class="dt">int</span> start : starts[i]) {</span>
+<span id="cb1-87"><a href="#cb1-87"></a>                dp[i][k] = max(dp[i][k], dp[start][k-<span class="dv">1</span>] + i-start);</span>
+<span id="cb1-88"><a href="#cb1-88"></a>            }</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        }</span>
+<span id="cb1-90"><a href="#cb1-90"></a>    }</span>
+<span id="cb1-91"><a href="#cb1-91"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, dp[N][K]);</span>
+<span id="cb1-92"><a href="#cb1-92"></a>}</span>
+<span id="cb1-93"><a href="#cb1-93"></a></span>
+<span id="cb1-94"><a href="#cb1-94"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-95"><a href="#cb1-95"></a>    ios_base::sync_with_stdio(<span class="dv">0</span>); cin.tie(<span class="dv">0</span>);</span>
+<span id="cb1-96"><a href="#cb1-96"></a></span>
+<span id="cb1-97"><a href="#cb1-97"></a>    <span class="dt">int</span> T = <span class="dv">0</span>;</span>
+<span id="cb1-98"><a href="#cb1-98"></a>    cin &gt;&gt; T;</span>
+<span id="cb1-99"><a href="#cb1-99"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; T; i++) {</span>
+<span id="cb1-100"><a href="#cb1-100"></a>        solve();</span>
+<span id="cb1-101"><a href="#cb1-101"></a>    }</span>
+<span id="cb1-102"><a href="#cb1-102"></a>}</span></code></pre></div>

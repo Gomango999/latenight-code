@@ -27,7 +27,7 @@ We do this by taking each bit from the most significant to the least significant
 
 The reason this greedy solution works is as follows: Let's consider the first iteration, where $X = 0$ and $i = 31$, so $X \mid 2^{i} = 2^{31}$. If $can(2^{31})$ returns true, then we know that the answer is at least $2^{31}$. This means that the answer must have the $31^{st}$ bit set, since any number without the $31^{st}$ bit set is necessarily smaller than $2^{31}$ and hence suboptimal. Likewise, if there was an answer with the $31^{st}$ bit set, then $can(2^{31})$ must also return true by definition. Thus, if $can(2^{31})$ is false, then the final answer's $31^{st}$ bit must be unset. Hence, by the end of the first iteration, we know the first bit of our answer. Once we have fixed the $31^{st}$ bit, we can then apply the same logic to fix the $30^{th}$ bit, then the $29^{th}$ bit and so on.
 
-#### Finding a Segmentation 
+#### Finding a Segmentation
 To implement $can(X)$, we choose a set of 'starting points', which correspond to indexes in the array $A$. For each starting point, we start a section there, then greedily make new sections by iterating along $A$ and ending a section as soon as it's bitwise $\texttt{OR}$ contains $X$. Notice how if we have a section that contains $X$, then adding more numbers to it will never change the fact that it contains $X$, so it never makes sense to add more then necessary to a section. If at any point we finish $K$ sections, then we can simply append the remaining numbers into the last section and return true. If we couldn't make $K$ sections for any of the starting points, then we return false.
 
 One way to choose starting points would be simply the set of all numbers from $1$ to $N$, but this is too slow. Observe that not all of these starting points are useful. For example if $A_i = 0$, then we might as well never consider $i+1$ as a starting point, since which section $A_i$ falls into is incosequential. In fact, we can get away with as little as only $31$ start points! We let the $i^{th}$ starting point $start[i]$ be the index after which the $i^{th}$ bit first appears in $A$. In other words, all the numbers $A_1, ... A_{start[i]}$ should not contain have the $i^{th}$ bit set, but $A_{start[i]}$ should.
@@ -42,6 +42,7 @@ Hence, if our segment does not end right before a start point, we can always kee
 
 In terms of complexity, generating start points takes $O(N\log N)$, $can(X)$ takes $O(N \log N)$ and we run it $\log N$ times to work out each bit. Hence, our final complexity is $O(N \log^2 N)$
 
+## Coded Solution
 ```{.cpp .numberLines}
 #include <bits/stdc++.h>
 using namespace std;

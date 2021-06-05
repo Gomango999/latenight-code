@@ -77,7 +77,7 @@ Though the main idea is still the same, the code presented here is little ineffi
 
 - I used $60$ instead of $50$ as the estimate for $\log K$ to be safe.
 - Instead of jumping directly to the node that was $60$ from the bottom, I instead did an unecessary binary search to find the largest $k$ such that $f^k(S)$'s first digit had a subtree size greater than or equal to $K$.
-- For `fksize`, I forgot that the largest $k$ it would have to handle was $60$, so I implemented an alternate solution using matrix exponentiation to handle arbritrary $K$ in $\log(K)$ time.
+- For `fksize`, I forgot that the largest $k$ it would have to handle was $60$, so I implemented an alternate solution using matrix exponentiation to handle arbitrary $K$ in $\log(K)$ time.
 
 
 ```{.cpp .numberLines}

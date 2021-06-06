@@ -56,6 +56,8 @@ h1.display {
   background-color: #191f2b;
 }
 
+
+/* Blog Menus */
 a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-link:focus {
   text-decoration:none;
 }
@@ -96,6 +98,12 @@ ul > li.dead-link:hover {
 }
 .info {
   font-size: 0.9em;
+}
+
+/* Maths */
+span.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* Blog Post List */

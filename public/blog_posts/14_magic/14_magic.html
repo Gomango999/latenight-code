@@ -14,7 +14,7 @@
 <p>In order to generate extended segments, we find the intersections between overlapping segments. Specifically, [a,b] is an extended segment if its size is 3 or greater, and there is an interval [l,r] in the set of single segments which can be cut into [a,b] by other overlapping segments. There are three cases of this occuring:</p>
 <div class="centering w-100 my-4">
 <figure>
-<img src="/images/blog/14_magic/01.png" style="width:50.0%" alt="Three cases for generating extensions. The generated extended segment is marked in purple" /><figcaption aria-hidden="true"><em>Three cases for generating extensions. The generated extended segment is marked in purple</em></figcaption>
+<img src="/blog_posts/14_magic/images/01.png" style="width:50.0%" alt="Three cases for generating extensions. The generated extended segment is marked in purple" /><figcaption aria-hidden="true"><em>Three cases for generating extensions. The generated extended segment is marked in purple</em></figcaption>
 </figure>
 </div>
 <p>We can find extensions of case 1 and 2 by simply comparing every pair of single extensions. For case 3, we observe that if we were to sort all segments in an array, since the segments are at most length 5 and start points are unique, any intersecting segment of a segment <span class="math inline">\(s\)</span> must have a distance of at most 5 from <span class="math inline">\(s\)</span> in the sorted order. Hence we can calculate these extensions in <span class="math inline">\(O(|S|^2 + 25|S|)\)</span> time. Once we have these, we run WISP in order to obtain our final solution.</p>

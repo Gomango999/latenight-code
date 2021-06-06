@@ -40,7 +40,7 @@ But we cannot apply WISP directly, since certain strings allow you to choose int
 In order to generate extended segments, we find the intersections between overlapping segments. Specifically, [a,b] is an extended segment if its size is 3 or greater, and there is an interval [l,r] in the set of single segments which can be cut into [a,b] by other overlapping segments. There are three cases of this occuring:
 
 <div class="centering w-100 my-4">
-![_Three cases for generating extensions. The generated extended segment is marked in purple_](/images/blog/14_magic/01.png){width=50%}
+![_Three cases for generating extensions. The generated extended segment is marked in purple_](/blog_posts/14_magic/images/01.png){width=50%}
 </div>
 
 We can find extensions of case 1 and 2 by simply comparing every pair of single extensions. For case 3, we observe that if we were to sort all segments in an array, since the segments are at most length 5 and start points are unique, any intersecting segment of a segment $s$ must have a distance of at most 5 from $s$ in the sorted order. Hence we can calculate these extensions in $O(|S|^2 + 25|S|)$ time. Once we have these, we run WISP in order to obtain our final solution.

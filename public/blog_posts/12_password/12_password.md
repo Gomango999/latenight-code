@@ -22,7 +22,7 @@ _Problem Source: [2018 Asia Singapore ICPC Regionals](https://asiasg18.kattis.co
 We visualise this problem as a tree. The root is an empty node, and it's children are the letters of $S$. If a node has character $\alpha$, then the children of each node are the letters in string $T_\alpha$. Each level of the tree represents a single application of the function $f$, so that that the final password $f^K(S)$ is represented by the leaves of the tree with depth $K+2$. However, expanding the whole tree is clearly too expensive, since we can have up to $50^{10^{15}} \simeq 10^{1698970004336019}$ letters (leaves) in the final string.
 
 <div class="centering w-100 my-4">
-![_The Tree Representation of the Problem_](/images/blog/12_password/password_01.png){width=90%}
+![_The Tree Representation of the Problem_](/blog_posts/12_password/images/password_01.png){width=90%}
 </div>
 
 #### Recursive Expansion
@@ -30,7 +30,7 @@ We visualise this problem as a tree. The root is an empty node, and it's childre
 Suppose we had a method of `fksize(char c, int k)`, which given a character $c$ and a number $k$, will work out the _size_ of $f^k(c)$. Then a better solution would be to start at the root of the tree, and evaluate the size of each its children after $K$ expansions. This tells us which child's expansion houses $m_i$, so we recurse to that child and apply the same algorithm again with $K-1$ expansions instead. We can repeat this until we reach a leaf. This is marginally better, since we don't have to store the whole tree, but we still have to explore at least $\mathit{tree\ height} \times 50$ nodes, which is still too expensive given $K$ goes up to $10^{15}$.
 
 <div class="centering w-100 my-4">
-![_Nodes explored in the expansion. Correct path marked in purple._](/images/blog/12_password/password_02.png){width=90%}
+![_Nodes explored in the expansion. Correct path marked in purple._]/blog_posts/12_password/images/password_02.png){width=90%}
 </div>
 
 One observation to make is that $m_i \le 10^{15}$. This means that even though the tree can grow extremely large, we only care about a small fraction of the leaves to the left of the tree. Therefore, for large $K$, at each iteration of our expansion, it is more than likely that $m_i$ will lie in the expansion of the first character.
@@ -40,14 +40,14 @@ One observation to make is that $m_i \le 10^{15}$. This means that even though t
 To find out how many times we should recursively expand the first character, recall that the smallest value for any $T$ is 2, so the tallest tree that will contain all of the first $10^{15}$ leaves has a height of $\log_2(10^{15}) \simeq 49.82 < 50$. This tells us that no matter how big $K$ is, all we need to do is keep recursing down the first child of the tree until we are at a depth of 50 from the end, then run our recursive expansion solution from that subtree for each $m_i$. Furthermore, this subtree is uniquely defined by the character at it's root. Hence, if we have a way to calculate that character, then we can also skip the entire recursion down the tree, and only deal with a tree of depth 50, which is far more managable.
 
 <div class="centering w-100 my-4">
-![_Nodes explored in the recursive expansion by level._](/images/blog/12_password/password_03.png){width=90%}
+![_Nodes explored in the recursive expansion by level._](/blog_posts/12_password/images/password_03.png){width=90%}
 </div>
 
 
 Let's define the function `fkfirst(char c, int k)`. Given a character $c$ and a number $k$, it will work out the first character of $f^k(c)$. We can solve this particular problem using knowledge of vortex graphs. Let each character have a node representing it in the graph. Each character will have an edge pointing towards the first letter in its corresponding $T$. Then, recursing down the first child of the tree $K$ times is equivalent to following the singular outgoing edge from each node $K$ times.
 
 <div class="centering w-100 my-4">
-![_Sample graph of letters. Cycles are marked in purple,_](/images/blog/12_password/password_04.png){width=80%}
+![_Sample graph of letters. Cycles are marked in purple,_](/blog_posts/12_password/images/password_04.png){width=80%}
 </div>
 
 Since each node has exactly one outgoing edge, this results in a vortex graph. A vortex graph essentially looks like a series of cycles, with trees hanging off of it. No matter which node we start at, after following the edge enough times, we will always be caught in an infinite cycle. We can use a DFS to locate each cycle and store it's length. Then, to calcualte `fkfirst(char c, int k)`, we simply expand $c$ until we are caught in a cycle, then use the fact that the cycle repeats itself periodically to calculate the final position after $k$ expansions. This can be done in $O(26)$ constant time.

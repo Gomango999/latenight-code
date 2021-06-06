@@ -8,11 +8,8 @@ lastModified: 2021-06-05 18:00+11:00
 notes: ''
 tags:
 - competitive programming
-- icpc
-- asiasg
 menu:
-  groups:
-  - 2018_asiasg_icpc_regionals
+  groups: []
   submenus: []
 name: 16_brute_comparison
 ---

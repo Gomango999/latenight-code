@@ -6,7 +6,7 @@ const metadataParser = require('markdown-yaml-metadata-parser');
 // get group and author metadata
 function getMetadata() {
   const groupFilePath = './public/blog_posts/metadata/groups.json'
-  const authorFilePath = './public/blog_posts/metadata/authors.json'
+  const authorFilePath = './public/blog_posts/metadata/authors/authors.json'
   const groupRawData = fs.readFileSync(groupFilePath, 'utf-8');
   const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
   const groups = JSON.parse(groupRawData);
@@ -21,7 +21,8 @@ function getBlogPostNames() {
   let blogPostNames = []
   let dirent
   while ((dirent = dir.readSync()) !== null) {
-    if (path.extname(dirent.name) != '.md') continue;
+    if (!dirent.isDirectory()) continue;
+    if (dirent.name == "metadata") continue;
     blogPostNames.push(dirent.name);
   }
   dir.closeSync()
@@ -29,7 +30,7 @@ function getBlogPostNames() {
 }
 
 function getBlogMetadata(filename) {
-  const filepath = path.join('./public/blog_posts/', filename);
+  const filepath = path.join('./public/blog_posts/', filename, filename+".md");
   const rawText = fs.readFileSync(filepath, 'utf-8');
   const markdown = metadataParser(rawText);
   return markdown.metadata;
@@ -39,8 +40,8 @@ function getBlogMetadata(filename) {
 function populateHeader(blog, groups, authors) {
   // populate misc information
   blog.url = '/'+blog.name;
-  blog.filepath = path.join('./public/blog_posts/', blog.name+'.md');
-  blog.outpath = path.join('./public/blog_posts/out/', blog.name+'.html');
+  blog.filepath = path.join('./public/blog_posts/', blog.name, blog.name+'.md');
+  blog.outpath = path.join('./public/blog_posts/', blog.name, blog.name+'.html');
   blog.timeFromUpload = moment(blog.uploadDate).fromNow();
   blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
   currDate = moment.now();
@@ -58,7 +59,7 @@ function populateHeader(blog, groups, authors) {
       submenu.title = group.title;
       submenu.relatedLinks = [];
       group.posts.forEach(post =>{
-        let relatedBlog = getBlogMetadata(`${post}.md`)
+        let relatedBlog = getBlogMetadata(post)
         let link = {};
         link.title = relatedBlog.title;
         link.href = relatedBlog.name;

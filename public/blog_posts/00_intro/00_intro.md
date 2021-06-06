@@ -24,7 +24,7 @@ If you'd like to follow the development of this site, check out the github page 
 Anyways, it's getting late... Nice chatting with you and I hope you enjoy your stay :)
 
 <div class="centering w-100 mt-5">
-<img id="snoozing-fox" width=30% src="/images/fox/tp_fox1.png" style="min-width:170px;">
+<img id="snoozing-fox" width=30% src="/blog_posts/00_intro/images/fox/tp_fox1.png" style="min-width:170px;">
 <i class="mt-3" style="display:block;">... zzz ...</i>
 </div>
 

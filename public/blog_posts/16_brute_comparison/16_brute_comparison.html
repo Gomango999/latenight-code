@@ -9,9 +9,9 @@
 <p>The reason why we want to find a failing case with a small input size is two-fold: Firstly, brute force solutions are generally far too slow to process large inputs. Secondly small inputs mean you can walk through them by hand and compare it to your program execution.</p>
 <h2 id="how-to-do-brute-force-comparison">How to do Brute Force Comparison</h2>
 <h3 id="incorrect-solution">Incorrect Solution</h3>
-<p>To start off, you should already have a piece of code which passes sample cases, but still gets a <code>WA</code> or <code>RE</code> on submission. As an example, we use a piece of my own code which I used for the problem <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a>. This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it earns the title of being featured in this blog post!</p>
+<p>To start off, you should already have a piece of code which passes sample cases, but still gets a <code>WA</code> or <code>RE</code> on submission. As an example, we use a piece of my own code which I used for the problem <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a>. This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it’s earned the ability to be immortalised in this blog post.</p>
 <div class="row download-block">
-<a href="/../blog_posts/16_brute_comparison/code/e.cpp" class="col-md-4 download-link" download>
+<a href="/../blog_posts/16_brute_comparison/code/e_broken.cpp" class="col-md-4 download-link" download>
 <div class="download-card">
 <div class="row">
 <div class="col-3">
@@ -21,13 +21,13 @@
 <div class="row">
 <div class="col">
 <p>
-e.cpp
+e_broken.cpp
 </p>
 </div>
 </div>
 <div class="row">
 <div class="col">
-<p><span> 2.5KB </span></p>
+<p><span> 1.8KB </span></p>
 </div>
 </div>
 </div>
@@ -36,7 +36,7 @@ e.cpp
 </a>
 </div>
 <h3 id="brute-force-solution">Brute Force Solution</h3>
-<p>Next, we need to implement a brute force solution. Luckily, the official writeup for <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a> also describes such a brute force solution, so I was able to code that up relatively quickly. To maximise the chance that your brute force solution won’t have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.</p>
+<p>Next, we need to implement a brute force solution. Luckily, the official writeup for <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a> also describes such a brute force solution, so I was able to just copy their idea without too much difficulty. To maximise the chance that your brute force solution won’t have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.</p>
 <div class="row download-block">
 <a href="/../blog_posts/16_brute_comparison/code/e_brute.cpp" class="col-md-4 download-link" download>
 <div class="download-card">
@@ -99,22 +99,26 @@ e_brute.cpp
 <p>Finally, we need a comparison script. This is a bash script that will run our programs against all the test cases, and check to see if there is any difference in the output. Here is what mine looks like:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sh numberLines"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">make</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{0..499}</span><span class="kw">;</span> <span class="kw">do</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>    <span class="va">OUT1=$(</span><span class="ex">python3</span> gen.py <span class="va">$i</span> <span class="kw">|</span> <span class="ex">./e</span><span class="va">)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="va">OUT1=$(</span><span class="ex">python3</span> gen.py <span class="va">$i</span> <span class="kw">|</span> <span class="ex">./e_broken</span><span class="va">)</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>    <span class="va">OUT2=$(</span><span class="ex">python3</span> gen.py <span class="va">$i</span> <span class="kw">|</span> <span class="ex">./e_brute</span><span class="va">)</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>    <span class="bu">echo</span> <span class="va">$i</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="kw">if</span><span class="bu"> [</span> <span class="st">&quot;</span><span class="va">$OUT1</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;</span><span class="va">$OUT2</span><span class="st">&quot;</span><span class="bu"> ]</span>; <span class="kw">then</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="bu">echo</span> <span class="st">&quot;-----&quot;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>        <span class="bu">echo</span> <span class="st">&quot;Error at test case </span><span class="va">$i</span><span class="st">!&quot;</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>        <span class="bu">echo</span> <span class="va">$(</span><span class="ex">python3</span> gen.py <span class="va">$i)</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>        <span class="bu">echo</span> <span class="st">&quot;output (e.cpp):&quot;</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>        <span class="bu">echo</span> <span class="va">$OUT1</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>        <span class="bu">echo</span> <span class="st">&quot;output (e_brute.cpp):&quot;</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="bu">echo</span> <span class="va">$OUT2</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="bu">exit</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>    <span class="kw">fi</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="kw">done</span></span></code></pre></div>
-<p>It first compiles the two files , and then loops through test cases 0 to 499. For each test case, we generate the relevant input using <code>python3 gen.py $i</code>, and then store the output of <code>e</code> and <code>e_brute</code> into <code>$OUT1</code> and <code>$OUT2</code> respectively. If there is a difference in <code>$OUT1</code> and <code>$OUT2</code>, we will print out the test case and the respective outputs, and then stop the script. It should be easy to use this test case now to find the bug in your program.</p>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="bu">echo</span> <span class="va">$i</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="kw">if</span><span class="bu"> [</span> <span class="st">&quot;</span><span class="va">$OUT1</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&quot;</span><span class="va">$OUT2</span><span class="st">&quot;</span><span class="bu"> ]</span>; <span class="kw">then</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>        <span class="bu">echo</span> <span class="st">&quot;-----&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>        <span class="bu">echo</span> <span class="st">&quot;Error at test case </span><span class="va">$i</span><span class="st">!&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a>        <span class="bu">echo</span> <span class="va">$(</span><span class="ex">python3</span> gen.py <span class="va">$i)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>        <span class="bu">echo</span> <span class="st">&quot;output (e_broken.cpp):&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>        <span class="bu">echo</span> <span class="va">$OUT1</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a>        <span class="bu">echo</span> <span class="st">&quot;output (e_brute.cpp):&quot;</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>        <span class="bu">echo</span> <span class="va">$OUT2</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a>        <span class="bu">exit</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="kw">fi</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="kw">done</span></span></code></pre></div>
+<p>It first compiles the two files using make, then loops through test cases 0 to 499. For each test case, we generate the relevant input using <code>python3 gen.py $i</code>, and then store the output of <code>e_broken</code> and <code>e_brute</code> into <code>$OUT1</code> and <code>$OUT2</code> respectively. If there is a difference in <code>$OUT1</code> and <code>$OUT2</code>, we will print out the test case and respective outputs before stopping the script.</p>
 <blockquote>
 <p><em>In case you’re curious, the failing input case was <code>1 bbaabaabb 9</code>. The bug was that I had missed case 3 when generating extended segments, as I describe in my writeup <a href="./14_magic">here</a>. You can also view the corrected code there as well.</em></p>
 </blockquote>

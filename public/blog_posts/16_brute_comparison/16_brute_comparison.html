@@ -10,10 +10,58 @@
 <h2 id="how-to-do-brute-force-comparison">How to do Brute Force Comparison</h2>
 <h3 id="incorrect-solution">Incorrect Solution</h3>
 <p>To start off, you should already have a piece of code which passes sample cases, but still gets a <code>WA</code> or <code>RE</code> on submission. As an example, we use a piece of my own code which I used for the problem <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a>. This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it earns the title of being featured in this blog post!</p>
-<p>DOWNLOAD BUGGED CODE HERE</p>
+<div class="row download-block">
+<a href="/../blog_posts/16_brute_comparison/code/e.cpp" class="col-md-4 download-link" download>
+<div class="download-card">
+<div class="row">
+<div class="col-3">
+<p><img class="download-icon" src="/images/icons/download_white.png"></p>
+</div>
+<div class="col-9">
+<div class="row">
+<div class="col">
+<p>
+e.cpp
+</p>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<p><span> 2.5KB </span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
 <h3 id="brute-force-solution">Brute Force Solution</h3>
 <p>Next, we need to implement a brute force solution. Luckily, the official writeup for <a href="https://asiasg18.kattis.com/problems/magicalstring">Magical String</a> also describes such a brute force solution, so I was able to code that up relatively quickly. To maximise the chance that your brute force solution won’t have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.</p>
-<p>DOWNLOAD BRUTE FORCE CODE HERE</p>
+<div class="row download-block">
+<a href="/../blog_posts/16_brute_comparison/code/e_brute.cpp" class="col-md-4 download-link" download>
+<div class="download-card">
+<div class="row">
+<div class="col-3">
+<p><img class="download-icon" src="/images/icons/download_white.png"></p>
+</div>
+<div class="col-9">
+<div class="row">
+<div class="col">
+<p>
+e_brute.cpp
+</p>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<p><span> 2.3KB </span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
 <h3 id="input-data-generator">Input Data Generator</h3>
 <p>After that, write out an input data generator for your code, which should take in an argument which will seed the random function. This is important because it allows you to reproduce the failing test case when needed. Needless to say, your input data generator should always produce a valid input for the problem, and also should be designed so that altering the size of the input is as easy as changing the value of a single variable.</p>
 <p>Here is an example of my <code>gen.py</code> generator code. For this particular problem, we needed to generate strings of length <span class="math inline">\(N\)</span>, such that no string has the same character repeated more than 3 times in a row. To simplify the inputs further, we only use the letters a, b, and c.</p>

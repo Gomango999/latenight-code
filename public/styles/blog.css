@@ -140,3 +140,36 @@ a.blogpostcard {
 #list-ender {
   width: 200px;
 }
+
+/* Downloads */
+.download-card {
+  border: #5e5e5e 1px solid;
+  border-radius: 10px;
+  background-color: #191f2b;
+  padding: 4px 16px;
+}
+a.download-link {
+  color: white;
+}
+.download-link:hover {
+  text-decoration:none;
+}
+.download-card:hover {
+  background-color: #323b4e;
+}
+.download-card img {
+  width: 28px;
+  height: auto;
+  float: left;
+  margin-right: 12px;
+  margin-top: 4px;
+}
+.download-card p {
+  margin-bottom: 0px;
+  font-size: 0.9em;
+  text-overflow: ellipsis;
+}
+.download-card span {
+  font-size: 0.7em;
+  color: #8e8b81;
+}

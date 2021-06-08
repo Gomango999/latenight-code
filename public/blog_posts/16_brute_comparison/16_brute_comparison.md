@@ -31,12 +31,12 @@ Firstly, brute force solutions are generally far too slow to process large input
 ### Incorrect Solution
 To start off, you should already have a piece of code which passes sample cases, but still gets a `WA` or `RE` on submission. As an example, we use a piece of my own code which I used for the problem [Magical String](https://asiasg18.kattis.com/problems/magicalstring). This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it earns the title of being featured in this blog post!
 
-DOWNLOAD BUGGED CODE HERE
+!!!downloads blog_posts/16_brute_comparison/code/e.cpp
 
 ### Brute Force Solution
 Next, we need to implement a brute force solution. Luckily, the official writeup for [Magical String](https://asiasg18.kattis.com/problems/magicalstring) also describes such a brute force solution, so I was able to code that up relatively quickly. To maximise the chance that your brute force solution won't have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.
 
-DOWNLOAD BRUTE FORCE CODE HERE
+!!!downloads blog_posts/16_brute_comparison/code/e_brute.cpp
 
 ### Input Data Generator
 After that, write out an input data generator for your code, which should take in an argument which will seed the random function. This is important because it allows you to reproduce the failing test case when needed. Needless to say, your input data generator should always produce a valid input for the problem, and also should be designed so that altering the size of the input is as easy as changing the value of a single variable.

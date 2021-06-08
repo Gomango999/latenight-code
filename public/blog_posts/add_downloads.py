@@ -47,12 +47,12 @@ with open(infile, 'r') as f:
 
 # replace command with template
 for i in range(len(lines)):
-    if lines[i].startswith('!!!download'):
-        data = lines[i].split()
-        assert(len(data) == 2) # only support single download for now
+    if lines[i].startswith('!!! download'):
+        data = lines[i].split() # will break if spaces in the file path!
+        assert(len(data) == 3) # only support single download for now
 
         # gather data about file
-        filepath = os.path.join('..', data[1])
+        filepath = os.path.join('..', data[2])
         if not os.path.isfile(filepath):
             print(filepath, "does not exist")
             continue

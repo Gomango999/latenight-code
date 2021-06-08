@@ -29,14 +29,14 @@ Firstly, brute force solutions are generally far too slow to process large input
 
 ## How to do Brute Force Comparison
 ### Incorrect Solution
-To start off, you should already have a piece of code which passes sample cases, but still gets a `WA` or `RE` on submission. As an example, we use a piece of my own code which I used for the problem [Magical String](https://asiasg18.kattis.com/problems/magicalstring). This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it earns the title of being featured in this blog post!
+To start off, you should already have a piece of code which passes sample cases, but still gets a `WA` or `RE` on submission. As an example, we use a piece of my own code which I used for the problem [Magical String](https://asiasg18.kattis.com/problems/magicalstring). This code in particular passes the first two test cases, but produces an incorrect answer on the third. I spent many hours trying to find a breaking case to no avail, so now it's earned the ability to be immortalised in this blog post.
 
-!!!downloads blog_posts/16_brute_comparison/code/e.cpp
+!!! downloads blog_posts/16_brute_comparison/code/e_broken.cpp
 
 ### Brute Force Solution
-Next, we need to implement a brute force solution. Luckily, the official writeup for [Magical String](https://asiasg18.kattis.com/problems/magicalstring) also describes such a brute force solution, so I was able to code that up relatively quickly. To maximise the chance that your brute force solution won't have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.
+Next, we need to implement a brute force solution. Luckily, the official writeup for [Magical String](https://asiasg18.kattis.com/problems/magicalstring) also describes such a brute force solution, so I was able to just copy their idea without too much difficulty. To maximise the chance that your brute force solution won't have the same bug, avoid copy pasting any code from the original into your brute force implementation. Furthermore, if your brute force has a section that does the same thing as your original, consider using an alternate method to do it, to make it as different as possible.
 
-!!!downloads blog_posts/16_brute_comparison/code/e_brute.cpp
+!!! downloads blog_posts/16_brute_comparison/code/e_brute.cpp
 
 ### Input Data Generator
 After that, write out an input data generator for your code, which should take in an argument which will seed the random function. This is important because it allows you to reproduce the failing test case when needed. Needless to say, your input data generator should always produce a valid input for the problem, and also should be designed so that altering the size of the input is as easy as changing the value of a single variable.
@@ -81,24 +81,28 @@ Finally, we need a comparison script. This is a bash script that will run our pr
 ```{.sh .numberLines}
 make
 for i in {0..499}; do
-    OUT1=$(python3 gen.py $i | ./e)
+    OUT1=$(python3 gen.py $i | ./e_broken)
     OUT2=$(python3 gen.py $i | ./e_brute)
+
     echo $i
     if [ "$OUT1" != "$OUT2" ]; then
         echo "-----"
         echo "Error at test case $i!"
+
         echo $(python3 gen.py $i)
-        echo "output (e.cpp):"
+
+        echo "output (e_broken.cpp):"
         echo $OUT1
+
         echo "output (e_brute.cpp):"
         echo $OUT2
+
         exit
     fi
-
 done
 ```
 
-It first compiles the two files , and then loops through test cases 0 to 499. For each test case, we generate the relevant input using `python3 gen.py $i`, and then store the output of `e` and `e_brute` into `$OUT1` and `$OUT2` respectively. If there is a difference in `$OUT1` and `$OUT2`, we will print out the test case and the respective outputs, and then stop the script. It should be easy to use this test case now to find the bug in your program.
+It first compiles the two files using make, then loops through test cases 0 to 499. For each test case, we generate the relevant input using `python3 gen.py $i`, and then store the output of `e_broken` and `e_brute` into `$OUT1` and `$OUT2` respectively. If there is a difference in `$OUT1` and `$OUT2`, we will print out the test case and respective outputs before stopping the script.
 
 > _In case you're curious, the failing input case was `1 bbaabaabb 9`. The bug was that I had missed case 3 when generating extended segments, as I describe in my writeup [here](./14_magic). You can also view the corrected code there as well._
 

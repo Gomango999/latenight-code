@@ -39,46 +39,26 @@ void solve() {
 		while (j < N && s[j] == mode) j++;
 		if (segs.empty() || j > segs.back().y) segs.pb({i, j});
 	}
-	// printf("singles\n");
-	// for(pii seg : segs) printf("%s\n", s.substr(seg.x, seg.y-seg.x).c_str());
+	// for(pii seg : segs) {
+	// 	printf("%s\n", s.substr(seg.x, seg.y-seg.x).c_str());
+	// }
 
-	// generate single cut extensions
+	// generate extensions
 	int M = sz(segs);
 	rep(i, M) for (int j = i+1; j < M; j++) {
 		pii a = segs[i];
 		pii b = segs[j];
-		assert(a.x <= b.x && a.y <= b.y); // assumes segs is sorted
 
-		if (a.y <= b.x) continue; // no intersection
+		int l = max(a.x, b.x);
+		int r = min(a.y, b.y);
+		if (r <= l) continue;
 
-		if (b.x - a.x >= 3) segs.pb({a.x, b.x});
-		if (b.y - a.y >= 3) segs.pb({a.y, b.y});
+		if (l-min(a.x, b.x) >= 3) segs.pb({min(a.x, b.x), l});
+		if (max(a.y, b.y)-r >= 3) segs.pb({r, max(a.y, b.y)});
 	}
-	// printf("one cuts\n");
-	// for(pii seg : segs) printf("%s\n", s.substr(seg.x, seg.y-seg.x).c_str());
-
-	// generate double cut extensions
-	rep(i, M) {
-		// since segs is sorted and max size of an interval is 5,
-		// anything that intersects a segment must be within 5 of it in segs.
-		for (int j = i-5; j <= i; j++) {
-			if (j < 0 || j > M) continue;
-			for (int k = i; k <= i+5; k++) {
-				if (k < 0 || k > M) continue;
-				pii a = segs[i];
-				pii b = segs[j];
-				pii c = segs[k];
-
-				if (b.y <= a.x) continue; // no intersect between ab
-				if (c.x >= a.y) continue; // no intersect between ac
-				if (c.x - b.y < 3) continue; // middle is not big enough
-
-				segs.pb({b.y, c.x});
-			}
-		}
-	}
-	// printf("double cuts\n");
-	// for(pii seg : segs) printf("%s\n", s.substr(seg.x, seg.y-seg.x).c_str());
+	// for(pii seg : segs) {
+	// 	printf("%s\n", s.substr(seg.x, seg.y-seg.x).c_str());
+	// }
 
 	vector<int> starts[MAXN];
 	for(pii seg : segs) starts[seg.y].pb(seg.x);

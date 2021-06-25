@@ -7,26 +7,40 @@ block head
   
 
 block content
-  header
-    a(href='/')
-      img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.')
-    a(href='/blog/').blog-link
-      h1.display.white.mt-0 Blog 
+  header.container-fluid.p-0
+    .row.h-100
+      .col-2.py-2.h-100
+        a(href='/')
+          img(id='header-logo' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.').mt-1.px-3
+      .col-2
+      .col-4.h-100
+        a(href='/blog/').blog-link
+          h1.display.white.mt-0 Blog 
       
   #bloglist.content.container.card.mb-5
-    each blog in blogs
-      a.row.blogpostcard.outline(href='.'+blog.url).my-2
-        .col.pt-3
-          .row
-            .col-sm-8
-              h2.mlc-blue.mt-0.mb-2 #{blog.title}
-            .col-sm-4.date 
-              if blog.overOneWeek
-                i #{blog.displayUploadDate}
-              else
-                i #{blog.timeFromUpload}
-          .row.mb-2
-            .col-12
-              p #{blog.description}
-    .row.mt-5.mb-3
-      img.center(id='list-ender' src='/images/misc/list_ender.png')
+    ul.nav.nav-tabs
+      li.nav-item
+        a.nav-link.active(href='#') Active
+      li.nav-item
+        a.nav-link(href='#') Link
+      li.nav-item
+        a.nav-link(href='#') Link
+      li.nav-item
+        a.nav-link.disabled(href='#') Disabled
+    
+    //- each blog in blogs
+    //-   a.row.blogpostcard.outline(href='.'+blog.url).my-2
+    //-     .col.pt-3
+    //-       .row
+    //-         .col-sm-8
+    //-           h2.mlc-blue.mt-0.mb-2 #{blog.title}
+    //-         .col-sm-4.date 
+    //-           if blog.overOneWeek
+    //-             i #{blog.displayUploadDate}
+    //-           else
+    //-             i #{blog.timeFromUpload}
+    //-       .row.mb-2
+    //-         .col-12
+    //-           p #{blog.description}
+    //- .row.mt-5.mb-3
+    //-   img.center(id='list-ender' src='/images/misc/list_ender.png')

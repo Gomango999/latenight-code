@@ -15,11 +15,15 @@ block head
 
   
 block content
-  header
-    a(href='/')
-      img(id='logo' class='float-left' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo')
-    a(href='/blog/').blog-link
-      h1.display.white.mt-0 Blog 
+  header.container-fluid.p-0
+    .row.h-100
+      .col-2.py-2.h-100
+        a(href='/')
+          img(id='header-logo' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.').mt-1.px-3
+      .col-2
+      .col-4.h-100
+        a(href='/blog/').blog-link
+          h1.display.white.mt-0 Blog 
     
 
   .container-fluid.pb-5

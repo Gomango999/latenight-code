@@ -13,6 +13,15 @@ h1.display {
   font-size: 60px;
 }
 
+#header-logo {
+  height: 56px;
+  float:left;
+}
+
+body {
+  padding-top: 120px;
+}
+
 /* Blog Post */
 
 #blogpost {
@@ -110,7 +119,13 @@ span.katex-display {
 #bloglist {
   padding: 40px 20px;
   max-width: 900px;
-  margin-top: 120px;
+  /* margin-top: 120px; */
+}
+
+@media (max-width: 900px) {
+  #bloglist {
+    border-radius: 0px;
+  }
 }
 
 a.blogpostcard {

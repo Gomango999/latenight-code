@@ -1,3 +1,4 @@
+# Finds `!!! download` in markdown, and replaces it with the HTML required to download the file.
 import os
 import sys
 from pathlib import Path

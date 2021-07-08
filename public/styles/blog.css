@@ -57,10 +57,6 @@ body {
   }
 }
 
-.container-fluid {
-  padding-top: 120px;
-}
-
 .content {
   background-color: #191f2b;
 }
@@ -153,7 +149,7 @@ a.blogpostcard {
 }
 
 #list-ender {
-  width: 200px;
+  width: 100px;
 }
 
 /* Downloads */

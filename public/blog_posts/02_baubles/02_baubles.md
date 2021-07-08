@@ -1,5 +1,5 @@
 ---
-title: 1. Baubles
+title: Baubles
 description: 2020 AIO Problem 1 Solution
 author: Kevin Zhu
 public: true
@@ -11,6 +11,8 @@ tags:
 - aio
 name: 02_baubles
 ---
+
+_Contest Source: [AIO 2020](https://orac2.info/hub/aio/)_
 
 If `rp` is 0, then Olaf will paint all his spares blue. Hence, we just to make sure that he fails the blue order, in which case, we print `max(s+bo-(bp-1), 0)`. Note that we use max here, in the case where Olaf was not able to fulfil the order to begin with. In this case, we do not need to destroy any baubles. Similarly, if `bp` is 0, then we print `max(s+ro-(rp-1), 0)`
 

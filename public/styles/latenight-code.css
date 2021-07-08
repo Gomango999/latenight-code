@@ -6,7 +6,7 @@ body {
 	width: 100vw;
 	max-width: 100vw;
   top: 0px;
-  height: 100vh;
+  height: 100%;
   min-height: 100vh;
 	/* height: 100vh;
 	max-height: 100vh; */
@@ -63,6 +63,15 @@ tt,pre {
 
 hr {
   border-top: 1px solid #acacac;
+}
+table {
+  width: 75%;
+}
+table, th, td {
+  border: 1px solid #555555;
+}
+td {
+  padding: 10px 20px;
 }
 
 blockquote > p {
@@ -203,11 +212,3 @@ footer {
 .white {
   color: #dfdfdf;
 }
-
-/*:root {
-	--midnight-black: #121216;
-	--midnight-lightblue: #A0C1B9;
-	--midnight-blue: #70A0AF;
-	--midnight-purple: #706993;
-	--midnight-white: white;
-};*/

@@ -5,12 +5,15 @@ const metadataParser = require('markdown-yaml-metadata-parser');
 
 // get group and author metadata
 function getMetadata() {
+
   const groupFilePath = './public/blog_posts/metadata/groups.json'
-  const authorFilePath = './public/blog_posts/metadata/authors/authors.json'
   const groupRawData = fs.readFileSync(groupFilePath, 'utf-8');
-  const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
   const groups = JSON.parse(groupRawData);
+
+  const authorFilePath = './public/blog_posts/metadata/authors/authors.json'
+  const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
   const authors = JSON.parse(authorRawData);
+  
   return {groups, authors}
 }
 

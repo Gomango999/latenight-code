@@ -4,7 +4,28 @@ block head
   title Blog - Late Night Code
   
   link(rel='stylesheet' href='/styles/blog.css')
-  
+  script.
+    function gotoAllPosts() {
+      $("a.blogpostcard").show()
+      $("#allpostslink").addClass("active");
+      $("#contestlink").removeClass("active");
+    }
+    function gotoContests() {
+      $("a.blogpostcard").hide()
+      console.log($("a.blogpostcard"));
+      $("a.blogpostcard").each(function () {
+        let rawTags = $(this).data('tags');
+        tags = rawTags.split(',');
+        console.log(tags);
+        if (tags.includes('contest')) {
+          $(this).show()
+        }
+      });
+      
+      $("#allpostslink").removeClass("active");
+      $("#contestlink").addClass("active");
+    }
+    
 
 block content
   header.container-fluid.p-0
@@ -15,32 +36,30 @@ block content
       .col-2
       .col-4.h-100
         a(href='/blog/').blog-link
-          h1.display.white.mt-0 Blog 
-      
+          h1.display.white.mt-0 Latenight Blog 
+       
   #bloglist.content.container.card.mb-5
-    ul.nav.nav-tabs
+    ul.nav.nav-tabs.mx-5
       li.nav-item
-        a.nav-link.active(href='#') Active
+        a#allpostslink.nav-link.active(href='#' onclick='gotoAllPosts();') All Posts
       li.nav-item
-        a.nav-link(href='#') Link
-      li.nav-item
-        a.nav-link(href='#') Link
-      li.nav-item
-        a.nav-link.disabled(href='#') Disabled
+        a#contestlink.nav-link(href='#' onclick='gotoContests();') Contests
     
-    //- each blog in blogs
-    //-   a.row.blogpostcard.outline(href='.'+blog.url).my-2
-    //-     .col.pt-3
-    //-       .row
-    //-         .col-sm-8
-    //-           h2.mlc-blue.mt-0.mb-2 #{blog.title}
-    //-         .col-sm-4.date 
-    //-           if blog.overOneWeek
-    //-             i #{blog.displayUploadDate}
-    //-           else
-    //-             i #{blog.timeFromUpload}
-    //-       .row.mb-2
-    //-         .col-12
-    //-           p #{blog.description}
-    //- .row.mt-5.mb-3
-    //-   img.center(id='list-ender' src='/images/misc/list_ender.png')
+    .mt-3
+      each blog in blogs
+        a.row.blogpostcard.outline(href='.'+blog.url data-tags=blog.tags.join(',')).my-2
+          .col.pt-3
+            .row
+              .col-sm-10
+                h2.mlc-blue.mt-0.mb-2 #{blog.title}
+              .col-sm-2.date 
+                if blog.overOneWeek
+                  i #{blog.displayUploadDate}
+                else
+                  i #{blog.timeFromUpload}
+            .row.mb-2
+              .col-12
+                p #{blog.description}
+      .row.mt-5.mb-3
+        img.center(id='list-ender' src='/images/misc/list_ender.png')
+    

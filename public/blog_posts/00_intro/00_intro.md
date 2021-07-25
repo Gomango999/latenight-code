@@ -32,10 +32,10 @@ Anyways, it's getting late... Nice chatting with you and I hope you enjoy your s
     state = 0
     setInterval(() => {
         if (state == 0) {
-            $('#snoozing-fox').attr("src","/images/fox/tp_fox2.png");
+            $('#snoozing-fox').attr("src","/blog_posts/00_intro/images/fox/tp_fox2.png");
             state = 1
         } else if (state == 1) {
-            $('#snoozing-fox').attr("src","/images/fox/tp_fox1.png");
+            $('#snoozing-fox').attr("src","/blog_posts/00_intro/images/fox/tp_fox1.png");
             state = 0
         }
     }, 1500);

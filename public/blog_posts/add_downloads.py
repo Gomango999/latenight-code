@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 download_template = """<div class="row download-block">
-<a href="/{}" class="col-md-4 download-link" download>
+<a href="/{}" class="col-md-4 download-link mb-3" download>
 <div class="download-card">
 <div class="row">
 <div class="col-3">

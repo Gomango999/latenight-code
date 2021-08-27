@@ -3,5 +3,8 @@
     ".git",
     "node_modules"
   ],
-  "ext": "js,json,md,html"
+  "ext": "js,json,md,html",
+  "events": {
+    "restart": "cd ./public/blog_posts && make"
+  }
 }

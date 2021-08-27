@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "teststart": "node app.js & browser-sync start --proxy 'localhost:8080' --port '8080' --files '**/*'"
+    "start": "nodemon --delay 1 app.js"
   },
   "author": "Kevin Zhu",
   "license": "ISC",

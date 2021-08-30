@@ -1,32 +1,4 @@
-<blockquote>
-<p><em>Note: Online judges are not available for AIO 2021 yet, so there is no guarantee that the solution or the code will score 100. These solutions will be updated if any changes need to be made.</em></p>
-</blockquote>
 <p><em>Contest Source: <a href="https://orac2.info/hub/aio/">AIO 2021</a></em></p>
-<div class="row download-block">
-<a href="/../blog_posts/19_aio2021q1/problems/problems.pdf" class="col-md-4 download-link mb-3" download>
-<div class="download-card">
-<div class="row">
-<div class="col-3">
-<p><img class="download-icon" src="/images/icons/download_white.png"></p>
-</div>
-<div class="col-9">
-<div class="row">
-<div class="col">
-<p>
-problems.pdf
-</p>
-</div>
-</div>
-<div class="row">
-<div class="col">
-<p><span> 385.4KB </span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
 <p>For this problem, let’s assume the robot starts at <span class="math inline">\((0,0)\)</span> (the starting point does not matter). Then we can simulate how the robot moves and find out it’s final resting point. We can then use the <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">manhattan distance</a> between the start and the finish in order to determine the shortest distance for the robot to reach the start again. The complexity is <span class="math inline">\(O(K)\)</span></p>
 <h2 id="c-solution">C++ Solution</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>

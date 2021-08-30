@@ -1,31 +1,4 @@
-<blockquote>
-<p><em>Note: Online judges are not available for AIO 2021 yet, so there is no guarantee that the solution or the code will score 100. These solutions will be updated if any changes need to be made.</em> <em>Contest Source: <a href="https://orac2.info/hub/aio/">AIO 2021</a></em></p>
-</blockquote>
-<div class="row download-block">
-<a href="/../blog_posts/19_aio2021q1/problems/problems.pdf" class="col-md-4 download-link mb-3" download>
-<div class="download-card">
-<div class="row">
-<div class="col-3">
-<p><img class="download-icon" src="/images/icons/download_white.png"></p>
-</div>
-<div class="col-9">
-<div class="row">
-<div class="col">
-<p>
-problems.pdf
-</p>
-</div>
-</div>
-<div class="row">
-<div class="col">
-<p><span> 385.4KB </span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
+<p><em>Contest Source: <a href="https://orac2.info/hub/aio/">AIO 2021</a></em></p>
 <p>In order to find the minimum area rectangle, we observe that the lowest upper edge we can get must be in line with the top-most hole. Similarly, the highest bottom edge must be the bottom-most hole, the left-most right edge must be on the right-most hole, and the right-most left edge must be on the left-most hole. Hence, this problem simply becomes a problem of finding the minimum and maximum <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, and using them to construct the sides of the rectangle. Afterwards, we can trivially calculate the area. The complexity is <span class="math inline">\(O(N)\)</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>

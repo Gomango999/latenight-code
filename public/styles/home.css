@@ -94,11 +94,13 @@ p {
   padding-top: 12px;
 
   background-color: #e17552;
+  color: #262b3e;
   font-size: 1.3em;
 }
 
 #call-button:hover {
   background-color: #C45541;
+  cursor: pointer;
 }
 
 #dot-grid-row {

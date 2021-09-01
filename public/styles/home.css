@@ -1,55 +1,112 @@
-body {
-  height: 100vh;
-  top: 0px;
-  padding-top: 25vh;
+/* === FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam:wght@100;400;600&display=swap');
+
+/* === COLORS === */
+/* purple: #b38eab */
+/* blue:   #5ab6bc */
+/* green:  #2d8171 */
+/* orange: #e17552 */
+/* brown:  #9d6f51 */
+/* cream:  #f5dccc */
+/* gold:   #faba0d */
+/* black:  #262b3e */
+/* gray:   #cbccc6 */
+
+
+/* === GENERAL ===*/
+.container-fluid {
+  overflow: hidden;
+  padding-top: 8%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.bottom-row {
+  position: absolute;
+  bottom: 0px;
+}
+
+/* === LEFT SIDE ===*/
+.author {
+  font-family: 'Be Vietnam', sans-serif;
+  font-size: 1.3em;
+}
+#author1 {
+  font-weight: 100;
+}
+#author2 {
+  font-weight: 600;
+}
+
+#illustration {
+  margin-top: 1.5em;
+  margin-bottom: 8em;
+  min-width: 700px;
+  max-width: 80%
+}
+
+#bottom-symbols {
+  margin-bottom: 0px;
+
+  font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  font-size: 2em;
+  color: #53576b;
 }
 
 
-#logo {
-	width: 600px;
-	height: auto;
+/* === RIGHT SIDE ===*/
+.display-header {
+  font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  font-size: 7em;
 }
 
-button.diamond-button {
-  width: 80px;
-	height: 80px;
-	margin: 30px 30px;
+#display-header1 {
+  margin-bottom: 0px;
+  color: #white;
+}
+#display-spacer {
+  display: inline;
+}
+#display-header2 {
+  /* Make the white rectangle go off screen */
+  position: relative;
+  margin-right: -2ch; /* Matches the number of spaces after 'code;' */
+  display: inline;
 
-	border: none;
-	border-radius: 5px;
-	background-color: white;
-	padding: 0px;
-	outline: none;
-	z-index: 0;
-	transform: rotate(45deg);
-	transition: background-color 0.1s;
+  margin-top: 0px;
+  background-color: white;
+  color: #262b3e;
 }
 
-@media (max-width: 720px) {
-  #logo {
-  	width: 300px;
-  	height: auto;
-  }
-  #button-container {
-  	margin-top: 40px;
-  }
-  button.diamond-button {
-    width: 60px;
-  	height: 60px;
-  }
+p {
+  font-family: 'Be Vietnam', sans-serif;
+  font-weight: 100;
+  font-size: 1.3em;
 }
 
-/* || Links */
-#button-container {
-	text-align: center;
+#call-button {
+  margin-bottom: 5em;
+
+  border: 0px;
+  border-radius: 10000px; /* Bigger than any button will ever be*/
+
+  padding: 10px 40px;
+  padding-top: 12px;
+
+  background-color: #e17552;
+  font-size: 1.3em;
 }
 
-button.diamond-button > img {
-	width: 60%;
-	z-index: 5;
-	transform: rotate(-45deg);
+#call-button:hover {
+  background-color: #C45541;
 }
 
-#button-blog:hover {
-	background-color: #70A0AF;
+#dot-grid-row {
+  right: 0px;
+  font-size: 3em;
+}
+#dot-grid-row .col-3 {
+  overflow: hidden;
+  height: 0.85em;
+  margin-left: 0.1em;
 }

@@ -7,10 +7,74 @@ block head
   link(rel='stylesheet' href='styles/home.css')
 
 block content
-  .content.container
-    #logo-container.row
-      img(src='images/logo/4x/logo_full_dark@4x.png' alt='Late Night Code' id='logo').center
-    #button-container.row.justify-content-center
-      .col
-        button#button-blog.diamond-button
-          img(src='images/logo/SVG/icon_document.svg' alt='Document' id='icon-writeup' class='button-icon')
+  .container-fluid
+    //- Left Side
+    .row.mw-100.px-5
+      //- Illustration
+      .col-7
+        //- Name
+        .row
+          .col
+            span#author1.author Gomango999 | 
+            span#author2.author Kevin Zhu
+            
+        //- Illustration
+        .row.mt-5.mb-5
+          .col
+            //- img(src='images/background/desk/white_outline.png')#illustration
+            img(src='images/background/desk/desk5_cropped.png')#illustration
+            
+        //- Symbols
+        .row.bottom-row
+          .col
+            p#bottom-symbols //&nbsp;#&nbsp;-&nbsp;_&nbsp;-&nbsp;)
+        
+        
+      //- Right Side
+      .col-5.text-right
+        //- Headers 
+        .row
+          .col
+            h1#display-header1.display-header.noselect latenight
+            h1#display-spacer.display-header.noselect &nbsp;&nbsp;&nbsp;
+            h1#display-header2.display-header.noselect &nbsp;code;&nbsp;&nbsp;
+        
+        //- Description
+        .row
+          .col.offset-3
+            hr.mb-3.mt-4.ml-5
+            p
+              | Hey, welcome to my site!
+              | Here you'll find tips, tricks and all kinds of fun stuff from an (amateur) coder &amp; artist.
+              | I hope you enjoy your stay!
+        
+        //- Call to Action Button
+        .row.mt-5.mb-5
+          .col
+            button#call-button Come on in.
+        
+        //- Symbols
+        .row#dot-grid-row.bottom-row.mb-3
+          .col
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+            

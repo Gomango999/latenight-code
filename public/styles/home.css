@@ -85,8 +85,6 @@ p {
 }
 
 #call-button {
-  margin-bottom: 5em;
-
   border: 0px;
   border-radius: 10000px; /* Bigger than any button will ever be*/
 
@@ -101,6 +99,10 @@ p {
 #call-button:hover {
   background-color: #C45541;
   cursor: pointer;
+}
+
+#call-button-row {
+  margin-bottom: 12em; /* To ensure the bottom row gets enough separation from the button*/
 }
 
 #dot-grid-row {

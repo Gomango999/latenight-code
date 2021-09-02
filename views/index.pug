@@ -8,30 +8,24 @@ block head
 
 block content
   .container-fluid
+    //- Name
+    .row.mt-5
+      .col
+        div.author 
+          span#author1 Gomango999 | 
+          span#author2 Kevin Zhu
+        
     //- Left Side
-    .row.mw-100.px-5
-      //- Illustration
-      .col-7
-        //- Name
-        .row
-          .col
-            span#author1.author Gomango999 | 
-            span#author2.author Kevin Zhu
-            
+    .row
+      .col-xl-7
         //- Illustration
-        .row.mt-5.mb-5
+        .row
           .col
             //- img(src='images/background/desk/white_outline.png')#illustration
             img(src='images/background/desk/desk5_cropped.png')#illustration
-            
-        //- Symbols
-        .row.bottom-row
-          .col
-            p#bottom-symbols //&nbsp;#&nbsp;-&nbsp;_&nbsp;-&nbsp;)
-        
-        
+
       //- Right Side
-      .col-5.text-right
+      .col-xl-5.text-right
         //- Headers 
         .row
           .col
@@ -41,7 +35,7 @@ block content
         
         //- Description
         .row
-          .col.offset-3
+          .col.offset-lg-3
             hr.mb-3.mt-4.ml-5
             p
               | Hey, welcome to my site!
@@ -52,7 +46,14 @@ block content
         .row#call-button-row.mt-5
           .col
             a(href='/blog/')#call-button.noselect Come on in
-        
+    
+    //- Bottom Row
+    .row.mt-5
+      .col-xl-7
+        .row.bottom-row
+          .col
+            p#bottom-symbols.noselect //&nbsp;#&nbsp;-&nbsp;_&nbsp;-&nbsp;)
+      .col-xl-5
         //- Symbols
         .row#dot-grid-row.bottom-row.mb-3.noselect
           .col

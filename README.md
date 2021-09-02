@@ -26,3 +26,4 @@ and connect to `https://localhost:8080` in the browser.
 - Express
 - Pug
 - Markdown
+- Pandoc

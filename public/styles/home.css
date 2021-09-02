@@ -15,7 +15,6 @@
 
 /* === GENERAL ===*/
 .container-fluid {
-  overflow: hidden;
   padding-top: 8%;
   padding-left: 10%;
   padding-right: 10%;
@@ -38,11 +37,11 @@
   font-weight: 600;
 }
 
+
 #illustration {
   margin-top: 1.5em;
-  margin-bottom: 8em;
-  min-width: 700px;
-  max-width: 80%
+  width: 700px;
+  max-width: 100%;
 }
 
 #bottom-symbols {
@@ -56,6 +55,8 @@
 
 /* === RIGHT SIDE ===*/
 .display-header {
+  margin-top: 0px;
+
   font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace;
   font-size: 7em;
 }
@@ -73,7 +74,6 @@
   margin-right: -2ch; /* Matches the number of spaces after 'code;' */
   display: inline;
 
-  margin-top: 0px;
   background-color: white;
   color: #262b3e;
 }
@@ -113,4 +113,36 @@ p {
   overflow: hidden;
   height: 0.85em;
   margin-left: 0.1em;
+}
+
+/* === Media Queries ===*/
+@media (max-width: 1400px) {
+  .display-header {
+    font-size: 5.8em;
+  }
+}
+@media (min-width: 992px) {
+  .author {
+    margin-bottom: 1em;
+  }
+}
+@media (max-width: 992px) {
+  .author {
+    margin-bottom: 0.1em;
+  }
+  .display-header {
+    font-size: 5em;
+  }
+}
+@media (max-width: 576px) {
+  .author {
+    font-size: 1em;
+  }
+  .display-header {
+    margin-top: 1em;
+    font-size: 4em;
+  }
+  p, #call-button {
+    font-size: 1.2em;
+  }
 }

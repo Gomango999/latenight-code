@@ -47,9 +47,14 @@
 #bottom-symbols {
   margin-bottom: 0px;
 
-  font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  /* font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace; */
+  font-family: arial;
   font-size: 2em;
   color: #53576b;
+}
+
+#bottom-symbols:hover {
+  cursor: pointer;
 }
 
 

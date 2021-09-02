@@ -3,7 +3,7 @@ extends layout
 block head
   title Late Night Code
 
-  script(src='scripts/buttons.js')
+  script(src='scripts/maid_dragon.js')
   link(rel='stylesheet' href='styles/home.css')
 
 block content
@@ -52,7 +52,7 @@ block content
       .col-xl-7
         .row.bottom-row
           .col
-            p#bottom-symbols.noselect //&nbsp;#&nbsp;-&nbsp;_&nbsp;-&nbsp;)
+            p(onclick="rollSymbols()")#bottom-symbols.noselect //&nbsp;#&nbsp;-&nbsp;_&nbsp;-&nbsp;)
       .col-xl-5
         //- Symbols
         .row#dot-grid-row.bottom-row.mb-3.noselect

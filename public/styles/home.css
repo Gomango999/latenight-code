@@ -63,7 +63,7 @@
   margin-top: 0px;
 
   font-family: 'Menlo', 'Monaco' , 'Consolas', 'Liberation Mono', 'Courier New', monospace;
-  font-size: 7em;
+  font-size: 5em;
 }
 
 #display-header1 {
@@ -123,7 +123,7 @@ p {
 /* === Media Queries ===*/
 @media (max-width: 1400px) {
   .display-header {
-    font-size: 5.8em;
+    font-size: 4em;
   }
 }
 @media (max-width: 1200px) {

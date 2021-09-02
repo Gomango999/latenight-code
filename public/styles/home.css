@@ -126,6 +126,11 @@ p {
     font-size: 5.8em;
   }
 }
+@media (max-width: 1200px) {
+  .display-header {
+    margin-top: 1em;
+  }
+}
 @media (min-width: 992px) {
   .author {
     margin-bottom: 1em;
@@ -144,7 +149,6 @@ p {
     font-size: 1em;
   }
   .display-header {
-    margin-top: 1em;
     font-size: 4em;
   }
   p, #call-button {

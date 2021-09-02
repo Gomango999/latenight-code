@@ -145,4 +145,13 @@ p {
   p, #call-button {
     font-size: 1.2em;
   }
+  #bottom-symbols {
+    font-size: 1.3em;
+  }
+  #dot-grid-row {
+    font-size: 2em;
+  }
+  #dot-grid-row .col-3 {
+    margin-left: 0em;
+  }
 }

@@ -1,5 +1,5 @@
-![Logo](https://github.com/Gomango999/latenight-code/blob/master/public/images/logo/1x/logo_full_purple.png)
----
+<!-- ![Logo](https://github.com/Gomango999/latenight-code/blob/master/public/images/logo/1x/logo_full_purple.png) -->
+# Latenight Code
 Check it out!
 http://www.latenightcode.xyz/
 

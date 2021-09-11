@@ -102,8 +102,9 @@ p {
 }
 
 #call-button:hover {
-  background-color: #C45541;
+  /* background-color: #C45541; */
   cursor: pointer;
+  text-decoration:none;
 }
 
 #call-button-row {

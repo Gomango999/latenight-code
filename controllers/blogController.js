@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
 const metadataParser = require('markdown-yaml-metadata-parser');
+const os = require('os');
 
 // get group and author metadata
 function getMetadata() {
@@ -13,7 +14,7 @@ function getMetadata() {
   const authorFilePath = './public/blog_posts/metadata/authors/authors.json'
   const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
   const authors = JSON.parse(authorRawData);
-  
+
   return {groups, authors}
 }
 
@@ -85,7 +86,11 @@ function getBlogPosts(blogPostNames) {
     let blog = getBlogMetadata(blogPostNames[i])
     blog = populateHeader(blog, groups, authors)
 
-    if (!blog.public) continue;
+    let islocal = Boolean(os.hostname().indexOf("local") > -1);
+    if (!blog.public) {
+      if (islocal) blog.title = "* " + blog.title;
+      else continue;
+    }
     if (!fs.existsSync(blog.outpath)) continue;
     // add code to generate if doesn't exist here.
 

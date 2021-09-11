@@ -51,8 +51,6 @@ h1 {
   border-radius: 50%;
 }
 
-
-
 /* === Blog Text === */
 .content {
   margin-top: 80px;
@@ -61,6 +59,17 @@ h1 {
 figure > img {
   max-width: 750px;
 }
+
+/* === Back Button === */
+.next-prev-links a {
+  font-size: 1.1em;
+  color: #cbccc6;
+}
+.next-prev-links a:hover {
+  text-decoration: none;
+}
+
+
 
 /* === Blog Post List === */
 #bloglist {

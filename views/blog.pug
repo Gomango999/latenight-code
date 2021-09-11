@@ -6,6 +6,8 @@ block head
   link(rel='stylesheet' href='/styles/blog.css')
   link(rel='stylesheet' href='/styles/syntax-highlighting.css')
   
+  script(src="https://use.fontawesome.com/7ea5be644c.js")
+  
   link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css' integrity='sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X' crossorigin='anonymous')
       
   script(defer='' src='https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js' integrity='sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4' crossorigin='anonymous')
@@ -15,48 +17,69 @@ block head
 
   
 block content
-  header.container-fluid.p-0
-    .row.h-100
-      .col-2.py-2.h-100
-        a(href='/')
-          img(id='header-logo' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.').mt-1.px-3
-      .col-2
-      .col-4.h-100
-        a(href='/blog/').blog-link
-          h1.display.white.mt-0 Latenight Blog 
-    
-
-  .container-fluid.pb-5
-    .row.pt-6
-      #blogpost.col-md-12.offset-md-0.col-lg-8.offset-lg-2.card.content.mb-5
+  .container.p-5
+    .row
+      .col
+        //- Back button
         .row
-          .col-12
+          .col
+            a(href="/blog/").back-button
+              i(aria-hidden="true").fa.fa-arrow-left 
+              span.back-button-text back to blog list...
+              
+        //- Header
+        .row.cover-container.mt-3
+          .col
+            img(id='cover-art' src=blog.coverArt alt='Blog Cover Photo')
+        .row.header-container
+          .col
             h1.mb-0 #{blog.title}
-        .row.info.mt-3
+        .row.blog-info.mt-3.pr-5
           .col-6
             img(id='profile-picture' class='float-left' src=blog.author.image alt='Profile Picture')
-            p.pt-2
-              i.ml-3 by #{blog.author.name}
+            i.ml-3 by #{blog.author.name}
           .col-6.text-right
-            p.pt-2 #{blog.displayUploadDate}
+            i.pt-2 #{blog.displayUploadDate}
         hr
-        .row
-          .col-12
+          
+        //- Content
+        .row.content
+          .col
             p!= blog.content 
-      if blog.menu && blog.menu.submenus.length
-        #menu-container.col-md-6.offset-md-0.col-lg-4.offset-lg-2
-          .row
-            #menu.col-12.card.content.pt-4
-              each submenu in blog.menu.submenus
-                .row
-                  .col-12
-                    h4 #{submenu.title}
-                    ul
-                      each link in submenu.relatedLinks
-                        if link.live
-                          a(href=link.href).live-link
-                            li #{link.title}
-                        else 
-                          li.dead-link.noselect #{link.title}
+        
+        hr.mt-5
+        
+        //- Next and Previous Links
+        .row.mt-4
+          .col-6
+            if blog.prevPage
+              a(href=blog.prevPage) 
+                i(aria-hidden="true").fa.fa-arrow-left 
+                span.ml-1 previous post...
+          .col-6.text-right
+            if blog.nextPage
+              i(aria-hidden="true").fa.fa-arrow-right
+              span.ml-1 next post...
+        
+        //- TODO: Add a cute illustration here
+
+
+
+
+//- if blog.menu && blog.menu.submenus.length
+//-   #menu-container.col-md-6.offset-md-0.col-lg-4.offset-lg-2
+//-     .row
+//-       #menu.col-12.card.content.pt-4
+//-         each submenu in blog.menu.submenus
+//-           .row
+//-             .col-12
+//-               h4 #{submenu.title}
+//-               ul
+//-                 each link in submenu.relatedLinks
+//-                   if link.live
+//-                     a(href=link.href).live-link
+//-                       li #{link.title}
+//-                   else 
+//-                     li.dead-link.noselect #{link.title}
                     
   

@@ -1,117 +1,68 @@
-/* General */
-.card {
-  border-radius: 10px;
-  box-shadow: 0px 3px 10px rgb(9, 9, 9), 0px -3px 10px rgb(9, 9, 9);
+/* === Back Button === */
+a.back-button {
+  position: relative;
+  font-size: 1em;
+  color: #cbccc6;
+  z-index: 100;
+}
+a.back-button span {
+  margin-left: 15px;
+}
+a.back-button:hover {
+  text-decoration: none;
 }
 
-.outline {
-  border: 1px solid #545869;
-  border-radius: 3px;
+/* === Cover Photo === */
+.cover-container {
+  overflow: hidden;
+  height: 300px;
+}
+#cover-art {
+  position: relative;
+  float: right;
+  width: 80%;
+  opacity: 0.2;
+  /* image-rendering: pixelated; */
+  object-fit: cover;
+  z-index: -100; /* display below title */
 }
 
-h1.display {
-  font-size: 60px;
+/* === Header === */
+.header-container {
+  margin-top: -11.5em;
 }
-
-#header-logo {
-  height: 56px;
-  float:left;
+h1 {
+  font-size: 4em;
 }
-
-body {
-  padding-top: 120px;
-}
-
-/* Blog Post */
-
-#blogpost {
-  padding: 30px 60px;
-  /* font-size: 1.7rem; */
-  max-width: 850px;
-}
-#menu-container {
-  max-width: 850px;
-
-}
-#menu {
-  padding: 48px
-}
-
-@media (max-width: 480px) {
-  #blogpost {
-    margin-left: 0px;
-    margin-right: 0px;
+@media (max-width: 992px) {
+  #cover-art {
+    width: 100%;
   }
-  #menu-container {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-}
-@media (min-width: 1870px) {
-  #menu-container {
-    max-width: 300px;
-    margin-left: 100px;
-  }
-  #menu {
-    padding: 16px 24px;
+  h1 {
+    font-size: 3em;
   }
 }
 
-.content {
-  background-color: #191f2b;
+.blog-info {
+  font-size: 1.1em;
 }
-
-
-/* Blog Menus */
-a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-link:focus {
-  text-decoration:none;
-}
-
-#menu ul {
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-}
-#menu ul > a > li, #menu ul > li {
-	padding: 8px 15px;
-	font-size: 16px;
-	white-space: nowrap;
-	overflow: hidden;
-  line-height: 1.5em;
-}
-a > li{
-  color: #abf0ff;
-}
-li.dead-link {
-  color: #acacac;
-}
-
-ul > a.live-link:hover {
-  cursor: pointer;
-  text-decoration:none;
-}
-ul > a.live-link > li:hover {
-	background-color: #2a3241;
-}
-ul > li.dead-link:hover {
-	background-color: #2a3241;
-}
-
 #profile-picture {
   height: 35px;
   border-radius: 50%;
 }
-.info {
-  font-size: 0.9em;
+
+
+
+/* === Blog Text === */
+.content {
+  margin-top: 80px;
+  font-size: 1.1em;
+}
+figure > img {
+  max-width: 750px;
 }
 
-/* Maths */
-span.katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-/* Blog Post List */
+/* === Blog Post List === */
 #bloglist {
   padding: 40px 20px;
   max-width: 900px;
@@ -152,7 +103,7 @@ a.blogpostcard {
   width: 100px;
 }
 
-/* Downloads */
+/* === Downloads === */
 .download-card {
   border: #5e5e5e 1px solid;
   border-radius: 10px;
@@ -184,3 +135,39 @@ a.download-link {
   font-size: 0.7em;
   color: #8e8b81;
 }
+
+
+/* Blog Menus */
+/* a.blog-link, a.blog-link:hover, a.blog-link:active, a.blog-link:visited, a.blog-link:focus {
+  text-decoration:none;
+}
+
+#menu ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+#menu ul > a > li, #menu ul > li {
+	padding: 8px 15px;
+	font-size: 16px;
+	white-space: nowrap;
+	overflow: hidden;
+  line-height: 1.5em;
+}
+a > li{
+  color: #abf0ff;
+}
+li.dead-link {
+  color: #acacac;
+}
+
+ul > a.live-link:hover {
+  cursor: pointer;
+  text-decoration:none;
+}
+ul > a.live-link > li:hover {
+	background-color: #2a3241;
+}
+ul > li.dead-link:hover {
+	background-color: #2a3241;
+} */

@@ -51,6 +51,14 @@ function populateHeader(blog, groups, authors) {
   currDate = moment.now();
   blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
 
+  // set default cover art
+  const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';
+  if (!blog.hasOwnProperty('coverArt')) {
+    blog.coverArt = defaultCoverArt
+  }
+
+  // TODO: Add code to display the title of the previous and next page
+
   // populate authors
   blog.author = authors[blog.author]
 

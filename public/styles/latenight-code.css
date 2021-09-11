@@ -82,21 +82,25 @@ blockquote > p {
 /* code */
 tt,pre {
 	font-size: 16px;
-  overflow: auuto;
+  overflow: auto;
+}
+code {
+  color: white;
+}
+
+/* === KATEX === */
+/* fix overflow display */
+span.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* === PANDOC === */
-
 /* fix pandoc default code style */
 pre {
   color: #cbccc6; /*default text colour*/
   padding: 5px 2px;
   border-radius: 5px;
-  background-color: #1f2430;
-  font-size: 0.9em;
-}
-code {
-  color: #cbccc6; /*default text colour*/
   background-color: #1f2430;
   font-size: 0.9em;
 }

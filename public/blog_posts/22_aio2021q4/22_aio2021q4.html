@@ -1,32 +1,32 @@
 <p><em>Contest Source: <a href="https://orac2.info/hub/aio/">AIO 2021</a></em></p>
 <p>This problem can be done using greedy. Sort the dishes, then place the first hippo on the leftmost dish, the second hippo on the first dish that is K away from the first hippo, the third hippo on the first dish that is K away from the second hippo, and so on. Repeat this until there are no more valid dishes, and return the number of hippos placed as the optimal number of hippos. This runs in <span class="math inline">\(O(N)\)</span> time.</p>
 <p>The reason why this works is as follows. Consider any valid optimal assignment of hippos to dishes (not necessarily using our greedy method). Then if the first hippo from the left is not on the first dish already, then he can be moved so that he is on the first dish without breaking social distancing rules. Afterwards, the second hippo then can also be moved to the first dish that is of distance <span class="math inline">\(K\)</span> from the first hippos new location without breaking social distance laws. We can repeat this for the third, fourth, fifth hippos and so on, until all hippos are ‘aligned to the left’. In other words, any optimal assignment of hippos can always be transformed into the assignment given by our greedy algorithm, so we know our greedy algorithm is optimal.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main () {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    freopen(<span class="st">&quot;distin.txt&quot;</span>, <span class="st">&quot;r&quot;</span>, stdin);</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    freopen(<span class="st">&quot;distout.txt&quot;</span>, <span class="st">&quot;w&quot;</span>, stdout);</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N, K;</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    cin &gt;&gt; N &gt;&gt; K;</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> dishes[N];</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) cin &gt;&gt; dishes[i];</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// sort dishes from left to right</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    sort(dishes, dishes+N);</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// greedily assign as many hippos as possible</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> last_hippo = INT_MIN/<span class="dv">2</span>; <span class="co">// our &#39;last hippo&#39; is at negative infinity</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (dishes[i]-last_hippo &gt;= K) {</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            <span class="co">// if current dish is far enough away from the last hippo, place the new hippo here</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            last_hippo = dishes[i];</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            cnt++;</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, cnt);</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    freopen(<span class="st">&quot;distin.txt&quot;</span>, <span class="st">&quot;r&quot;</span>, stdin);</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    freopen(<span class="st">&quot;distout.txt&quot;</span>, <span class="st">&quot;w&quot;</span>, stdout);</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    <span class="dt">int</span> N, K;</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    cin &gt;&gt; N &gt;&gt; K;</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="dt">int</span> dishes[N];</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) cin &gt;&gt; dishes[i];</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="co">// sort dishes from left to right</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    sort(dishes, dishes+N);</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="co">// greedily assign as many hippos as possible</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="dt">int</span> cnt = <span class="dv">0</span>;</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="dt">int</span> last_hippo = INT_MIN/<span class="dv">2</span>; <span class="co">// our &#39;last hippo&#39; is at negative infinity</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
+<span id="cb1-21"><a href="#cb1-21"></a>        <span class="cf">if</span> (dishes[i]-last_hippo &gt;= K) {</span>
+<span id="cb1-22"><a href="#cb1-22"></a>            <span class="co">// if current dish is far enough away from the last hippo, place the new hippo here</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>            last_hippo = dishes[i];</span>
+<span id="cb1-24"><a href="#cb1-24"></a>            cnt++;</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        }</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    }</span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, cnt);</span>
+<span id="cb1-29"><a href="#cb1-29"></a>}</span></code></pre></div>

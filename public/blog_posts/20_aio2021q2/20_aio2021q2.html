@@ -1,35 +1,35 @@
 <p><em>Contest Source: <a href="https://orac2.info/hub/aio/">AIO 2021</a></em></p>
 <p>In order to find the minimum area rectangle, we observe that the lowest upper edge we can get must be in line with the top-most hole. Similarly, the highest bottom edge must be the bottom-most hole, the left-most right edge must be on the right-most hole, and the right-most left edge must be on the left-most hole. Hence, this problem simply becomes a problem of finding the minimum and maximum <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates, and using them to construct the sides of the rectangle. Afterwards, we can trivially calculate the area. The complexity is <span class="math inline">\(O(N)\)</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MAXN </span><span class="dv">100005</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main () {</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    freopen(<span class="st">&quot;artin.txt&quot;</span>, <span class="st">&quot;r&quot;</span>, stdin);</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    freopen(<span class="st">&quot;artout.txt&quot;</span>, <span class="st">&quot;w&quot;</span>, stdout);</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N;</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    cin &gt;&gt; N;</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the edges of our rectangle</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> u = <span class="dv">0</span>;</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> d = INT_MAX;</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> l = INT_MAX;</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> r = <span class="dv">0</span>;</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// find the min and max of the x and y coordinates separately</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x, y;</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        cin &gt;&gt; x &gt;&gt; y;</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        u = max(u, y);</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        d = min(d, y);</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        l = min(l, x);</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        r = max(r, x);</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">// u,d,l,r now define the four sides of our rectangle</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">// print out the area</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> area = (r - l) * (u - d);</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, area);</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;bits/stdc++.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">using</span> <span class="kw">namespace</span> std;</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="pp">#define MAXN </span><span class="dv">100005</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="dt">int</span> main () {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    freopen(<span class="st">&quot;artin.txt&quot;</span>, <span class="st">&quot;r&quot;</span>, stdin);</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    freopen(<span class="st">&quot;artout.txt&quot;</span>, <span class="st">&quot;w&quot;</span>, stdout);</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="dt">int</span> N;</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    cin &gt;&gt; N;</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="co">// the edges of our rectangle</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="dt">int</span> u = <span class="dv">0</span>;</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="dt">int</span> d = INT_MAX;</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="dt">int</span> l = INT_MAX;</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="dt">int</span> r = <span class="dv">0</span>;</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="co">// find the min and max of the x and y coordinates separately</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; N; i++) {</span>
+<span id="cb1-21"><a href="#cb1-21"></a>        <span class="dt">int</span> x, y;</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        cin &gt;&gt; x &gt;&gt; y;</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        u = max(u, y);</span>
+<span id="cb1-24"><a href="#cb1-24"></a>        d = min(d, y);</span>
+<span id="cb1-25"><a href="#cb1-25"></a>        l = min(l, x);</span>
+<span id="cb1-26"><a href="#cb1-26"></a>        r = max(r, x);</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    }</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    <span class="co">// u,d,l,r now define the four sides of our rectangle</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="co">// print out the area</span></span>
+<span id="cb1-31"><a href="#cb1-31"></a>    <span class="dt">int</span> area = (r - l) * (u - d);</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    printf(<span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span>, area);</span>
+<span id="cb1-33"><a href="#cb1-33"></a>}</span></code></pre></div>

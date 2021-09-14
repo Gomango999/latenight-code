@@ -211,7 +211,7 @@ footer {
 
 /* === RESPONSIVENESS === */
 
-@media (max-width: 978px) {
+@media (max-width: 992px) {
   .container-fluid {
     padding:0;
     margin:0;

@@ -50,6 +50,7 @@ function populateHeader(blog, groups, authors) {
   blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
   currDate = moment.now();
   blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
+  blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); // used to make spacers
 
   // set default cover art
   const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';

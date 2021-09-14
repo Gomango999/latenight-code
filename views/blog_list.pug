@@ -3,63 +3,119 @@ extends layout
 block head
   title Blog - Late Night Code
   
-  link(rel='stylesheet' href='/styles/blog.css')
-  script.
-    function gotoAllPosts() {
-      $("a.blogpostcard").show()
-      $("#allpostslink").addClass("active");
-      $("#contestlink").removeClass("active");
-    }
-    function gotoContests() {
-      $("a.blogpostcard").hide()
-      console.log($("a.blogpostcard"));
-      $("a.blogpostcard").each(function () {
-        let rawTags = $(this).data('tags');
-        tags = rawTags.split(',');
-        console.log(tags);
-        if (tags.includes('contest')) {
-          $(this).show()
-        }
-      });
-      
-      $("#allpostslink").removeClass("active");
-      $("#contestlink").addClass("active");
-    }
+  link(rel='stylesheet' href='/styles/blog_list.css')
     
-
+  script(src="https://use.fontawesome.com/7ea5be644c.js")
+  
 block content
-  header.container-fluid.p-0
-    .row.h-100
-      .col-2.py-2.h-100
-        a(href='/')
-          img(id='header-logo' src='/images/logo/SVG/symbol_blue.svg' alt='Late Night Code Logo.').mt-1.px-3
-      .col-2
-      .col-4.h-100
-        a(href='/blog/').blog-link
-          h1.display.white.mt-0 Latenight Blog 
-       
-  #bloglist.content.container.card.mb-5
-    ul.nav.nav-tabs.mx-5
-      li.nav-item
-        a#allpostslink.nav-link.active(href='#' onclick='gotoAllPosts();') All Posts
-      li.nav-item
-        a#contestlink.nav-link(href='#' onclick='gotoContests();') Contests
-    
-    .mt-3
-      each blog in blogs
-        a.row.blogpostcard.outline(href='.'+blog.url data-tags=blog.tags.join(',')).my-2
-          .col.pt-3
+  .container.py-5.px-4
+    .row
+      //- Background Dot Grid
+      .col-1#dot-grid-col
+        //- Symbols
+        .row#dot-grid-row.bottom-row.mb-3.noselect
+          .col
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+            .row.dot-row
+              .col-3
+                span &middot;
+              .col-3
+                span &middot;
+      
+      //- Main Section
+      .col-11.col-lg-9
+      
+        //- Back button
+        .row
+          .col
+            a(href="/").back-button
+              i(aria-hidden="true").fa.fa-arrow-left 
+              span.back-button-text &nbsp; back to homepage...
+              
+        //- Header
+        .row#header-row.mt-4
+          .col
+            //- Illustration
+            img(src='/images/background/lighthouse/lighthouse_cropped.jpg')#illustration.noselect
+            
+            //- Time Display
+            #time-div
+              .row
+                .col
+                  span#time 12:41
+              .row
+                .col
+                  span#date 2021.09.14 &nbsp;
+                  span#day Tue
+                
+            //- Header Text
+            .row#header-text-row.text-right
+              .col
+                .row
+                  .col
+                    h1#display-header1 latenight
+                .row.mt-1
+                  .col
+                    h1#display-header2 &nbsp;blog;&nbsp;
+  
+            //- Plus Symbol
+            #plus-div
+              span.stretch.noselect +
+              
+            //- Github Logo
+            #github-div
+              a(href='https://github.com/Gomango999')
+                i.fa.fa-github.noselect  
+        
+        //- Spacer
+        .row
+          .col-11.py-3
+            //- i.fa.fa-moon-o#moon-symbol
+            i#moon-symbol.fa.fa-arrow-down.noselect
+          .col-1.timeline1.py-5
+        
+        //- Blog List
+        .row#blog-list-row
+          .col
+            each blog, i in blogs
+              .row
+                .col-9
+                  a(href='.'+blog.url data-tags=blog.tags.join(',')).row
+                    .col
+                      h2.mt-3 #{blog.title}
+                  .row.mt-1
+                    .col
+                      p #{blog.description}
+                .col-2.text-right.pr-4.pt-3
+                  if blog.overOneWeek
+                    i #{blog.displayUploadDate}
+                  else
+                    i #{blog.timeFromUpload}
+                .col-1.timeline2.pt-3
+                  i.fa.fa-circle.timeline-circle
+                
+              //- Add a spacer if different month
+              if i+1 < blogs.length && blogs[i].monthYear != blogs[i+1].monthYear
+                .row
+                  .col-1.offset-11.timeline1.py-3
+                    
+            //- Final Spacer
             .row
-              .col-sm-10
-                h2.mlc-blue.mt-0.mb-2 #{blog.title}
-              .col-sm-2.date 
-                if blog.overOneWeek
-                  i #{blog.displayUploadDate}
-                else
-                  i #{blog.timeFromUpload}
-            .row.mb-2
-              .col-12
-                p #{blog.description}
-      .row.mt-5.mb-3
-        img.center(id='list-ender' src='/images/misc/list_ender.png')
-    
+              .col-11.text-right
+                .row.py-5
+                  .col.py-5
+                i.mt-5 End of the road
+              .col-1.timeline1.py-5
+                
+            
+
+            

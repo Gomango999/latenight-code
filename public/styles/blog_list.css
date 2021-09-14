@@ -220,10 +220,15 @@ span.stretch {
   font-family: 'Be Vietnam', sans-serif;
 }
 #blog-list-row a:hover {
+<<<<<<< HEAD
   /* text-decoration: none; */
   /* will be removed in the future when animations are added, but for now, need some way to respond when user hoverse */
 }
 
+=======
+  text-decoration: none;
+}
+>>>>>>> 1e5f377e670e64f2e02462c92b8458e9d1c6daf6
 #blog-list-row p {
   color: white;
   margin-bottom: 0px;

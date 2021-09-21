@@ -20,7 +20,7 @@
     "node-pandoc": "^0.3.0",
     "node-pandoc-promise": "^0.0.6",
     "nodemon": "^2.0.12",
-    "object-path": ">=0.11.6",
+    "object-path": ">=0.11.8",
     "pug": "^3.0.2",
     "serve-favicon": "^2.5.0",
     "socket.io": ">=2.4.0",

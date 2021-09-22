@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "export $(cat .env | xargs) && nodemon --delay 1 app.js"
+    "start": "node app.js"
+    "devstart": "export $(cat .env | xargs) && nodemon --delay 1 app.js"
   },
   "author": "Kevin Zhu",
   "license": "ISC",

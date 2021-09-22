@@ -1,6 +1,10 @@
 const { MongoClient } = require('mongodb');
 
+// set up connection to MongoDB server
 const uri = process.env.MONGODB_URI;
+if (!uri) {
+  console.error("URI not found");
+}
 const mongoClient = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -11,7 +15,7 @@ exports.index = function (req, res) {
   // get the document
   var documentPromise = clientPromise
   .then((client, err) => {
-    if (err) console.err(err);
+    if (err) console.error(err);
 
     // retrieve site statistics
     const collection = client.db("latenightcode").collection("main");
@@ -21,7 +25,7 @@ exports.index = function (req, res) {
   // update the server and display the site
   Promise.all([clientPromise, documentPromise])
   .then(([client, documents], err) => {
-    if (err) console.err(err);
+    if (err) console.error(err);
     const document = documents[0];
     const visits = document.numSiteVisits;
 

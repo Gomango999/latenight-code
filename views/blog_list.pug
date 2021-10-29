@@ -6,7 +6,10 @@ block head
   link(rel='stylesheet' href='/styles/blog_list.css')
     
   script(src="https://use.fontawesome.com/7ea5be644c.js")
-  script(src='/scripts/blog_list_buttons.js')
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js")
+    
+    
+  script(src='/scripts/blog_list.js')
   
 block content
   .container.py-5.px-4
@@ -55,8 +58,7 @@ block content
                   span#time 12:41
               .row
                 .col
-                  span#date 2021.09.14 &nbsp;
-                  span#day Tue
+                  span#date 2021.09.14
                 
             //- Header Text
             .row#header-text-row.text-right

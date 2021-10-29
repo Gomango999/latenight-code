@@ -1,7 +1,10 @@
+const dotenv = require('dotenv')
 const fs = require("fs")
 const path = require("path")
 const express = require("express");
 const favicon = require('serve-favicon');
+
+dotenv.config() // load from .env file
 
 let indexRouter = require('./routes/index');
 let blogRouter = require('./routes/blog');

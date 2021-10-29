@@ -2,6 +2,7 @@ const { MongoClient } = require('mongodb');
 
 // set up connection to MongoDB server
 const uri = process.env.MONGODB_URI;
+console.log(uri)
 if (!uri) {
   console.error("URI not found");
 }

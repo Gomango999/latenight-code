@@ -4,7 +4,6 @@ $(document).ready(function() {
 
 	// Attach listeners to each button
 	$('#button-blog').on('click', function(e) {
-    console.log("HI")
 		const url = blogLink;
 	  	if (e.ctrlKey){
 			window.open(url,'_blank')

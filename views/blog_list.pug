@@ -6,6 +6,7 @@ block head
   link(rel='stylesheet' href='/styles/blog_list.css')
     
   script(src="https://use.fontawesome.com/7ea5be644c.js")
+  script(src='/scripts/blog_list_buttons.js')
   
 block content
   .container.py-5.px-4
@@ -79,9 +80,11 @@ block content
         //- Spacer
         .row
           .col-11.py-3
-            //- i.fa.fa-moon-o#moon-symbol
-            i#moon-symbol.fa.fa-arrow-down.noselect
-          .col-1.timeline1.py-5
+            a
+              i(aria-hidden="true")#moon-symbol.fa.fa-arrow-down.noselect 
+          .col-1
+            .row.h-100
+              .col-1.offset-6.timeline1.py-5
         
         //- Blog List
         .row#blog-list-row
@@ -100,22 +103,27 @@ block content
                     i #{blog.displayUploadDate}
                   else
                     i #{blog.timeFromUpload}
-                .col-1.timeline2.pt-3
-                  i.fa.fa-circle.timeline-circle
+                .col-1
+                  .row.h-100
+                    .col-1.offset-6.timeline2
+                      i.fa.fa-circle.timeline-circle
                 
               //- Add a spacer if different month
               if i+1 < blogs.length && blogs[i].monthYear != blogs[i+1].monthYear
                 .row
-                  .col-1.offset-11.timeline1.py-3
-                    
+                  .col-1.offset-11
+                    .row.h-100
+                      .col-1.offset-6.timeline1.py-3
+                                
             //- Final Spacer
             .row
               .col-11.text-right
                 .row.py-5
                   .col.py-5
                 i.mt-5 End of the road
-              .col-1.timeline1.py-5
-                
+              .col-1
+                .row.h-100
+                  .col-1.offset-6.timeline1.py-5
             
 
             

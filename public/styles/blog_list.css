@@ -170,6 +170,9 @@ span.stretch {
   color: white;
   font-size: 2em;
 }
+#moon-symbol:hover {
+  cursor: pointer;
+}
 #extra-timeline-spacer {
   display: none;
 }

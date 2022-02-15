@@ -28,7 +28,7 @@ function setSymbols(target, stage) {
   for (let i = stage+2; i < target.length; i++) {
     target[i] = "•";
   }
-  newStr = target.join(" ")
+  newStr = target.join(" ");
   $("#bottom-symbols").text(newStr);
 }
 

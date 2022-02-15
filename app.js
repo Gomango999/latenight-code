@@ -8,6 +8,7 @@ dotenv.config() // load from .env file
 
 let indexRouter = require('./routes/index');
 let blogRouter = require('./routes/blog');
+let spinnerRouter = require('./routes/spinner');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use("/", indexRouter);
 app.use("/blog", blogRouter);
+app.use("/spinner", spinnerRouter);
 
 let port = process.env.PORT;
 if (port == null || port == "") {

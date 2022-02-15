@@ -4,6 +4,7 @@ block head
   title Spinner - Late Night Code
   
   link(rel='stylesheet' href='/styles/latenight-code.css')
+  link(rel='stylesheet' href='/styles/spinner.css')
     
   script(src='//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js')
   script(src='/scripts/spinner.js')
@@ -13,16 +14,19 @@ block content
     .row
       h1 Spinner
     .row
-      .col-8
+      .col-9
         .row
           .col
-            p spinner here
+            div#spinner-box.d-flex
+              h1#spinner-display.my-auto.my-auto.align-items-center.text-center.w-100 Name  
         .row
-          .col
-            button#spinbutton Spin!
-      .col-4.h-100
+          .col.d-flex.justify-content-center
+            button#spin-button.btn.btn-warning.px-5 Spin!
+            button#update-button.btn.btn-outline-warning.ml-5 Update Wheel
+            button#remove-button.btn.btn-outline-warning.ml-5 Remove Winner
+      .col-3.h-100
         h3 Seed
-        input#seedtext
+        input#seedtext(placeholder="None" cols=30)
         h3 Options
         textarea(rows=30 cols=30)#intext
           |ryno 80.0

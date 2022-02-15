@@ -1,0 +1,48 @@
+#spinner-box {
+  position: relative;
+  height: 820px;
+}
+
+.wheel-option {
+  position: absolute;
+  top: 400px;
+  left: calc(50px + 2.5%);
+  width: 80%;
+  text-align: right;
+  /* border: blue 1px solid; */
+}
+
+.wheel-tick {
+  position: absolute;
+  top: 400px;
+  left: 50px;
+  width: 85%;
+  text-align: right;
+  /* border: blue 1px solid; */
+}
+
+#wheel-ticker{
+  position: absolute;
+  top: 400px;
+  left: 50px;
+  width: 88%;
+  text-align: right;
+  /* border: blue 1px solid; */
+}
+
+#spinner-display{
+  color: #ffc107;
+}
+
+input, textarea {
+  background-color: #3a3a54;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+#seedtext {
+  width: 280px;
+}
+
+

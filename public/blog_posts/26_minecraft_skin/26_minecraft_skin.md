@@ -6,7 +6,6 @@ public: false
 uploadDate: 2021-09-12 00:40+11:00
 lastModified: 2021-09-12 00:40+11:00
 coverArt: /blog_posts/26_minecraft_skin/images/skin_big.png
-prevPage: 24_aio2021q6
 notes: ''
 tags:
 - art

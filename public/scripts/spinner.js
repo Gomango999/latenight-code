@@ -244,8 +244,8 @@ function calcSettleAngle() {
   return _angle;
 }
 
-var INITIAL_WHEEL_SPEED = 5.0;
-var WHEEL_DRAG = 0.995;
+var INITIAL_WHEEL_SPEED = 6.0;
+var WHEEL_DRAG = 0.985;
 var REVS_BEFORE_SETTLE = 0;
 var SETTLE_ANGLE;
 

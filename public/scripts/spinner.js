@@ -319,6 +319,7 @@ function spinWheel() {
   // calculate winner
   let seed = $("#seedtext").val();
   if (seed == '') seed = getCurrentTime();
+  seed += "_"+options.length.toString();
   winner = getWinner(seed, options);
   console.log("Winner: ", winner, options[winner])
 

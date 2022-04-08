@@ -1,0 +1,29 @@
+<p><em>Contest Source: <a href="https://www.comp6841.com/challenges">COMP6[84]41 CTF</a></em></p>
+<blockquote>
+<p><em>Note that all flags have been replaced with “COMP6841{REDACTED}”. This is to discourage you from just blindly submitting the final answer, and to encourage you to follow along and learn something along the way.</em></p>
+</blockquote>
+<p>We are given a file called <code>secedu.txt</code>. Opening it, we see it contains a single line containing the following:</p>
+<pre><code>secedusecedusecedueduedu secedueduseceduedueduedu secedueduedusecedueduedu secseceduseceduedusecsec
+secsecedusecsecsecsecsec seceduedueduedusecsecedu secedueduseceduedueduedu secedueduedusecedusecedu
+secsecedusecsecsecsecsec seceduedusecseceduedusec seceduedusecedusecsecedu seceduedusecsecedueduedu
+...</code></pre>
+<p>Looking more closely we can see that it’s made up of blocks of text, each of which contains either “sec” or “edu” repeated 8 times. This looks suspiciously like binary, so I wrote a script to extract out the binary and convert it into ASCII:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> binascii</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;secedu.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> f:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> f.readlines()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> lines[<span class="dv">0</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> line.replace(<span class="st">&quot;sec&quot;</span>, <span class="st">&quot;0&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>line <span class="op">=</span> line.replace(<span class="st">&quot;edu&quot;</span>, <span class="st">&quot;1&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print(line)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> line.split()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="bu">map</span>(<span class="kw">lambda</span> x : <span class="bu">int</span>(x, <span class="dv">2</span>), data)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> <span class="bu">map</span>(<span class="bu">chr</span>, data)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;&quot;</span>.join(data))</span></code></pre></div>
+<p>Running this gets:</p>
+<pre><code>Wow, you figured it out! Great work! How long it it take for you to figure it out?! I would share with you some extra secrets... but... (sorry)
+QWggd2VsbCB0aGF0J3Mgbm8gZmFpciEgSGVyZSwganVzdCB0YWtlIHRoZSBzZWNyZXQuIFJlbWVtYmVyIGl0IGlzIGEgc2VjcmV0LCBzbyBrZWVwIGl0IGh1c2ggaHVzaCEgQ09NUDY4NDF7UzNjX0VkdV8xc19jMDBsfQ==</code></pre>
+<p>We know from before (see the <a href="../26_tutorctf_warmup">Warmup Challenge</a>) that this is base64, so running that through an online converter gives us:</p>
+<pre><code>Ah well that&#39;s no fair! Here, just take the secret. Remember it is a secret, so keep it hush hush! COMP6841{REDACTED}</code></pre>

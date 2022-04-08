@@ -4,4 +4,4 @@ notes/
 .editorconfig
 *.xcf
 .env
-public/blog_posts/archives
+public/archives

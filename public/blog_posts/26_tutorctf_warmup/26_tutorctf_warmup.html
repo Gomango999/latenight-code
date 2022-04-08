@@ -1,0 +1,14 @@
+<p><em>Contest Source: <a href="https://www.comp6841.com/challenges">COMP6[84]41 CTF</a></em></p>
+<blockquote>
+<p><em>Note that all flags have been replaced with “COMP6841{REDACTED}”. This is to discourage you from just blindly submitting the final answer, and to encourage you to follow along and learn something along the way.</em></p>
+</blockquote>
+<p>For our first challenge of Tutor CTF, we have a nice and simple warmup. We’re given a <code>file.txt</code>, with the following inside:</p>
+<pre><code>NDM0ZjRkNTA3YjQ5NWY2ODRmNzA0NTVmNzkzMDc1NWY0MTUyMzM1Zjc3NjE3MjZkNjU2NDVmMzI1ZjY2Njk2ZTY0NWY2ZDMwNzI0NTVmNDYzMTYxNjc3MzIxN2Q=</code></pre>
+<p>Given that all the characters are either upper and lower case letters and numbers, and the fact that it ends with an equals sign, this is almost certainly base 64. Hence we can run</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> base64 <span class="at">--decode</span> <span class="op">&lt;</span> file.txt <span class="op">&gt;</span> file2.txt</span></code></pre></div>
+<p>to decode it. This gives us a new file containing the following:</p>
+<pre><code>434f4d507b495f684f70455f7930755f4152335f7761726d65645f325f66696e645f6d3072455f4631616773217d</code></pre>
+<p>Looking at this, we have alot of values from 41 to 5A, as well as 61 to 7B, which immediately tell us that this is ASCII. We can use the <code>xxd</code> command to decode this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> xxd <span class="at">-r</span> <span class="at">-p</span> <span class="op">&lt;</span> flag.txt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">COMP{REDACTED}</span></span></code></pre></div>
+<p>The <code>-r -p</code> flags tell xxd to convert from raw hexadecimal back into ASCII. Running this gets us the flag. Hopefully that wasn’t too bad :)</p>

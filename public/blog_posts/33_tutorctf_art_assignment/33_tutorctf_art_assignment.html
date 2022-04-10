@@ -9,34 +9,37 @@
 <p>We’ve been told that there’s a message hidden in here. There’s two pretty common options when it comes to hiding messages in images: Either look into the file metadata, or LSB steganography. Let’s check them both out!</p>
 <h2 id="checking-file-metadata">Checking File Metadata</h2>
 <p>Starting off with file metadata…</p>
-<pre class="term"><code>$ exiftool final_submission.png
-ExifTool Version Number         : 11.88
-File Name                       : final_submission.png
-Directory                       : .
-File Size                       : 5.8 kB
-File Modification Date/Time     : 2022:04:06 16:01:32+00:00
-File Access Date/Time           : 2022:04:06 16:17:18+00:00
-File Inode Change Date/Time     : 2022:04:06 16:01:32+00:00
-File Permissions                : rw-rw-r--
-File Type                       : PNG
-File Type Extension             : png
-MIME Type                       : image/png
-Image Width                     : 500
-Image Height                    : 500
-Bit Depth                       : 8
-Color Type                      : RGB with Alpha
-Compression                     : Deflate/Inflate
-Filter                          : Adaptive
-Interlace                       : Noninterlaced
-SRGB Rendering                  : Perceptual
-Exif Byte Order                 : Big-endian (Motorola, MM)
-Orientation                     : Horizontal (normal)
-Color Space                     : sRGB
-Exif Image Width                : 500
-Exif Image Height               : 500
-XMP Toolkit                     : XMP Core 6.0.0
-Image Size                      : 500x500
-Megapixels                      : 0.250</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> exiftool final_submission.png
+</span><span>ExifTool Version Number         : 11.88
+</span><span>File Name                       : final_submission.png
+</span><span>Directory                       : .
+</span><span>File Size                       : 5.8 kB
+</span><span>File Modification Date/Time     : 2022:04:06 16:01:32+00:00
+</span><span>File Access Date/Time           : 2022:04:06 16:17:18+00:00
+</span><span>File Inode Change Date/Time     : 2022:04:06 16:01:32+00:00
+</span><span>File Permissions                : rw-rw-r--
+</span><span>File Type                       : PNG
+</span><span>File Type Extension             : png
+</span><span>MIME Type                       : image/png
+</span><span>Image Width                     : 500
+</span><span>Image Height                    : 500
+</span><span>Bit Depth                       : 8
+</span><span>Color Type                      : RGB with Alpha
+</span><span>Compression                     : Deflate/Inflate
+</span><span>Filter                          : Adaptive
+</span><span>Interlace                       : Noninterlaced
+</span><span>SRGB Rendering                  : Perceptual
+</span><span>Exif Byte Order                 : Big-endian (Motorola, MM)
+</span><span>Orientation                     : Horizontal (normal)
+</span><span>Color Space                     : sRGB
+</span><span>Exif Image Width                : 500
+</span><span>Exif Image Height               : 500
+</span><span>XMP Toolkit                     : XMP Core 6.0.0
+</span><span>Image Size                      : 500x500
+</span><span>Megapixels                      : 0.250
+</span></code></pre>
+</div>
 <p>Looks pretty normal. The date time givne to us indicates the time that I downloaded the file, so nothing too significant here.</p>
 <h2 id="lsb">LSB</h2>
 <p>Next let’s consider LSB steganography. LSB stands for Least Significant Bit, and its a method to hide information within another image. The idea is that for every pixel, changing the least significant bit has almost no affect on the final image (at least to the human eye). Hence, we can use that final bit to encode secret information in the image.</p>

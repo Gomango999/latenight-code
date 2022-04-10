@@ -80,32 +80,38 @@
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div>
 <p>Running it, we get:</p>
-<pre class="term"><code>$ python3 get.py
-16 b&#39;AAAAAAAAAAAAAAAAEIKOOC\n&#39;
-17 b&#39;AAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-18 b&#39;AAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-19 b&#39;AAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-20 b&#39;AAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-21 b&#39;AAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-22 b&#39;AAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-23 b&#39;AAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-24 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-25 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-26 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
-Traceback (most recent call last):
-  File &quot;attack.py&quot;, line 5, in &lt;module&gt;
-    conn.recvuntil(b&#39;Feed the cookie monster: &#39;)
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 333, in recvuntil
-    res = self.recv(timeout=self.timeout)
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 105, in recv
-    return self._recv(numb, timeout) or b&#39;&#39;
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 183, in _recv
-    if not self.buffer and not self._fillbuffer(timeout):
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 154, in _fillbuffer
-    data = self.recv_raw(self.buffer.get_fill_size())
-  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/sock.py&quot;, line 56, in recv_raw
-    raise EOFError
-EOFError
-[*] Closed connection to 13.210.180.94 port 10001</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> python3 get.py
+</span><span>16 b'AAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>17 b'AAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>18 b'AAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>19 b'AAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>20 b'AAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>21 b'AAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>22 b'AAAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>23 b'AAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>24 b'AAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>25 b'AAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>26 b'AAAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n'
+</span><span>Traceback (most recent call last):
+</span><span>  File "attack.py", line 5, in <module>
+</span><span>    conn.recvuntil(b'Feed the cookie monster: ')
+</span><span>  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py", line 333, in recvuntil
+</span><span>    res = self.recv(timeout=self.timeout)
+</span><span>  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py", line 105, in recv
+</span><span>    return self._recv(numb, timeout) or b''
+</span><span>  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py", line 183, in _recv
+</span><span>    if not self.buffer and not self._fillbuffer(timeout):
+</span><span>  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py", line 154, in _fillbuffer
+</span><span>    data = self.recv_raw(self.buffer.get_fill_size())
+</span><span>  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/sock.py", line 56, in recv_raw
+</span><span>    raise EOFError
+</span><span>EOFError
+</span><span>[*] Closed connection to 13.210.180.94 port 10001
+</span></code></pre>
+</div>
 <p>Which tells us that 26 A’s caused the program to exit without giving us another “Feed the cookie monster:” message. In other words, we’ve found the right number of A’s to trigger the <code>oppsie</code> code! We can now manually enter in the correct string to get the flag, or alternately run pwntools in DEBUG mode so that it returns the final message before the program crashed.</p>
-<pre class="term"><code>$ python3 get.py DEBUG</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> python3 get.py DEBUG
+</span></code></pre>
+</div>

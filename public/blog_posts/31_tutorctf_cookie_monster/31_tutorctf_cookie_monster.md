@@ -111,7 +111,7 @@ conn.close()
 
 Running it, we get:
 
-```sh
+```term
 $ python3 get.py
 16 b'AAAAAAAAAAAAAAAAEIKOOC\n'
 17 b'AAAAAAAAAAAAAAAAAEIKOOC\n'
@@ -143,6 +143,6 @@ EOFError
 
 Which tells us that 26 A's caused the program to exit without giving us another "Feed the cookie monster:" message. In other words, we've found the right number of A's to trigger the `oppsie` code! We can now manually enter in the correct string to get the flag, or alternately run pwntools in DEBUG mode so that it returns the final message before the program crashed.
 
-```sh
+```term
 $ python3 get.py DEBUG
 ```

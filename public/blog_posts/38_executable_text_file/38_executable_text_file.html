@@ -1,0 +1,81 @@
+<h2 id="exploration">Exploration</h2>
+<p>We are given a <code>file.bin</code> which contains the following text:</p>
+<pre><code>UEsDBBQAAAAIAIFucFJPRmNqrwIAAKgiAAAFABwAaW50cm9VVAkAA1EdUGBRHVBgdXgLAAEE6AMA
+AAToAwAA7ZpLaxNRFMfPpKmJ9pGhVKjaSMToWDWTpGh9oDY1HXMFLViJIAgxNVNbyKMkk1qLINgi
+DkHoJ3Dlwk8gJQsNumhWWnfudFMIKNhFF1lY4r2dO00yUnyBujg/uDn3nPv/z31kNdy5r1y6YBME
+MLHBOWDZUTG0kYd4/ZlnU0JrJ8FBf530l2nt0EioKfbaoCmCaATma23Igc9nxnVeNmOjb2M+cz2e
+UFMc5mUzmj47b2W+1bIQaooBLjejE5p9Ve6rcr0ZvVznbdAzrq5oid+Z7wr1bYOfxzw+NpcHjDON
+jETpOQklVjP/WZslZ/1u2lq4/smCfu/DzQc9N3a17Y69nZ/vbN9e+YVlIAiCIAiCIAiCIP855LH9
+AHsndLW+Zl1bvdtS754xulGir5C5zyGyKHS4urTZ6Rwpntopyft8fonoSono0TJZdA/43AOHJTcp
+HpekPnf2jpuOLdOx92RR6j8S9B1kYz6vmz1gkI59pGOV8SVlla2GPUWpFp/SNb0Y2ljf2esugEqs
+VqvpytonHykoVddzmFs9r79i/UciKVyuFpS1ItsG0d/oSxWJismcUhW4eL6UL1MFHdlPR16yfVe8
+tPfvjh1BEARBEARBEARB/ir+hDrtT+eTSZ538yjMjoIwIwp72h3OBfpm3UNrvbR9/VKrvWOCoU7x
+oS3cwe6qI+Hwac+hyEi0zxMMyP1yAEDOTeS0rBYfAzmd0VT5djovT2UzU2pWu9tQGstPJhO+yQTI
+mjqjgZzNJOJaHGR1IjaejadUkG9lUik1rf3xPttocwC7Bzeo38cbecCid1ryvRZ//TsAI/da9HZL
+HgTj7n3zbn/zewcjrFv0giU/wWvm/PXvHoyw4wf+QYtf5H6R+49Z9Nb9X+R+6zkNc3/XFvM3xhb4
+nmvcP7qF3+QbUEsBAh4DFAAAAAgAgW5wUk9GY2qvAgAAqCIAAAUAGAAAAAAAAAAAAO2BAAAAAGlu
+dHJvVVQFAANRHVBgdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEASwAAAO4CAAAAAA==</code></pre>
+<p>This is obviously base64, so we run decode on it.</p>
+<pre><code>base64 --decode file.bin &gt; decoded1</code></pre>
+<p>Running file on <code>decoded1</code>, we see that it is a zip file</p>
+<pre class="term"><code>$ file decoded1
+decoded1: Zip archive data, at least v2.0 to extract, compression method=deflate</code></pre>
+<p>Unzipping it, we get</p>
+<pre class="term"><code>$ unzip decoded1
+Archive:  decoded1
+  inflating: intro</code></pre>
+<h2 id="reverse-engineering">Reverse Engineering</h2>
+<p>Unfortunately, running it doesn’t seem to do anything. It’s not giving any error messages, so it’s probably just running silently under the hood. To get some more information, we can put it into Ghidra and see what’s happening. After decompiling, this is what we see:</p>
+<figure>
+<img src="/blog_posts/38_executable_text_file/images/screen1.png" style="width:100.0%" alt="Opening intro in Ghidra" /><figcaption aria-hidden="true"><em>Opening <code>intro</code> in Ghidra</em></figcaption>
+</figure>
+<blockquote>
+<p><em>Note: Right click and hit “Open Image in New Tab” if you can’t make out the details of text</em></p>
+</blockquote>
+<p>On the right, we seem to have alot of function calls (e.g. <code>FUN_0040100b</code>) which all just lead to a lone syscall with seemingly no arguments.</p>
+<figure>
+<img src="/blog_posts/38_executable_text_file/images/screen2.png" style="width:100.0%" alt="FUN_0040100b" /><figcaption aria-hidden="true"><em><code>FUN_0040100b</code></em></figcaption>
+</figure>
+<p>However, it’s important to note that just because Ghidra did not detect arguments when decompiling does not mean that they don’t exist. In these situations, it’s important to check the relevant assembly code out too. In particular, for this function, we see the following:</p>
+<figure>
+<img src="/blog_posts/38_executable_text_file/images/screen3.png" style="width:100.0%" alt="FUN_0040100b assembly" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly</code></em></figcaption>
+</figure>
+<p>Here LEA (load effective address) is used to load the address containing the string <code>"/dev/null"</code> into RDI. Reading [OS Dev - Calling Conventions], we see that RDI is one of the parameter registers for <span class="math inline">\(x84_64\)</span> architectures. In other words, this is an argument for <code>FUN_0040100b</code>. Looking at the other arguments and using some preexisting knowledge of C, it’s reasonable to guess that this is an <code>open</code> function call. Here is the same assembly, with each of the numbers converted into their correct types.</p>
+<figure>
+<img src="/blog_posts/38_executable_text_file/images/screen4.png" style="width:100.0%" alt="FUN_0040100b assembly, with corrected types" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly, with corrected types</code></em></figcaption>
+</figure>
+<p>I.e. <code>open("/dev/null", O_WRONLY|O_CREAT, 0644)</code>, which opens the file <code>"/dev/null"</code> for reading and writing.</p>
+<p>Reading through the rest of the code, it seems that <code>local_48</code>, <code>local_40</code>, … <code>local_18</code> form an null terminated string, and <code>local_14</code> is being used to loop through the addresses of the string byte by byte. At each byte, we do XOR with <code>0x42</code> to obtain a new byte, and then call <code>FUN__00401000()</code></p>
+<p>Given that we opened <code>"/dev/null"</code> earlier, it is not a unreasonable assumption to assume that <code>FUN__00401000()</code> is writing the decrypted byte to <code>"/dev/null"</code>. If we wanted to be sure, we could of course read the assembler code in more detail, but for now this educated guess is good enough.</p>
+<p>Since manually checking the assembler code can be time consuming, it’s often better to use other methods if we can. Since we know that we are using a series of <code>write()</code> calls, we can use <code>strace</code> in order to grab all the system calls <code>intro</code> makes in it’s run time. Using <code>strace</code> gives:</p>
+<pre class="term"><code>$ strace ./intro
+execve(&quot;./intro&quot;, [&quot;./intro&quot;], 0x7ffe6cf19f80 /* 26 vars */) = 0
+open(&quot;/dev/null&quot;, O_WRONLY|O_CREAT, 0644) = 3
+write(3, &quot;C&quot;, 1)                        = 1
+write(3, &quot;O&quot;, 1)                        = 1
+write(3, &quot;M&quot;, 1)                        = 1
+write(3, &quot;P&quot;, 1)                        = 1
+write(3, &quot;6&quot;, 1)                        = 1
+write(3, &quot;8&quot;, 1)                        = 1
+write(3, &quot;4&quot;, 1)                        = 1
+write(3, &quot;1&quot;, 1)                        = 1
+write(3, &quot;{&quot;, 1)                        = 1
+write(3, &quot;R&quot;, 1)                        = 1
+write(3, &quot;E&quot;, 1)                        = 1
+write(3, &quot;D&quot;, 1)                        = 1
+write(3, &quot;A&quot;, 1)                        = 1
+write(3, &quot;C&quot;, 1)                        = 1
+write(3, &quot;T&quot;, 1)                        = 1
+write(3, &quot;E&quot;, 1)                        = 1
+write(3, &quot;D&quot;, 1)                        = 1
+write(3, &quot;}&quot;, 1)                        = 1
+close(3)                                = 0
+exit(0)                                 = ?
++++ exited with 0 +++</code></pre>
+<p>Here, we can see the flag being written out byte by byte. Just for fun, let’s try and do some labelling and commenting back into the original Ghidra decompilation to make it a bit clearer.</p>
+<figure>
+<img src="/blog_posts/38_executable_text_file/images/screen5.png" style="width:100.0%" alt="Labelled Decompilation" /><figcaption aria-hidden="true"><em><code>Labelled Decompilation</code></em></figcaption>
+</figure>
+<blockquote>
+<p><em>Note: This is a rough guideline and once again, should not be interpreted as literal c code. For example, the arguments for all functions are still missing, and it is unlikely that the original code defined the flag as 8 variables.</em></p>
+</blockquote>

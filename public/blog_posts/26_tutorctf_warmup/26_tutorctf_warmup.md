@@ -28,7 +28,7 @@ NDM0ZjRkNTA3YjQ5NWY2ODRmNzA0NTVmNzkzMDc1NWY0MTUyMzM1Zjc3NjE3MjZkNjU2NDVmMzI1ZjY2
 
 Given that all the characters are either upper and lower case letters and numbers, and the fact that it ends with an equals sign, this is almost certainly base 64. Hence we can run
 
-```sh
+```term
 $ base64 --decode < file.txt > file2.txt
 ```
 
@@ -40,7 +40,7 @@ to decode it. This gives us a new file containing the following:
 
 Looking at this, we have alot of values from 41 to 5A, as well as 61 to 7B, which immediately tell us that this is ASCII. We can use the `xxd` command to decode this:
 
-```sh
+```term
 $ xxd -r -p < flag.txt
 COMP{REDACTED}
 ```

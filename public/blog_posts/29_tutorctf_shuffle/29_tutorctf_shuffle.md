@@ -22,7 +22,7 @@ _Contest Source: [COMP6[84]41 CTF](https://www.comp6841.com/challenges)_
 
 We are given a mysterious `Shuffle.txt`. Exploring a bit, we see the following:
 
-```sh
+```term
 $ wc -l shuffle.txt
      593 shuffle.txt
 $ cat shuffle.txt | head -10

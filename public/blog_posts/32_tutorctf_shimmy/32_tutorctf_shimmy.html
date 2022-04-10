@@ -24,20 +24,20 @@
 <p>It looks like we have 0 way to give input to this program. We’re just supposed to hope that the random number generated is -5, which is impossible, since <code>rand()</code> always returns a non-negative number.</p>
 <h2 id="corrupt-header-file">Corrupt Header File</h2>
 <p>Trying to run the executable though, gives a problem that even patchelf cannot fix.</p>
-<pre><code>$ ./shimmy
+<pre class="term"><code>$ ./shimmy
 ./shimmy: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34&#39; not found (required by ./shimmy)
 $ patchelf --set-interpreter /home/ubuntu/glibc/glibc-2.34-install/lib/ld-linux-x86-64.so.2 --set-rpath /home/ubuntu/glibc/glibc-2.34-install/lib/ shimmy
 patchelf: unsupported ELF version</code></pre>
 <p>It looks like patchelf doesn’t recognise the ELF version. Looking at the hexdump for <code>./shimmy</code> tells us the reason:</p>
-<pre><code>$ xxd ./shimmy | head -2
+<pre class="term"><code>$ xxd ./shimmy | head -2
 00000000: 7f45 4c46 4646 4646 4646 4646 4646 4646  .ELFFFFFFFFFFFFF
 00000010: 0300 3e00 0100 0000 7010 0000 0000 0000  ..&gt;.....p.......</code></pre>
 <p>And for reference, here’s what a regular ELF header looks like (using the <code>./vuln</code> script from <a href="../28_tutotctf_bad_rand">bad_rand</a>)</p>
-<pre><code>$ xxd ./vuln | head -2
+<pre class="term"><code>$ xxd ./vuln | head -2
 00000000: 7f45 4c46 0201 0100 0000 0000 0000 0000  .ELF............
 00000010: 0300 3e00 0100 0000 d010 0000 0000 0000  ..&gt;.............</code></pre>
 <p>You can see that we have alot more “F’s” than normal. Looking at the <a href="https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html">Linux Foundation ELF Header Specs</a>, we can see that the <code>e_type</code>, <code>e_machine</code>, and <code>e_version</code> fields have all been overwritten with F’s. The file header is corrupt! Running <code>readelf -h</code> gives us some more details:</p>
-<pre><code>$ readelf -h ./shimmy
+<pre class="term"><code>$ readelf -h ./shimmy
 ELF Header:
   Magic:   7f 45 4c 46 46 46 46 46 46 46 46 46 46 46 46 46
   Class:                             &lt;unknown: 46&gt;
@@ -61,7 +61,7 @@ ELF Header:
 readelf: Warning: possibly corrupt ELF file header - it has a non-zero section header offset, but no section headers</code></pre>
 <p>As you can see, this file has 0 section headers and program headers, which is definitely problematic. The fact that the class, data, version, and OS are all 46 (‘F’ in ASCII) gives us also a hint that something is not right.</p>
 <p>Hence, we can simply replace the first row of bytes with the one from vuln, which I’ll save into a new file called <code>shimmy2</code>. After running patchelf, we get:</p>
-<pre><code>$ ./shimmy2
+<pre class="term"><code>$ ./shimmy2
 hi! your random number is: 1804289383</code></pre>
 <p>It works! If we were to run readelf on this again, we’d also see that the program headers and section headers are displaying their correct values now, even though we didn’t technically modify those sections. My only guess is that readelf relies on the information from the first row (file type, machine, version) to work out how to read the remaining fields.</p>
 <h2 id="getting-the-flag">Getting the Flag</h2>

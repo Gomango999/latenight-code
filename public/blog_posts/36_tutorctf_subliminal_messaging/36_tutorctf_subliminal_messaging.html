@@ -4,7 +4,7 @@
 </blockquote>
 <p>We’re given a file called <code>loud_food.mp4</code>, where a voice loudly declares “ALL our FOOD… is BLOWING UP!”. Doing some research, this appears to be a popular Arby’s commercial (A popular American fast food company, if you’re not familiar with U.S. culture). However, this gives us no information about the flag.</p>
 <p>Before we do any extensive digging into the frames themselves, let’s open up the mp4 file with strings, and look for the opening curly braces of the flag.</p>
-<pre><code>$ strings loud_food.mp4 | grep &quot;{&quot;
+<pre class="term"><code>$ strings loud_food.mp4 | grep &quot;{&quot;
 AXk_c{
 c{i
 aa&amp;{L1!2

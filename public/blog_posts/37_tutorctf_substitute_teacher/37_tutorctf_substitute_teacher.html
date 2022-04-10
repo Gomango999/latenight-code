@@ -1,0 +1,57 @@
+<h2 id="exploration">Exploration</h2>
+<p>We are given two files. First we have <code>spicy_flag.txt</code> which looks like this:</p>
+<pre><code>ሐᤀោᦡ௑ಱૹৄ㰐⩀⯤ោ⽄⢤␀㎩ॡ㄀᰹㸄</code></pre>
+<p>And another file, called <code>encrypt.py</code> which looks like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.polynomial <span class="im">import</span> Polynomial</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#alphabet = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}_1234567890&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encrypt(plaintext):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> Polynomial([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;&quot;</span>.join(<span class="bu">chr</span>(<span class="bu">int</span>(f(c))) <span class="cf">for</span> c <span class="kw">in</span> plaintext)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;flag.txt&quot;</span>, <span class="st">&quot;rb&quot;</span>) <span class="im">as</span> f, <span class="bu">open</span>(<span class="st">&quot;spicy_flag.txt&quot;</span>, <span class="st">&quot;w&quot;</span>) <span class="im">as</span> g:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    FLAG <span class="op">=</span> f.read().strip()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    enc <span class="op">=</span> encrypt(FLAG)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    g.write(enc)</span></code></pre></div>
+<p>Looking at this file, we see that it opens something called <code>flag.txt</code>, encrypts each character of the flag, and writes it to <code>spicy_flag.txt</code>. In other words, this is the encryption file that was used to generate the stuff in <code>spicy_flag.txt</code>, and it’s out job to reverse engineer it in order to get the original flag back out.</p>
+<p>One method of solving it is to reverse engineer the mathematics function. Let’s look into the function in more detail. <code>chr(int(f(c))) for c in plaintext</code> generates a list, with each element corresponding to a single character in the original flag. Looking at numpy documentation, we see that <code>f</code> is the polynomial defined as <span class="math inline">\(x^2 + 2x + 1\)</span>. Hence, our function is getting the character <span class="math inline">\(c\)</span>, passing it through our polynomial to get <span class="math inline">\(c^2+2c+1\)</span>, and then converting that number into unicode using <code>chr</code>.</p>
+<blockquote>
+<p><em>Note that every unicode has a unique identifier known as a code point. <code>chr</code> takes a number, and converts into the unicode with that unicode code point. For example, <code>chr(2665)</code> gives <code>♥</code> which has code point U+2665.</em></p>
+</blockquote>
+<h2 id="option-1-maths">Option 1: Maths</h2>
+<p>Now that we understand the function, let’s try to reverse it and find the character that translates into the unicode with code point <span class="math inline">\(x\)</span>. I.e. we’re trying to find a character <span class="math inline">\(c\)</span> such that <span class="math inline">\(c^2+2c+1 = x\)</span>. Luckily, we know that <span class="math inline">\(x = c^2+2c+1 = (c+1)^2\)</span>, so rearranging in terms of <span class="math inline">\(x\)</span>, we get <span class="math inline">\(c = \sqrt{x}-1\)</span>. Here’s a python script which does this for us. We use <code>ord(x)</code> in order to obtain the unicode code point of each unicode character.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> isqrt <span class="im">import</span> isqrt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;spicy_flag.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> f:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> f.readline().strip()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> line:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">chr</span>(isqrt(<span class="bu">ord</span>(x))<span class="op">-</span><span class="dv">1</span>), end<span class="op">=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ans)</span></code></pre></div>
+<blockquote>
+<p><em>Note, we use the isqrt library, which gives us integer square root. This is nice since we know that all the numbers we are dealing with are perfect squares, so we only need to work with integers</em></p>
+</blockquote>
+<h2 id="option-2-brute-force">Option 2: Brute Force</h2>
+<p>Alternatively if we are bad at maths, there exists another method. As the question title suggests, we can also solve this using brute force. For each unicode character, we can try encrypting every letter in the alphabet until we find one that translates to the same unicode character. They are even nice enough to present the entire alphabet in <code>encrypt.py</code>. Here’s a python script that does the same thing:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.polynomial <span class="im">import</span> Polynomial</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>alphabet <span class="op">=</span> <span class="st">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span><span class="sc">{}</span><span class="st">_1234567890&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encrypt(plaintext):</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> Polynomial([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;&quot;</span>.join(<span class="bu">chr</span>(<span class="bu">int</span>(f(c))) <span class="cf">for</span> c <span class="kw">in</span> plaintext)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;spicy_flag.txt&quot;</span>, <span class="st">&quot;r&quot;</span>) <span class="im">as</span> f:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> f.readline().strip()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>ans <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> line:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> alphabet:</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (encrypt(<span class="bu">bytes</span>(d, <span class="st">&quot;utf-8&quot;</span>) <span class="op">==</span> c):</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            ans <span class="op">=</span> ans <span class="op">+</span> d</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ans)</span></code></pre></div>

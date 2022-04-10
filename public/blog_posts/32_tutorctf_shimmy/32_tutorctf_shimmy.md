@@ -50,7 +50,7 @@ It looks like we have 0 way to give input to this program. We're just supposed t
 
 Trying to run the executable though, gives a problem that even patchelf cannot fix.
 
-```
+```term
 $ ./shimmy
 ./shimmy: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34' not found (required by ./shimmy)
 $ patchelf --set-interpreter /home/ubuntu/glibc/glibc-2.34-install/lib/ld-linux-x86-64.so.2 --set-rpath /home/ubuntu/glibc/glibc-2.34-install/lib/ shimmy
@@ -59,7 +59,7 @@ patchelf: unsupported ELF version
 
 It looks like patchelf doesn't recognise the ELF version. Looking at the hexdump for `./shimmy` tells us the reason:
 
-```
+```term
 $ xxd ./shimmy | head -2
 00000000: 7f45 4c46 4646 4646 4646 4646 4646 4646  .ELFFFFFFFFFFFFF
 00000010: 0300 3e00 0100 0000 7010 0000 0000 0000  ..>.....p.......
@@ -67,7 +67,7 @@ $ xxd ./shimmy | head -2
 
 And for reference, here's what a regular ELF header looks like (using the `./vuln` script from [bad_rand](../28_tutotctf_bad_rand))
 
-```
+```term
 $ xxd ./vuln | head -2
 00000000: 7f45 4c46 0201 0100 0000 0000 0000 0000  .ELF............
 00000010: 0300 3e00 0100 0000 d010 0000 0000 0000  ..>.............
@@ -75,7 +75,7 @@ $ xxd ./vuln | head -2
 
 You can see that we have alot more "F's" than normal. Looking at the [Linux Foundation ELF Header Specs](https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.eheader.html), we can see that the `e_type`, `e_machine`, and `e_version` fields have all been overwritten with F's. The file header is corrupt! Running `readelf -h` gives us some more details:
 
-```
+```term
 $ readelf -h ./shimmy
 ELF Header:
   Magic:   7f 45 4c 46 46 46 46 46 46 46 46 46 46 46 46 46
@@ -104,7 +104,7 @@ As you can see, this file has 0 section headers and program headers, which is de
 
 Hence, we can simply replace the first row of bytes with the one from vuln, which I'll save into a new file called `shimmy2`. After running patchelf, we get:
 
-```
+```term
 $ ./shimmy2
 hi! your random number is: 1804289383
 ```

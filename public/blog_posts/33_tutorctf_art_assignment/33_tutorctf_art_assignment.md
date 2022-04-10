@@ -30,7 +30,7 @@ We've been told that there's a message hidden in here. There's two pretty common
 
 Starting off with file metadata...
 
-```
+```term
 $ exiftool final_submission.png
 ExifTool Version Number         : 11.88
 File Name                       : final_submission.png

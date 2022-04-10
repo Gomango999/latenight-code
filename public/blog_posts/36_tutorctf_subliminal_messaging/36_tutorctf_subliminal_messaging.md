@@ -24,7 +24,7 @@ We're given a file called `loud_food.mp4`, where a voice loudly declares "ALL ou
 
 Before we do any extensive digging into the frames themselves, let's open up the mp4 file with strings, and look for the opening curly braces of the flag.
 
-```
+```term
 $ strings loud_food.mp4 | grep "{"
 AXk_c{
 c{i
@@ -46,7 +46,7 @@ Quo{
 
 No luck. Next, let's have a look at the metadata:
 
-```
+```term
 $ exiftool ./loud_food.mp4
 ExifTool Version Number         : 11.88
 File Name                       : loud_food.mp4

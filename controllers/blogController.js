@@ -27,6 +27,7 @@ function getBlogPostNames() {
   while ((dirent = dir.readSync()) !== null) {
     if (!dirent.isDirectory()) continue;
     if (dirent.name == "metadata") continue;
+    if (dirent.name == "filters") continue;
     blogPostNames.push(dirent.name);
   }
   dir.closeSync()

@@ -16,14 +16,23 @@ HgTj7n3zbn/zewcjrFv0giU/wWvm/PXvHoyw4wf+QYtf5H6R+49Z9Nb9X+R+6zkNc3/XFvM3xhb4
 nmvcP7qF3+QbUEsBAh4DFAAAAAgAgW5wUk9GY2qvAgAAqCIAAAUAGAAAAAAAAAAAAO2BAAAAAGlu
 dHJvVVQFAANRHVBgdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEASwAAAO4CAAAAAA==</code></pre>
 <p>This is obviously base64, so we run decode on it.</p>
-<pre><code>base64 --decode file.bin &gt; decoded1</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> base64 --decode file.bin > decoded1
+</span></code></pre>
+</div>
 <p>Running file on <code>decoded1</code>, we see that it is a zip file</p>
-<pre class="term"><code>$ file decoded1
-decoded1: Zip archive data, at least v2.0 to extract, compression method=deflate</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> file hello.txt
+</span><span>decoded1: Zip archive data, at least v2.0 to extract, compression method=deflate
+</span></code></pre>
+</div>
 <p>Unzipping it, we get</p>
-<pre class="term"><code>$ unzip decoded1
-Archive:  decoded1
-  inflating: intro</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> unzip decoded1
+</span><span>Archive:  decoded1
+</span><span>  inflating: intro
+</span></code></pre>
+</div>
 <h2 id="reverse-engineering">Reverse Engineering</h2>
 <p>Unfortunately, running it doesn’t seem to do anything. It’s not giving any error messages, so it’s probably just running silently under the hood. To get some more information, we can put it into Ghidra and see what’s happening. After decompiling, this is what we see:</p>
 <figure>
@@ -48,30 +57,33 @@ Archive:  decoded1
 <p>Reading through the rest of the code, it seems that <code>local_48</code>, <code>local_40</code>, … <code>local_18</code> form an null terminated string, and <code>local_14</code> is being used to loop through the addresses of the string byte by byte. At each byte, we do XOR with <code>0x42</code> to obtain a new byte, and then call <code>FUN__00401000()</code></p>
 <p>Given that we opened <code>"/dev/null"</code> earlier, it is not a unreasonable assumption to assume that <code>FUN__00401000()</code> is writing the decrypted byte to <code>"/dev/null"</code>. If we wanted to be sure, we could of course read the assembler code in more detail, but for now this educated guess is good enough.</p>
 <p>Since manually checking the assembler code can be time consuming, it’s often better to use other methods if we can. Since we know that we are using a series of <code>write()</code> calls, we can use <code>strace</code> in order to grab all the system calls <code>intro</code> makes in it’s run time. Using <code>strace</code> gives:</p>
-<pre class="term"><code>$ strace ./intro
-execve(&quot;./intro&quot;, [&quot;./intro&quot;], 0x7ffe6cf19f80 /* 26 vars */) = 0
-open(&quot;/dev/null&quot;, O_WRONLY|O_CREAT, 0644) = 3
-write(3, &quot;C&quot;, 1)                        = 1
-write(3, &quot;O&quot;, 1)                        = 1
-write(3, &quot;M&quot;, 1)                        = 1
-write(3, &quot;P&quot;, 1)                        = 1
-write(3, &quot;6&quot;, 1)                        = 1
-write(3, &quot;8&quot;, 1)                        = 1
-write(3, &quot;4&quot;, 1)                        = 1
-write(3, &quot;1&quot;, 1)                        = 1
-write(3, &quot;{&quot;, 1)                        = 1
-write(3, &quot;R&quot;, 1)                        = 1
-write(3, &quot;E&quot;, 1)                        = 1
-write(3, &quot;D&quot;, 1)                        = 1
-write(3, &quot;A&quot;, 1)                        = 1
-write(3, &quot;C&quot;, 1)                        = 1
-write(3, &quot;T&quot;, 1)                        = 1
-write(3, &quot;E&quot;, 1)                        = 1
-write(3, &quot;D&quot;, 1)                        = 1
-write(3, &quot;}&quot;, 1)                        = 1
-close(3)                                = 0
-exit(0)                                 = ?
-+++ exited with 0 +++</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> strace ./intro
+</span><span>execve("./intro", ["./intro"], 0x7ffe6cf19f80 /* 26 vars */) = 0
+</span><span>open("/dev/null", O_WRONLY|O_CREAT, 0644) = 3
+</span><span>write(3, "C", 1)                        = 1
+</span><span>write(3, "O", 1)                        = 1
+</span><span>write(3, "M", 1)                        = 1
+</span><span>write(3, "P", 1)                        = 1
+</span><span>write(3, "6", 1)                        = 1
+</span><span>write(3, "8", 1)                        = 1
+</span><span>write(3, "4", 1)                        = 1
+</span><span>write(3, "1", 1)                        = 1
+</span><span>write(3, "{", 1)                        = 1
+</span><span>write(3, "R", 1)                        = 1
+</span><span>write(3, "E", 1)                        = 1
+</span><span>write(3, "D", 1)                        = 1
+</span><span>write(3, "A", 1)                        = 1
+</span><span>write(3, "C", 1)                        = 1
+</span><span>write(3, "T", 1)                        = 1
+</span><span>write(3, "E", 1)                        = 1
+</span><span>write(3, "D", 1)                        = 1
+</span><span>write(3, "}", 1)                        = 1
+</span><span>close(3)                                = 0
+</span><span>exit(0)                                 = ?
+</span><span>+++ exited with 0 +++
+</span></code></pre>
+</div>
 <p>Here, we can see the flag being written out byte by byte. Just for fun, let’s try and do some labelling and commenting back into the original Ghidra decompilation to make it a bit clearer.</p>
 <figure>
 <img src="/blog_posts/38_executable_text_file/images/screen5.png" style="width:100.0%" alt="Labelled Decompilation" /><figcaption aria-hidden="true"><em><code>Labelled Decompilation</code></em></figcaption>

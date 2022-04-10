@@ -40,14 +40,14 @@ dHJvVVQFAANRHVBgdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEASwAAAO4CAAAAAA==
 
 This is obviously base64, so we run decode on it.
 
-```
-base64 --decode file.bin > decoded1
+```term
+$ base64 --decode file.bin > decoded1
 ```
 
 Running file on `decoded1`, we see that it is a zip file
 
 ```term
-$ file decoded1
+$ file hello.txt
 decoded1: Zip archive data, at least v2.0 to extract, compression method=deflate
 ```
 

@@ -10,13 +10,23 @@ To write new blog post, follow the following steps.
 5. Make sure you compile the md with `make`. This will use pandoc to convert your markdown into html, which will get automatically found by `blogController.js`
 
 ## Filters
-There is a list of custom filters that are applied to each markdown file before being compiled. Currently there is only one in the list.
+There is a list of custom filters that are applied to each markdown file before being compiled. To add a new filter, modify the Makefile.
 
 - `add_downloads.py`
     - This is used to add custom download buttons to the markdown, for downloading code or images or anything else.
     - To use it, make a new line starting with `!!! download` followed by the file name. For example,
     ```
     !!! downloads blog_posts/16_brute_comparison/code/e_broken.cpp
+    ```
+- `terminal_syntax_highlighting.py`
+    - This is used to add syntax highlighting for terminal code blocks
+    - Namely, this just adds a blue color to any line starting with "$" to represent a prompt
+    - Usage is:
+    ```
+    ```term
+    $ cat hello.txt
+    hi there!
+    ```
     ```
 
 

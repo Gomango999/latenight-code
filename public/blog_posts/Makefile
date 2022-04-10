@@ -5,9 +5,12 @@ HTMLS=$(patsubst %.md, %.html, $(SRCS))
 all: $(HTMLS)
 
 # convert to html
-%.html: %1.md
+%.html: %2.md
 	pandoc $^ -o $@ --mathjax
 
 # add download html for each download link
 %1.md : %.md
-	python3 add_downloads.py $^ $@
+	python3 filters/add_downloads.py $^ $@
+
+%2.md : %1.md
+	python3 filters/terminal_syntax_highlighting.py $^ $@

@@ -20,6 +20,8 @@ _Contest Source: [COMP6[84]41 CTF](https://www.comp6841.com/challenges)_
 
 > _Note that all flags have been replaced with "COMP6841{REDACTED}". This is to discourage you from just blindly submitting the final answer, and to encourage you to follow along and learn something along the way._
 
+## Exploration
+
 We are given a netcat IP address and a exploitable buffer code. Let's look at it:
 
 ```c
@@ -89,6 +91,8 @@ int main(int argc, char **argv){
 So right off the bat, it looks like the `oppsie` function is going to be pretty important, since if we can somehow get the variables `c1` to `c6` equal to "COOKIE", then we can get the flag. Unfortunately, we have no way of changing them from their initial values, so it seems impossible.
 
 However, we can exploit a buffer overflow in the `gets(buffer)` line. `gets` is insecure, and does not check the size of the buffer when scanning in. This means that if we enter a string that is longer than BUFFER_SIZE (16 in this case), we will start to overflow our buffer and overwrite values in the stack. Hence, we can enter something like "AAAAAAAAAAAAAAAAEIKOOC" (16 A's, followed by COOKIE in reverse because we overwrite the variables in reverse order) in order to overwrite the next variables on the stack, which of course happen to be `c6`, `c5`, `c4`, etc.
+
+## Bruteforcing with Pwntools
 
 Though in reality, it's not all that simple. Because of how compilers will align variable addresses, we're not guaranteed that we need exactly 16 A's. It can be a little bit more than that. Thus, it's useful to write a script that will try all sorts of different numbers of A. `pwntools` provides a really nice tool that allows us to quickly connect to such a netcat server and brute force all the different numbers until we find one that works. Here's a very crude implementation that crashes as soon as it finds the correct number of A's:
 

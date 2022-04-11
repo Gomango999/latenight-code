@@ -1,6 +1,6 @@
 ---
 title: "Tutor CTF: Shimmy"
-description: (300 points) Binary Challenge
+description: (300 points) Binary Exploitation Challenge
 author: Kevin Zhu
 public: true
 uploadDate: 2022-04-10 15:05+11:00

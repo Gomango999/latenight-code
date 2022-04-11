@@ -13,7 +13,7 @@ tags:
 menu:
   groups: []
   submenus: []
-name: 38_executable_text_file
+name: 38_tutorctf_executable_text_file
 ---
 
 ## Exploration

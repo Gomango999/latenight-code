@@ -1,6 +1,6 @@
 ---
 title: "Tutor CTF: Cookie Monster"
-description: (200 points) Binary Challenge
+description: (200 points) Binary Exploitation Challenge
 author: Kevin Zhu
 public: true
 uploadDate: 2022-04-08 23:15+11:00

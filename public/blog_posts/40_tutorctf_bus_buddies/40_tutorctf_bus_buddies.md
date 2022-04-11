@@ -18,6 +18,11 @@ menu:
 name: 40_tutorctf_bus_buddies
 ---
 
+_Contest Source: [COMP6[84]41 CTF](https://www.comp6841.com/challenges)_
+
+> _Note that all flags have been replaced with "COMP6841{REDACTED}". This is to discourage you from just blindly submitting the final answer, and to encourage you to follow along and learn something along the way._
+
+
 For this exercise, we're given a `bus.zip` which contains 8 photos inside. We are asked to determine the bus route and use that to assemble the flag. Let's take a look at our images in turn, and see what we can do with them. For a TLDR, here's the final map. In this blog post, I'll be breaking down my thought processes for cracking each location along the route.
 
 <iframe src="https://www.google.com/maps/d/embed?mid=1P816GE2X-esayxF9sin1ElZ_N7_smM1_&hl=en&ehbc=2E312F" width="640" height="480"></iframe>

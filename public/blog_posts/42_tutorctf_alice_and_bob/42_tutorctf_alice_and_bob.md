@@ -18,6 +18,11 @@ menu:
 name: 42_tutorctf_alice_and_bob
 ---
 
+_Contest Source: [COMP6[84]41 CTF](https://www.comp6841.com/challenges)_
+
+> _Note that all flags have been replaced with "COMP6841{REDACTED}". This is to discourage you from just blindly submitting the final answer, and to encourage you to follow along and learn something along the way._
+
+
 ## Exploration
 
 We are given a zip file containing two scripts: `alice` and `bob`. Running each of them individually gives:

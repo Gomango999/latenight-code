@@ -13,7 +13,7 @@ tags:
 - tutor ctf
 - comp6841
 menu:
-  groups: []
+  groups: [tutorctf]
   submenus: []
 name: 37_tutorctf_substitute_teacher
 ---

@@ -13,7 +13,7 @@ tags:
 - tutor ctf
 - comp6841
 menu:
-  groups: []
+  groups: [tutorctf]
   submenus: []
 name: 33_tutorctf_art_assignment
 ---

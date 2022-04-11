@@ -55,12 +55,12 @@ block content
             if blog.prevPage
               a(href=blog.prevPage)
                 i(aria-hidden="true").fa.fa-arrow-left 
-                span.ml-2 Previous Post...
+                span.ml-2 Previous Post
           .col-6.text-right
             if blog.nextPage
               a(href=blog.nextPage) 
                 i(aria-hidden="true").fa.fa-arrow-right
-                span.ml-2 Next Post...
+                span.ml-2 Next Post
         
         //- TODO: Add a cute illustration here
         
@@ -70,20 +70,20 @@ block content
         .row.my-5
           .col.my-5
 
-//- if blog.menu && blog.menu.submenus.length
-//-   #menu-container.col-md-6.offset-md-0.col-lg-4.offset-lg-2
-//-     .row
-//-       #menu.col-12.card.content.pt-4
-//-         each submenu in blog.menu.submenus
-//-           .row
-//-             .col-12
-//-               h4 #{submenu.title}
-//-               ul
-//-                 each link in submenu.relatedLinks
-//-                   if link.live
-//-                     a(href=link.href).live-link
-//-                       li #{link.title}
-//-                   else 
-//-                     li.dead-link.noselect #{link.title}
+    //- if blog.menu && blog.menu.submenus.length
+    //-   #menu-container.col-md-6.offset-md-0.col-lg-4.offset-lg-2
+    //-     .row
+    //-       #menu.col-12.card.content.pt-4
+    //-         each submenu in blog.menu.submenus
+    //-           .row
+    //-             .col-12
+    //-               h4 #{submenu.title}
+    //-               ul
+    //-                 each link in submenu.relatedLinks
+    //-                   if link.live
+    //-                     a(href=link.href).live-link
+    //-                       li #{link.title}
+    //-                   else 
+    //-                     li.dead-link.noselect #{link.title}
                     
   

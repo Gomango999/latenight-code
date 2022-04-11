@@ -26,5 +26,36 @@
       "23_aio2021q5",
       "24_aio2021q6"
     ]
+  },
+  "tutorctf": {
+    "title": "Tutor CTF",
+    "posts": [
+      "26_tutorctf_warmup",
+      "27_tutorctf_substitution",
+      "28_tutorctf_bad_rand",
+      "29_tutorctf_shuffle",
+      "30_tutorctf_secedu",
+      "31_tutorctf_cookie_monster",
+      "32_tutorctf_shimmy",
+      "33_tutorctf_art_assignment",
+      "34_tutorctf_block_game",
+      "35_tutorctf_first_contact",
+      "36_tutorctf_subliminal_messaging",
+      "37_tutorctf_substitute_teacher",
+      "38_tutorctf_executable_text_file",
+      "39_tutorctf_tired",
+      "40_tutorctf_bus_buddies",
+      "41_tutorctf_chain",
+      "42_tutorctf_alice_and_bob",
+      "43_tutorctf_baby_ssrf"
+    ]
+  },
+  "picoctf2021": {
+    "title": "PicoCTF 2021",
+    "posts": [
+      "48_picoctf_1",
+      "49_picoctf_2",
+      "50_picoctf_3"
+    ]
   }
 }

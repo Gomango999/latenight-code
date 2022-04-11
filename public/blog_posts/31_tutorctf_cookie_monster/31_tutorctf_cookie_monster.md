@@ -13,7 +13,7 @@ tags:
 - tutor ctf
 - comp6841
 menu:
-  groups: []
+  groups: [tutorctf]
   submenus: []
 name: 31_tutorctf_cookie_monster
 ---

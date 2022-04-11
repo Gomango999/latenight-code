@@ -8,8 +8,6 @@ lastModified: 2022-04-11 23:28+11:00
 notes: ''
 tags:
 - capture the flag
-- tutor ctf
-- comp6841
 menu:
   groups: []
   submenus: []

@@ -1,0 +1,25 @@
+<blockquote>
+<p><em>This was submitted as part of my blog posts for week 4 of COMP6841</em></p>
+</blockquote>
+<p>Some assorted PicoCTF’s because I ran out of time this week.</p>
+<h2 id="information">Information</h2>
+<p>This one gives us a cat.jpg file and asks us to find the hidden flag. First thing I tried was steganography, by fiddling with the brightness values to try and find the anything encoded with LSB, but no luck. Tried using Mac’s “Get Info” but that didn’t work either. I assumed perhaps mac was hiding some information, and tried an online metadata obtained too, but I couldn’t find anything interesting.</p>
+<p>At this point I got stuck, so I had to look up the solution. Turns out the license, which was <code>cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9</code> was actual;y a base64 encoding! Decoding this gives the flag.</p>
+<p>In general, I need to be better at spotting different types of encodings, such as Base64 or ASCII in hex values. Base64 is primarily made up of A-Z, a-z and 0-9, as well as + and /, so it should be pretty obvious when presented with a random string like that that Base64 is involved somehow.</p>
+<h2 id="transformation">Transformation</h2>
+<p>We are given an encoded text file as well as a python script. Originally, I thought that this would just be like “Python Wrangling” where we run the script on the text. Unfortunately, I kept getting errors and it didn’t work.</p>
+<p>Then I started to read the python script mode closely. Looking closer, it looked as though the script was for encoding, not decoding! With this in mind, I reverse engineered the algorithm and wrote the following script:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>encoded <span class="op">=</span> <span class="bu">input</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> []</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> word <span class="kw">in</span> encoded:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    decoded <span class="op">=</span> <span class="bu">ord</span>(word)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> decoded <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> (decoded <span class="op">&gt;&gt;</span> <span class="dv">8</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    l.append(<span class="bu">chr</span>(b))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    l.append(<span class="bu">chr</span>(a))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;&#39;</span>.join(l))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Running this got me the flag.</span></code></pre></div>
+<h2 id="stonks">Stonks</h2>
+<p>Note: This was solved before I had learnt about format strings in class</p>
+<p>So we were given a script which seemed to print out our stocks. It also gave us the ability to enter an API token, which would be printed back. My initial thought was that when the string was stored intot he buffer, it could perhaps use some sort of buffer overflow attack to obtain the flag, which was stored in another buffer right before it. However, I realised that this was impossible, since the scanf was set up only accept the first 300 characters. Doing some reading into binary exploitation though, I found a more likely candidate: format string exploitation. They were printing out my user output directly!</p>
+<p>Hence, I spammed <code>"%x.%x.%x.%x..."</code> into the scanf and read the output. I wrote a script that would generate inputs for me to copy paste into the program. These would print out stack elements 1-50, then 51-99, etc. Grabbing the output and reading ti clsoely, I was actually able to find what looked like ASCII within the output. Writing a python script to decode the ASCII part, I was able to obtain the flag.</p>

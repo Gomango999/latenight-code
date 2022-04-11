@@ -1,10 +1,24 @@
+<ul>
+<li><a href="#what-are-ctfs">What are CTFs?</a></li>
+<li><a href="#why-should-i-do-ctfs">Why should I do CTFs?</a></li>
+<li><a href="#example-challenge---rot13">Example Challenge - ROT13</a></li>
+<li><a href="#the-different-fields-of-ctfs">The Different Fields of CTFs</a></li>
+<li><a href="#ctf-resources">CTF Resources</a>
+<ul>
+<li><a href="#places-to-learn-theory">Places to Learn Theory</a></li>
+<li><a href="#places-to-practice">Places to Practice</a></li>
+</ul></li>
+<li><a href="#the-ctf-mindset">The CTF Mindset</a></li>
+</ul>
+<p><br></p>
 <p>So you’re looking to get started into hacking, but have no clue where to start? That’s totally understandable. Hacking is a huge field where experts can spend their entire lives trying to master, so it can look daunting at first. However, one super easy way to get your toes wet is with CTFs!</p>
-<h2 id="what-is-ctf">What is CTF?</h2>
-<p>CTF stands for Capture the Flag. These are short, self-contained hacking challenges designed to test various parts of your hacking ability. As the name suggests, you are typically given something such as some text, a piece of code, or a website that you can go to, and you are asked to hunt down the ever elusive flag. Once you find it, you can submit them to get points for the CTF challenge.</p>
+<h2 id="what-are-ctfs">What are CTFs?</h2>
+<p>CTFs stand for Capture the Flag. These are short, self-contained hacking challenges designed to test various parts of your hacking ability. As the name suggests, you are typically given something such as some text, a piece of code, or a website that you can go to, and you are asked to hunt down the ever elusive flag. Once you find it, you can submit them to get points for the CTF challenge.</p>
 <h2 id="why-should-i-do-ctfs">Why should I do CTFs?</h2>
 <p>CTFs are a great way to start learning the basics of hacking. They are designed to be short and self-contained, meaning that each challenge allows you to learn one or two new skills at a time, which means that you get overwhelmed by an avalanche of information. CTF’s can also teach you alot about a the problem solving perspective, and the hacker persistence required to tackle difficult projects. But most of all their just so gosh-darned fun! It’s great fun to compete with your friends, and push yourself to see just how many of these challenges you can conquer :)</p>
 <h2 id="example-challenge---rot13">Example Challenge - ROT13</h2>
 <p>If all that sounds a bit abstract, let’s do a basic challenge. Here’s a secret message that has been encoded with <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a>. Use an online decoder such as <a href="https://rot13.com/" class="uri">https://rot13.com/</a> to decode the secret message and submit it!</p>
+<p>Secret Message:</p>
 <pre><code>SYNT{l0h_whfg_fbyirq_l0he_s1efg_punyyratr!}</code></pre>
 <!-- ROT13 CTF Challenge -->
 <input type="text" id="flagsubmit" name="flag" placeholder="Enter your decoded message here!" size="50"> <button type=submit id="submitbutton"> Submit </button>
@@ -61,9 +75,9 @@ $("#submitbutton").click(function() {
 <li>This is the art of looking at a program and working out exactly how it works. This has some overlap with Binary Exploitation, as understanding how a program works may allow you to exploit any security flaws you find in it. This area requires a strong understanding of <a href="https://en.wikipedia.org/wiki/Assembly_language">assembly language</a>.</li>
 </ul></li>
 </ul>
-<h2 id="resources">Resources</h2>
+<h2 id="ctf-resources">CTF Resources</h2>
 <p>So you’re raring to get started? Then look no further. Here’s a list of great resources for you to get started!</p>
-<h3 id="theory">Theory</h3>
+<h3 id="places-to-learn-theory">Places to Learn Theory</h3>
 <p>If you’re more interested in learning some theory first, here are some great resources for you.</p>
 <ul>
 <li><a href="https://ctf101.org/">CTF 101</a>
@@ -83,12 +97,28 @@ $("#submitbutton").click(function() {
 <li>OWASP is the Open Web Application Security Project, an organisation that was founded to improve security. You’ll typically find OWASP whenever you google search any of the exploits mentioned above. OWASP provides great advice on how to exploit each attack, and best practices to avoid it.</li>
 </ul></li>
 </ul>
-<h3 id="practice">Practice</h3>
+<p>Also check out my own blog posts about common tools and software that I’ve used in CTF’s</p>
+<ul>
+<li><a href="/blog/45_ctf_tools">CTF Tools of the Trade</a>
+<ul>
+<li>A list of common softwares used in CTFs</li>
+</ul></li>
+<li><a href="/blog/46_ctf_commands">CTF Command Line Tools</a>
+<ul>
+<li>A list of common command line tools used in CTFs</li>
+</ul></li>
+</ul>
+<h3 id="places-to-practice">Places to Practice</h3>
 <p>If you just want to get your hands dirty, here are some great sites that host a range of CTF challenges. Make sure you pick one with a category that fits your interests!</p>
 <ul>
 <li><a href="https://overthewire.org/wargames/">OverTheWire</a>
 <ul>
 <li>A large variety of wargames waiting to be attempted. It’s super beginner friendly, and teaches alot of the basics of command line programming. Not only that, it features challenges from all sorts of categories.</li>
+</ul></li>
+<li><a href="https://picoctf.org/">PicoCTF</a>
+<ul>
+<li>A competition held by Carnegie Mellon University every year</li>
+<li>The problems can get a bit tough, but the earlier ones are great practice for beginners</li>
 </ul></li>
 <li><a href="https://crackmes.one/">Crackmes.one</a>
 <ul>
@@ -98,26 +128,26 @@ $("#submitbutton").click(function() {
 <ul>
 <li>Hosts a variety of Web Exploitation Challenges</li>
 </ul></li>
-<li><a href="https://www.hacker101.com/">Hacker101 CTF</a>
-<ul>
-<li>The companion site to Hacker101. Hosts a variety of web hacking challenges, with a focus on challenges that show up in bug bounties.</li>
-</ul></li>
 <li><a href="https://www.hackthissite.org/">HackThisSite</a>
 <ul>
 <li>Despite the name, this site hosts challenges of all different types. It’s also one of the few places where you can find forensics and steganography challenges.</li>
 </ul></li>
+<li><a href="https://www.hacker101.com/">Hacker101 CTF</a>
+<ul>
+<li>The companion site to Hacker101. Hosts a variety of web hacking challenges, with a focus on challenges that show up in bug bounties.</li>
+</ul></li>
 </ul>
-<h2 id="mindset">Mindset</h2>
-<p>Finally, I’d just like to talk a little bit about the mindset you should adopt when approaching CTF challenges, because I think it’s something that isn’t really touched upon. Here is a quick list of tips to keep in mind when solving problems</p>
+<h2 id="the-ctf-mindset">The CTF Mindset</h2>
+<p>Finally, I’d just like to talk a little bit about the mindset you should adopt when approaching CTF challenges, because I think it’s something that isn’t really talked about too often. Here is a quick list of tips from my own experience to keep in mind when solving problems.</p>
 <ul>
 <li>Start challenges by gathering as much data as possible, and <em><strong>be exhaustive</strong></em>.
 <ul>
 <li>Starting the exploitation phase too early is like trying to solve a jigsaw puzzle while you’re still missing some pieces.</li>
 </ul></li>
-<li>When you feel like you’re stuck, <strong>try a little bit more</strong>. Only after that should you give up.
+<li>When you feel like you’re stuck, <strong>try just a little bit longer</strong> before giving up.
 <ul>
 <li>You’d be surprised how many problems you can solve just by spending a little more time on it</li>
-<li>Learning to know when to give up is a great skill to have when approaching any sort of challenge in real life</li>
+<li>That being said, if you’re getting stuck and frustrated, feel free to take a peek at a hint or even the full solution. There’s no shame in doing so, as long you’re learning something.</li>
 </ul></li>
 <li><strong>Have fun!</strong>
 <ul>

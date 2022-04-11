@@ -70,21 +70,21 @@ Archive:  decoded1
 
 Unfortunately, running it doesn't seem to do anything. It's not giving any error messages, so it's probably just running silently under the hood. To get some more information, we can put it into Ghidra and see what's happening. After decompiling, this is what we see:
 
-![_Opening `intro` in Ghidra_](/blog_posts/38_executable_text_file/images/screen1.png){width=100%}
+![_Opening `intro` in Ghidra_](/blog_posts/38_tutorctf_executable_text_file/images/screen1.png){width=100%}
 
 > _Note: Right click and hit "Open Image in New Tab" if you can't make out the details of text_
 
 On the right, we seem to have alot of function calls (e.g. `FUN_0040100b`) which all just lead to a lone syscall with seemingly no arguments.
 
-![_`FUN_0040100b`_](/blog_posts/38_executable_text_file/images/screen2.png){width=100%}
+![_`FUN_0040100b`_](/blog_posts/38_tutorctf_executable_text_file/images/screen2.png){width=100%}
 
 However, it's important to note that just because Ghidra did not detect arguments when decompiling does not mean that they don't exist. In these situations, it's important to check the relevant assembly code out too. In particular, for this function, we see the following:
 
-![_`FUN_0040100b assembly`_](/blog_posts/38_executable_text_file/images/screen3.png){width=100%}
+![_`FUN_0040100b assembly`_](/blog_posts/38_tutorctf_executable_text_file/images/screen3.png){width=100%}
 
 Here LEA (load effective address) is used to load the address containing the string ``"/dev/null"`` into RDI. Reading [OS Dev - Calling Conventions], we see that RDI is one of the parameter registers for $x84_64$ architectures. In other words, this is an argument for `FUN_0040100b`. Looking at the other arguments and using some preexisting knowledge of C, it's reasonable to guess that this is an `open` function call. Here is the same assembly, with each of the numbers converted into their correct types.
 
-![_`FUN_0040100b assembly, with corrected types`_](/blog_posts/38_executable_text_file/images/screen4.png){width=100%}
+![_`FUN_0040100b assembly, with corrected types`_](/blog_posts/38_tutorctf_executable_text_file/images/screen4.png){width=100%}
 
 I.e. `open("/dev/null", O_WRONLY|O_CREAT, 0644)`, which opens the file `"/dev/null"` for reading and writing.
 
@@ -123,6 +123,6 @@ exit(0)                                 = ?
 
 Here, we can see the flag being written out byte by byte. Just for fun, let's try and do some labelling and commenting back into the original Ghidra decompilation to make it a bit clearer.
 
-![_`Labelled Decompilation`_](/blog_posts/38_executable_text_file/images/screen5.png){width=100%}
+![_`Labelled Decompilation`_](/blog_posts/38_tutorctf_executable_text_file/images/screen5.png){width=100%}
 
 > _Note: This is a rough guideline and once again, should not be interpreted as literal c code. For example, the arguments for all functions are still missing, and it is unlikely that the original code defined the flag as 8 variables._

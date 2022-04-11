@@ -1,0 +1,127 @@
+<p>So you’re looking to get started into hacking, but have no clue where to start? That’s totally understandable. Hacking is a huge field where experts can spend their entire lives trying to master, so it can look daunting at first. However, one super easy way to get your toes wet is with CTFs!</p>
+<h2 id="what-is-ctf">What is CTF?</h2>
+<p>CTF stands for Capture the Flag. These are short, self-contained hacking challenges designed to test various parts of your hacking ability. As the name suggests, you are typically given something such as some text, a piece of code, or a website that you can go to, and you are asked to hunt down the ever elusive flag. Once you find it, you can submit them to get points for the CTF challenge.</p>
+<h2 id="why-should-i-do-ctfs">Why should I do CTFs?</h2>
+<p>CTFs are a great way to start learning the basics of hacking. They are designed to be short and self-contained, meaning that each challenge allows you to learn one or two new skills at a time, which means that you get overwhelmed by an avalanche of information. CTF’s can also teach you alot about a the problem solving perspective, and the hacker persistence required to tackle difficult projects. But most of all their just so gosh-darned fun! It’s great fun to compete with your friends, and push yourself to see just how many of these challenges you can conquer :)</p>
+<h2 id="example-challenge---rot13">Example Challenge - ROT13</h2>
+<p>If all that sounds a bit abstract, let’s do a basic challenge. Here’s a secret message that has been encoded with <a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a>. Use an online decoder such as <a href="https://rot13.com/" class="uri">https://rot13.com/</a> to decode the secret message and submit it!</p>
+<pre><code>SYNT{l0h_whfg_fbyirq_l0he_s1efg_punyyratr!}</code></pre>
+<!-- ROT13 CTF Challenge -->
+<input type="text" id="flagsubmit" name="flag" placeholder="Enter your decoded message here!" size="50"> <button type=submit id="submitbutton"> Submit </button>
+<p id="passed" style="display:none;">
+Well done!
+</p>
+<p id="failed" style="display:none;">
+Sorry, that’s not quite right…
+</p>
+<script>
+function eval() {
+    if ($("#flagsubmit").val().trim() == "FLAG{y0u_just_solved_y0ur_f1rst_challenge!}") {
+        $("#passed").show();
+        $("#failed").hide();
+    } else {
+        $("#passed").hide();
+        $("#failed").show();
+    }
+}
+
+$("#submitbutton").click(function() {
+    $("#passed").hide();
+    $("#failed").hide();
+
+    setInterval(eval, 200);
+});
+</script>
+<h2 id="the-different-fields-of-ctfs">The Different Fields of CTFs</h2>
+<p>CTF’s challenges come in a variety of different flavours. Each one will require a different set of knowledge and a different skillset to complete. I recommend picking one that’s of interest of you and just starting there. You can always branch out to the other ones later on.</p>
+<p>Here is a list of the common CTF categories, and a brief explanation of each one</p>
+<ul>
+<li><strong>General / Misc</strong>
+<ul>
+<li>These challenges will test your general skills. These will test general computing knowledge as well as anything else that doesn’t quite fit into any of the other categories. These can be a good starting spot, as many easy challenges fall into this field.</li>
+</ul></li>
+<li><strong>Cryptography</strong>
+<ul>
+<li>Anything and everything to do with codes and ciphers. A good understanding of binary and manipulating bytes will be useful for this category. The ROT13 challenge from above is an example of a cryptography challenge.</li>
+</ul></li>
+<li><strong>Web Exploitation</strong>
+<ul>
+<li>Challenges that explore attacking servers. Typically, you’ll be going through websites, and trying to see how you can abuse bad code in order to gain admin access, or access to resources that you wouldn’t normally have. Some techniques that can be learnt here include <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a>, <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>, <a href="https://en.wikipedia.org/wiki/Server-side_request_forgery">SSRF</a>, and <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a> (That’s alot of acronyms!).</li>
+</ul></li>
+<li><strong>Forensics</strong>
+<ul>
+<li>This is the process of putting on our detective hats and unearthing the past of data. You will be using tools in order to figure out extra information about data, recovering corrupted or seemingly deleted data, and also finding hidden messages within data. Examples include looking through file <a href="https://en.wikipedia.org/wiki/Metadata">metadata</a> or <a href="https://www.comptia.org/blog/what-is-steganography#:~:text=Steganography%20is%20the%20practice%20of,to%20friends%20using%20invisible%20ink.">Steganography</a></li>
+</ul></li>
+<li><strong>Binary Exploitation</strong>
+<ul>
+<li>Binaries (sometimes known as executables) are files or programs which can be executed on a computer. Binaries can sometimes store secret information that the author doesn’t want you to access. However, there are many tricks that a user can use in order to sidestep these safeguards and allow users to modify the programs functions, or even gain full shell control. Examples of exploits used in Binary Exploitation include <a href="https://en.wikipedia.org/wiki/Buffer_overflow#:~:text=In%20information%20security%20and%20programming,and%20overwrites%20adjacent%20memory%20locations.">Buffer Overflow</a> and <a href="https://www.whitehatsec.com/glossary/content/format-string-attack">Format String Vulnerabilities</a>.</li>
+</ul></li>
+<li><strong>Reverse Engineering</strong>
+<ul>
+<li>This is the art of looking at a program and working out exactly how it works. This has some overlap with Binary Exploitation, as understanding how a program works may allow you to exploit any security flaws you find in it. This area requires a strong understanding of <a href="https://en.wikipedia.org/wiki/Assembly_language">assembly language</a>.</li>
+</ul></li>
+</ul>
+<h2 id="resources">Resources</h2>
+<p>So you’re raring to get started? Then look no further. Here’s a list of great resources for you to get started!</p>
+<h3 id="theory">Theory</h3>
+<p>If you’re more interested in learning some theory first, here are some great resources for you.</p>
+<ul>
+<li><a href="https://ctf101.org/">CTF 101</a>
+<ul>
+<li>This site is a great resource to get you started in each of the areas of CTF. Though it’s by no means exhaustive, it should act as a great starting resource for people looking to dip their toes in.</li>
+</ul></li>
+<li><a href="https://www.youtube.com/c/LiveOverflow">LiveOverflow Youtube</a>
+<ul>
+<li>This is a youtube channel Fabian Faessler, a security researcher who makes engaging and informative videos. He’s got a video series on just about every topic you can imagine, plus his super entertaining, so definitely recommend giving his videos a try.</li>
+</ul></li>
+<li><a href="https://www.hacker101.com/">Hacker101</a>
+<ul>
+<li>Provides great resources and videos lessons for learning web security. It also has a companion site called Hacker101 CTF, where you can put your skills to the test.</li>
+</ul></li>
+<li>OWASP
+<ul>
+<li>OWASP is the Open Web Application Security Project, an organisation that was founded to improve security. You’ll typically find OWASP whenever you google search any of the exploits mentioned above. OWASP provides great advice on how to exploit each attack, and best practices to avoid it.</li>
+</ul></li>
+</ul>
+<h3 id="practice">Practice</h3>
+<p>If you just want to get your hands dirty, here are some great sites that host a range of CTF challenges. Make sure you pick one with a category that fits your interests!</p>
+<ul>
+<li><a href="https://overthewire.org/wargames/">OverTheWire</a>
+<ul>
+<li>A large variety of wargames waiting to be attempted. It’s super beginner friendly, and teaches alot of the basics of command line programming. Not only that, it features challenges from all sorts of categories.</li>
+</ul></li>
+<li><a href="https://crackmes.one/">Crackmes.one</a>
+<ul>
+<li>Crackmes hosts a range of user submitted reverse engineering challenges. You can sort these by difficulty and quality, so there’s a good challenge ready for everyone.</li>
+</ul></li>
+<li><a href="https://pentesterlab.com/">PentesterLab</a>
+<ul>
+<li>Hosts a variety of Web Exploitation Challenges</li>
+</ul></li>
+<li><a href="https://www.hacker101.com/">Hacker101 CTF</a>
+<ul>
+<li>The companion site to Hacker101. Hosts a variety of web hacking challenges, with a focus on challenges that show up in bug bounties.</li>
+</ul></li>
+<li><a href="https://www.hackthissite.org/">HackThisSite</a>
+<ul>
+<li>Despite the name, this site hosts challenges of all different types. It’s also one of the few places where you can find forensics and steganography challenges.</li>
+</ul></li>
+</ul>
+<h2 id="mindset">Mindset</h2>
+<p>Finally, I’d just like to talk a little bit about the mindset you should adopt when approaching CTF challenges, because I think it’s something that isn’t really touched upon. Here is a quick list of tips to keep in mind when solving problems</p>
+<ul>
+<li>Start challenges by gathering as much data as possible, and <em><strong>be exhaustive</strong></em>.
+<ul>
+<li>Starting the exploitation phase too early is like trying to solve a jigsaw puzzle while you’re still missing some pieces.</li>
+</ul></li>
+<li>When you feel like you’re stuck, <strong>try a little bit more</strong>. Only after that should you give up.
+<ul>
+<li>You’d be surprised how many problems you can solve just by spending a little more time on it</li>
+<li>Learning to know when to give up is a great skill to have when approaching any sort of challenge in real life</li>
+</ul></li>
+<li><strong>Have fun!</strong>
+<ul>
+<li>Don’t forget that the entire purpose of CTF’s is to enjoy yourself while learning.</li>
+<li>If you get tired of learning new things, or it’s starting to get overwhelming, that’s fine! Take a break, knowing that when you come back, you’ll be refreshed and ready to take another swing at it.</li>
+</ul></li>
+</ul>

@@ -1,0 +1,189 @@
+<p><em>For a list of command line tools, please see <a href="/blog/46_ctf_commands">CTF Command Line Tools</a>.</em></p>
+<p>As with any profession, having the right tools is crucial for completing any task. After progressing through so many CTF challenges, here’s a list of tools that came up time and time again. I’ll be sharing a brief synopsis of what the tool is, how to use it, and what tasks it’s good at solving. By the end of this, you should have an idea of the common tools that are necessary for CTF challenges.</p>
+<h3 id="text-editor">Text Editor</h3>
+<p>This one is a bit of a no brainer compared to the others on this list, but it’s so well used that I had to include it on this list.</p>
+<p>A text editor is a way to view the contents of a file and potentially edit some of its contents. It’s extremely useful in the exploratory steps, since it allows you to very quickly get an idea of what a file contains. You can very quickly identify a bunch of important things, such as how large the file is and what type of file it is. If it’s a program, then sometimes strings in the program are stored in plain text. I can’t count how many times I was just looking through a file in a text editor, and happened to find the plain-text flag nestled in there.</p>
+<p>Text editors come installed by default on almost all machines. On Windows, it’s notepad. On Mac, it’s TextEdit and on Linux, it’s gedit. Of course, you can install your own, which typically have more useful features than the default text editors given. Examples include Sublime, Atom, and VSCode.</p>
+<h3 id="gdb">GDB</h3>
+<p>GDB stands for the GNU Project Debugger, and is a useful tool for looking at exactly what is happening when a program is run. Essentially, what GDB does is that it gives you access to the underlying assembly code and registers, and allows you to view them as you step through your program. You have access to all sorts of tools, such as stepping through code, setting breakpoints, viewing the stack, or even manually changing the values of variables and registers halfway through execution.</p>
+<p>In CTF’s GDB is useful for viewing the underlying assembly and viewing the program state at any point. As an example, suppose a program generates a random number, and then asks you to input it without showing you the random number. With GDB, you can take a peak at the variable that stores the random number while the program is running, and then enter it in.</p>
+<p>Below is a short cheat sheet for some of the common commands in GDB.</p>
+<h4 id="basic-gdb-commands">Basic GDB Commands</h4>
+<p>Here are some of the basic commands of GDB:</p>
+<ul>
+<li><code>run</code> or <code>r</code>
+<ul>
+<li>runs the program.</li>
+</ul></li>
+<li><code>start</code>
+<ul>
+<li>runs the program, but sets a breakpoint in the main function.</li>
+</ul></li>
+<li><code>stepi</code> or <code>si</code>
+<ul>
+<li>runs the next machine instruction. It will step into function calls.</li>
+</ul></li>
+<li><code>nexti</code> or <code>ni</code>
+<ul>
+<li>runs the next machine instruction. However, it will step over function calls.</li>
+</ul></li>
+<li><code>break *0x12345678</code>
+<ul>
+<li>sets a breakpoint at address <code>0x12345678</code></li>
+</ul></li>
+<li><code>continue</code> or <code>c</code>
+<ul>
+<li>runs the program until we hit a breakpoint or the program completes</li>
+</ul></li>
+<li><code>info functions</code>
+<ul>
+<li>gives a list of all functions in the program, and their addresses</li>
+</ul></li>
+<li><code>info variables</code>
+<ul>
+<li>gives a list of all variables in the program</li>
+</ul></li>
+<li><code>quit</code> or <code>q</code>
+<ul>
+<li>quits gdb</li>
+</ul></li>
+<li><code>disassemble &lt;function&gt;</code>
+<ul>
+<li>shows you the assembly code for a particular function</li>
+</ul></li>
+</ul>
+<h4 id="advanced-gdb-commands">Advanced GDB Commands</h4>
+<p>And here are some of the more advanced ones:</p>
+<ul>
+<li><code>set disassembly-flavor intel</code>
+<ul>
+<li>Sets the way assembly is displayed to use intel flavor</li>
+<li>This seems to be preferred by users because it’s easier to read.</li>
+</ul></li>
+<li><code>starti</code>
+<ul>
+<li>runs the program, but set a breakpoint at the first line of machine code.</li>
+</ul></li>
+<li><code>info file</code>
+<ul>
+<li>gives a list of sections and their addresses. Useful for finding the entrypoint into the code.</li>
+</ul></li>
+<li><code>layout asm</code>
+<ul>
+<li>shows the assembly code, and gives you a visual representation of where you are up to in code execution.</li>
+</ul></li>
+<li><code>info registers</code>
+<ul>
+<li>gives a list of all registers</li>
+</ul></li>
+<li><code>p $rip</code>
+<ul>
+<li>prints out the value stored in register <code>$RIP</code></li>
+<li>also works with variable names</li>
+</ul></li>
+<li><code>set $eax = 0</code>
+<ul>
+<li>sets the value of register <code>$EAX</code> to 0.</li>
+<li>also works with variable names</li>
+</ul></li>
+<li><code>x 0x12345678</code>
+<ul>
+<li>display the contents of memory at a particular address</li>
+<li>we can also specify how to print it. For example
+<ul>
+<li>x/c to print as char</li>
+<li>x/x to print as hex</li>
+<li>x/s to print as array</li>
+</ul></li>
+</ul></li>
+<li><code>x/20x $sp</code>
+<ul>
+<li>prints the first 20 values off of the stack</li>
+</ul></li>
+<li><code>jump &lt;function&gt;</code>
+<ul>
+<li>Set the program counter to the start of a particular function</li>
+</ul></li>
+</ul>
+<h3 id="pwndbg">Pwndbg</h3>
+<p>Pwndbg is a GDB plugin that makes debugging in GDB alot easier. Though technically feature complete, GDB can be a bit hard to work with at times due to is non-user-friendly nature. Pwndbg is a python module that is loaded directly into GDB, which provides a bunch of utilities, tools, and shortcuts to make debugging in GDB much smoother.</p>
+<p>Some features that it includes are</p>
+<ul>
+<li>Showing arguments to functions when they are called</li>
+<li>Displaying the current context, including registers, code, stack, and backtrace</li>
+<li>Ability to add expressions to be watched by the context, and displayed</li>
+<li>Ability to show decompiled source code from the Ghidra Decompiler (with the help of Radare2)</li>
+</ul>
+<h3 id="ghidra">Ghidra</h3>
+<p>Ghidra is a software reverse engineering suite of tools, developed by the NSA. It’s most useful feature is the decompiler, which allows you to take an executable, and then give a possible version of the original C code that was used to compile it. This is great for when you want to work out how a binary file works, but you don’t have access to the original source code, and you don’t want to spend hours trawling through the assembly and keeping track of which registers and stack positions store which variables.</p>
+<p>However, while decompiling sounds awesome for debugging, it’s important not to rely too much on the decompiler output. For a start, variable and function names are not preserved, so you will often have to spend some time in the beginning going through and taking a guess at what each variable stores and or what each function does. Ghidra provides tools to allow you to rename variables as you work out what they do, as well as add comments, but you will have to manually make these changes.</p>
+<p>Also often times the code can changed on decompilation, and some of the original logic may be obfuscated. For example, a typical string might be instead broken up into 7 different variables. In other cases, functions do not display their arguments, and it’s up to you to read the corresponding assembly code in order to try and figure out what is being passed into the function. Hence, it’s important to treat the decompiled code as merely a guideline, and to only often refer to the corresponding assembly code to tell you what is really happening.</p>
+<h3 id="pwntools">Pwntools</h3>
+<p><code>pwntools</code> is a CTF framework and exploit development library. It’s written in python, and provides a bunch of tools which allow you to rapidly prototype code and help with exploiting code. Though there are many useful features, there are two that I have used the most:</p>
+<ul>
+<li>Sockets (<code>pwnlib.tubes.sock</code>)
+<ul>
+<li>Allows you to connect to any remote server, and send and receive bytes from it.</li>
+</ul></li>
+<li>Processes (<code>pwnlib.tubes.process</code>)
+<ul>
+<li>Allows you to connect to any process, and send and receive bytes from it.</li>
+</ul></li>
+</ul>
+<p>Pwnlib (the name of the python module) is very useful in automating interactions with programs. Suppose that you have a program where you have to go through a 10 step process before you can enter in some input for an exploit. It would certainly be very tedious to go through those steps every time you wanted to test your exploit so instead, you can automate it in a python script using pwntools. Pwnlib is also really useful if we want to brute force something, since it allows us to rapidly make new connections and test things until we get it right.</p>
+<p>Here’s an example, taken from the <a href="/blog/31_tutorctf_cookie_monster">Cookie Monster</a> challenge from Tutor CTF. We use Pwnlib in order to test the exact right offset for our buffer overflow attack.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pwn <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> remote(<span class="st">&quot;13.210.180.94&quot;</span>, <span class="dv">10001</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">16</span>, <span class="dv">30</span>):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    conn.recvuntil(<span class="st">b&#39;Feed the cookie monster: &#39;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> <span class="st">b&#39;A&#39;</span><span class="op">*</span>i<span class="op">+</span><span class="st">b&#39;EIKOOC</span><span class="ch">\n</span><span class="st">&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    conn.send(s)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i, s)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code></pre></div>
+<p>Here, we connect to a server, and then brute force a bunch of different inputs. Note that we use <code>recvuntil</code> in order to sync our python script with the program. <code>recvuntil</code> causes our program to wait until we receive the message <code>"Feed the cookie monster: "</code> before offering up our own input.</p>
+<h3 id="hexfiend-or-other-hex-editor">HexFiend (or other Hex Editor)</h3>
+<p>HexFiend is a macOS tool for editing hex files. Sometimes, header files can get corrupt, and it’s important to be able to manually access them and change their values.</p>
+<p>If you don’t have HexFiend, you can still edit hex through alternative methods. Here are the steps</p>
+<ol type="1">
+<li>Open vim on the binary you want to modify</li>
+<li>Type <code>:%!xxd</code> and press enter
+<ul>
+<li>This will convert your file into a hex dump</li>
+<li><code>%</code> selects the whole file</li>
+<li><code>!xdd</code> runs the xxd shell command</li>
+</ul></li>
+<li>Edit the column on the left with your new hex values</li>
+<li>Type <code>%!xxd -r</code> and press enter
+<ul>
+<li>This converts the hex back into binary</li>
+</ul></li>
+<li>Save changes and quit</li>
+</ol>
+<h3 id="gimp-or-other-image-editor">GIMP (or other Image Editor)</h3>
+<p>GIMP is an open source image editor. Certain challenges (mainly forensics ones) require you to open an image file and examine it’s contents. Furthermore, certain techniques, such as LSB steganography require you to change the level curves of an image, or modify an image in other ways in order to obtain a flag.</p>
+<h3 id="chrome-developer-tools">Chrome Developer Tools</h3>
+<p>Chrome Devtools are a set of builtin tools that can be used to analyse web pages. One of it’s major use cases is “Inspect Element”, where you can right click on any element on a page ane view the HTML code. You can also look at CSS and Javscript, network packets, cookies and more. There is such a broad range of applications that it would be impossible to list them all here. These tools are an absolute must for any sort of web exploitation.</p>
+<h3 id="burp-suite">Burp Suite</h3>
+<p>Burp Suite provides a a whole host of tools for web exploitation. Some of it’s features include:</p>
+<ul>
+<li>Spider
+<ul>
+<li>A web spider / crawler that is used to find a list of all the endpoints of a particular website</li>
+</ul></li>
+<li>Proxy
+<ul>
+<li>Provides an intercepting proxy that allows you to view and/or modify incoming and outgoing requests.</li>
+</ul></li>
+<li>Decoder
+<ul>
+<li>Supplies some common encoding methods such as URL, HTML, Base64, Hex etc.</li>
+</ul></li>
+</ul>
+<p>The full version of Burp Suite costs $400, and contains more tools such as a scanner that automatically goes to a website and tests a bunch of common vulnerabilities. However, we can still get the community version with most of the tools for free.</p>
+<h3 id="radare2">Radare2</h3>
+<p>Radare2 is a framework for reverse engineering and analyzing binaries. It’s usage is similar to GDB in that we can step through assembly code, but it has a tonne of other really useful tools as well which make it alot more powerful. It’s even lower level than GDB, which means that it can do some things that GDB can’t.</p>
+<blockquote>
+<p><em>Note: All the challenges I’ve done so far I have completed with just vanilla GDB. All writeups are written up with that restriction in mind.</em></p>
+</blockquote>

@@ -40,22 +40,22 @@ dHJvVVQFAANRHVBgdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEASwAAAO4CAAAAAA==</code></pre
 <h2 id="reverse-engineering">Reverse Engineering</h2>
 <p>Unfortunately, running it doesn’t seem to do anything. It’s not giving any error messages, so it’s probably just running silently under the hood. To get some more information, we can put it into Ghidra and see what’s happening. After decompiling, this is what we see:</p>
 <figure>
-<img src="/blog_posts/38_executable_text_file/images/screen1.png" style="width:100.0%" alt="Opening intro in Ghidra" /><figcaption aria-hidden="true"><em>Opening <code>intro</code> in Ghidra</em></figcaption>
+<img src="/blog_posts/38_tutorctf_executable_text_file/images/screen1.png" style="width:100.0%" alt="Opening intro in Ghidra" /><figcaption aria-hidden="true"><em>Opening <code>intro</code> in Ghidra</em></figcaption>
 </figure>
 <blockquote>
 <p><em>Note: Right click and hit “Open Image in New Tab” if you can’t make out the details of text</em></p>
 </blockquote>
 <p>On the right, we seem to have alot of function calls (e.g. <code>FUN_0040100b</code>) which all just lead to a lone syscall with seemingly no arguments.</p>
 <figure>
-<img src="/blog_posts/38_executable_text_file/images/screen2.png" style="width:100.0%" alt="FUN_0040100b" /><figcaption aria-hidden="true"><em><code>FUN_0040100b</code></em></figcaption>
+<img src="/blog_posts/38_tutorctf_executable_text_file/images/screen2.png" style="width:100.0%" alt="FUN_0040100b" /><figcaption aria-hidden="true"><em><code>FUN_0040100b</code></em></figcaption>
 </figure>
 <p>However, it’s important to note that just because Ghidra did not detect arguments when decompiling does not mean that they don’t exist. In these situations, it’s important to check the relevant assembly code out too. In particular, for this function, we see the following:</p>
 <figure>
-<img src="/blog_posts/38_executable_text_file/images/screen3.png" style="width:100.0%" alt="FUN_0040100b assembly" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly</code></em></figcaption>
+<img src="/blog_posts/38_tutorctf_executable_text_file/images/screen3.png" style="width:100.0%" alt="FUN_0040100b assembly" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly</code></em></figcaption>
 </figure>
 <p>Here LEA (load effective address) is used to load the address containing the string <code>"/dev/null"</code> into RDI. Reading [OS Dev - Calling Conventions], we see that RDI is one of the parameter registers for <span class="math inline">\(x84_64\)</span> architectures. In other words, this is an argument for <code>FUN_0040100b</code>. Looking at the other arguments and using some preexisting knowledge of C, it’s reasonable to guess that this is an <code>open</code> function call. Here is the same assembly, with each of the numbers converted into their correct types.</p>
 <figure>
-<img src="/blog_posts/38_executable_text_file/images/screen4.png" style="width:100.0%" alt="FUN_0040100b assembly, with corrected types" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly, with corrected types</code></em></figcaption>
+<img src="/blog_posts/38_tutorctf_executable_text_file/images/screen4.png" style="width:100.0%" alt="FUN_0040100b assembly, with corrected types" /><figcaption aria-hidden="true"><em><code>FUN_0040100b assembly, with corrected types</code></em></figcaption>
 </figure>
 <p>I.e. <code>open("/dev/null", O_WRONLY|O_CREAT, 0644)</code>, which opens the file <code>"/dev/null"</code> for reading and writing.</p>
 <p>Reading through the rest of the code, it seems that <code>local_48</code>, <code>local_40</code>, … <code>local_18</code> form an null terminated string, and <code>local_14</code> is being used to loop through the addresses of the string byte by byte. At each byte, we do XOR with <code>0x42</code> to obtain a new byte, and then call <code>FUN__00401000()</code></p>
@@ -90,7 +90,7 @@ dHJvVVQFAANRHVBgdXgLAAEE6AMAAAToAwAAUEsFBgAAAAABAAEASwAAAO4CAAAAAA==</code></pre
 </div>
 <p>Here, we can see the flag being written out byte by byte. Just for fun, let’s try and do some labelling and commenting back into the original Ghidra decompilation to make it a bit clearer.</p>
 <figure>
-<img src="/blog_posts/38_executable_text_file/images/screen5.png" style="width:100.0%" alt="Labelled Decompilation" /><figcaption aria-hidden="true"><em><code>Labelled Decompilation</code></em></figcaption>
+<img src="/blog_posts/38_tutorctf_executable_text_file/images/screen5.png" style="width:100.0%" alt="Labelled Decompilation" /><figcaption aria-hidden="true"><em><code>Labelled Decompilation</code></em></figcaption>
 </figure>
 <blockquote>
 <p><em>Note: This is a rough guideline and once again, should not be interpreted as literal c code. For example, the arguments for all functions are still missing, and it is unlikely that the original code defined the flag as 8 variables.</em></p>

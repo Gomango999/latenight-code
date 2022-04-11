@@ -72,7 +72,6 @@ However, this program isn't as secure as you might think. Since we know the rand
 
 But even then, this still requires knowing the exact second the random seed was generated, which can be a little bit of a hassle to get. An easier an attack is to just connect to the netcat server twice in two different terminals in quick succession.
 
-
 ![_Two terminals side by side, connected at almost the same time._](/blog_posts/28_tutorctf_bad_rand/images/screen1.png){width=120%}
 
 We can now show the secret for one of them, and guess the secret on the other. It might take a couple tries, but doing so nets us the flag :)

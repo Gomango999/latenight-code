@@ -55,9 +55,3 @@ In UNSW's COMP6841, the tutors were kind enough to put together a [CTF]((https:/
 Finally, here's the scoreboard proving my achievement as one of the top scorers:
 
 ![](/blog_posts/44_tutorctf/images/score.png){width=100%}
-
-
-
-
-
-

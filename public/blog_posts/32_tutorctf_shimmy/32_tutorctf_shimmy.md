@@ -65,7 +65,7 @@ $ xxd ./shimmy | head -2
 00000010: 0300 3e00 0100 0000 7010 0000 0000 0000  ..>.....p.......
 ```
 
-And for reference, here's what a regular ELF header looks like (using the `./vuln` script from [bad_rand](../28_tutotctf_bad_rand))
+And for reference, here's what a regular ELF header looks like (using the `./vuln` script from [bad_rand](/blog/28_tutorctf_bad_rand))
 
 ```term
 $ xxd ./vuln | head -2

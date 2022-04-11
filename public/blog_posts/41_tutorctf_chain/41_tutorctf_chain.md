@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-11 17:49+11:00
 lastModified: 2022-04-11 17:49+11:00
 notes: ''
+prevPage: 40_tutorctf_bus_buddies
+nextPage: 42_tutorctf_alice_and_bob
 tags:
 - capture the flag
 - tutor ctf

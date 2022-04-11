@@ -1,0 +1,78 @@
+<h2 id="exploration">Exploration</h2>
+<p>We’re given <code>app.py</code>, a script that runs a Flask web server. Opening it up, we see</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask, request</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> requests <span class="im">import</span> get</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">&quot;/api/list_files&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_files():</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> request.args.get(<span class="st">&#39;directory&#39;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>.join(os.listdir(d))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">&quot;/api/read_file&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_file():</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># To prevent people from the Internet reading files :D</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> request.remote_addr <span class="op">!=</span> <span class="st">&#39;127.0.0.1&#39;</span>:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Uk9UMTM6dWdnY2Y6Ly9qamoubGJoZ2hvci5wYnovam5ncHU/aT1xRGo0ajlKdEtwRA==&#39;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> request.args.get(<span class="st">&#39;path&#39;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(p, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> f.read()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">&quot;/api/get_request&quot;</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_request():</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> request.args.get(<span class="st">&#39;url&#39;</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> get(u).text</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    app.run(debug<span class="op">=</span><span class="va">False</span>, host<span class="op">=</span><span class="st">&#39;0.0.0.0&#39;</span>, port<span class="op">=</span><span class="dv">1337</span>)</span></code></pre></div>
+<p>We’re also given a link to <a href="http://13.210.180.94:10000/" class="uri">http://13.210.180.94:10000/</a> which shows us a “URL Not Found” page. This makes sense, since this isn’t one of the routes specified in <code>app.py</code>.</p>
+<p>Let’s now take a look at each of these routes in detail:</p>
+<ol type="1">
+<li><code>/api/list_files</code>
+<ul>
+<li>Lists the files in the current directory</li>
+<li>Accessing <a href="http://13.210.180.94:10000/api/list_files" class="uri">http://13.210.180.94:10000/api/list_files</a> gives us the following files
+<ul>
+<li>app.py</li>
+<li>flag.txt</li>
+</ul></li>
+<li>Obviously, flag.txt is what we’re after</li>
+</ul></li>
+<li><code>/api/read_files</code>
+<ul>
+<li>This will open files up on the server computer and display them.</li>
+<li>Unfortunately, it does a check to see if the IP being used to access is itself or not.</li>
+<li>Hence, if we try accessing <a href="http://13.210.180.94:10000/api/read_file?path=flag.txt" class="uri">http://13.210.180.94:10000/api/read_file?path=flag.txt</a>, since our IP address obviously isn’t equal to <code>127.0.0.01</code>, it just gives us that random base64 message.
+<ul>
+<li>Decoding the base64 message gives
+<ul>
+<li><code>ROT13:uggcf://jjj.lbhghor.pbz/jngpu?i=qDj4j9JtKpD</code></li>
+</ul></li>
+<li>Applying ROT13 to this gives us a URL
+<ul>
+<li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="uri">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a></li>
+</ul></li>
+<li>Which of course I recognise as a Rick Roll link, so I’ll save myself the effort of clicking it.</li>
+</ul></li>
+</ul></li>
+<li><code>/api/get_request</code>
+<ul>
+<li>This takes a url as an argument, and then returns the webpage given by that url.</li>
+<li>For example, if we wanted to access Google, we could use <a href="http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2Fgoogle.com" class="uri">http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2Fgoogle.com</a>, which would give us a rudimentary form of the google homepage (minus the CSS and Images)</li>
+</ul></li>
+</ol>
+<p>We now have all the information we need to run an SSRF attack</p>
+<h2 id="ssrf">SSRF</h2>
+<p>SSRF stands for Server Side Request Forgery. Servers request resources all the time when displaying webpages. For example, it may request an image to be displayed, and the image is stored at another server. SSRF means making the server request something on the user’s behalf, which can have unintended consequences. For example, in this case, we can make the server request <code>flag.txt</code> via it’s own <code>get_request</code> api.</p>
+<p>First the URL we are trying to access is <code>http://13.210.180.94:10000/api/read_file?path=flag.txt</code>. Using a <a href="https://www.urlencoder.org/">HTML URL Encoder</a>, we get <code>http%3A%2F%2F13.210.180.94%3A10000%2Fapi%2Fread_file%3Fpath%3Dflag.txt</code>. Putting this as an argument into the GET request, we have</p>
+<p><a href="http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2F13.210.180.94%3A10000%2Fapi%2Fread_file%3Fpath%3Dflag.txt" class="uri">http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2F13.210.180.94%3A10000%2Fapi%2Fread_file%3Fpath%3Dflag.txt</a></p>
+<p>Unfortunately, accessing this gives the same base64 message. It seems that since we used the public IP address to access the server, the server also used it’s own public IP address as the remote address, thus triggering the message to be returned.</p>
+<p>Let’s change our URL now to be <code>localhost:1337/api/read_file?path=flag.txt</code>. Note that we change the port to <code>1337</code> as defined in <code>app.py</code> instead of the previous <code>10000</code>. This is because the server has port forwarding setup. The app is actually running on port 1337. However, from the outside connecting in, they connect to port <code>10000</code>, which is then forwarded to our app. If we’re connecting from the inside, we should use the correct port. Putting this together gives us the URL</p>
+<p><a href="http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2Flocalhost%3A1337%2Fapi%2Fread_file%3Fpath%3Dflag.txt" class="uri">http://13.210.180.94:10000/api/get_request?url=http%3A%2F%2Flocalhost%3A1337%2Fapi%2Fread_file%3Fpath%3Dflag.txt</a></p>
+<p>and accessing it gets us our flag!</p>

@@ -1,11 +1,13 @@
 ---
 title: "Tutor CTF: Alice & Bob"
-description: (750 points) Reverse Engineering
+description: (750 points) Reverse Engineering Challenge
 author: Kevin Zhu
 public: true
 uploadDate: 2022-04-11 18:25+11:00
 lastModified: 2022-04-11 18:25+11:00
 notes: ''
+prevPage: 41_tutorctf_chain
+nextPage: 43_tutorctf_baby_ssrf
 tags:
 - capture the flag
 - tutor ctf

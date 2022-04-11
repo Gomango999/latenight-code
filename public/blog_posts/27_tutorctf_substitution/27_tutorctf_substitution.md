@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-08 22:15+11:00
 lastModified: 2022-04-08 22:15+11:00
 notes: ''
+prevPage: 26_tutorctf_warmup
+nextPage: 28_tutorctf_bad_rand
 tags:
 - capture the flag
 - tutor ctf

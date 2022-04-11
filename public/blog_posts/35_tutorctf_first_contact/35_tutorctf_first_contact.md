@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-10 15:35+11:00
 lastModified: 2022-04-10 15:35+11:00
 notes: ''
+prevPage: 34_tutorctf_block_game
+nextPage: 36_tutorctf_subliminal_messaging
 tags:
 - capture the flag
 - tutor ctf

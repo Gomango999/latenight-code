@@ -3,11 +3,9 @@
 ## Making a Blog
 To write new blog post, follow the following steps.
 
-1. Create a new file in `blog_posts/` with the number, followed by the blog name, E.g. `blog_posts/17_aio_2020`
-2. In the folder, create a `.md` file with the same name. Copy over the YAML header from another blog post, and update the details to match.
-3. If you have any images or code, place them inside the same folder as the blog post.
-4. Write your blog post.
-5. Make sure you compile the md with `make`. This will use pandoc to convert your markdown into html, which will get automatically found by `blogController.js`
+1. Use `./newpost <post name>`
+2. Fill out the Title, Description and Tags fields
+3. Hit ``Ctrl+S`` in order to automatically build the HTML using make.
 
 ## Filters
 There is a list of custom filters that are applied to each markdown file before being compiled. To add a new filter, modify the Makefile.

@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-11 16:35+11:00
 lastModified: 2022-04-11 16:35+11:00
 notes: ''
+prevPage: 39_tutorctf_tired
+nextPage: 41_tutorctf_chain
 tags:
 - capture the flag
 - tutor ctf

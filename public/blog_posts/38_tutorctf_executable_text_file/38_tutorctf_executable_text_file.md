@@ -1,11 +1,13 @@
 ---
 title: "Tutor CTF: Executable text file"
-description: (300 points) Reverse Engineering
+description: (300 points) Reverse Engineering Challenge
 author: Kevin Zhu
 public: true
 uploadDate: 2022-04-11 01:51+11:00
 lastModified: 2022-04-11 01:51+11:00
 notes: ''
+prevPage: 37_tutorctf_substitute_teacher
+nextPage: 39_tutorctf_tired
 tags:
 - capture the flag
 - tutor ctf

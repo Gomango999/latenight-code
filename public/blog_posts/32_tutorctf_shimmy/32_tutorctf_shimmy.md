@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-10 15:05+11:00
 lastModified: 2022-04-10 15:05+11:00
 notes: ''
+prevPage: 31_tutorctf_cookie_monster
+nextPage: 33_tutorctf_art_assignment
 tags:
 - capture the flag
 - tutor ctf

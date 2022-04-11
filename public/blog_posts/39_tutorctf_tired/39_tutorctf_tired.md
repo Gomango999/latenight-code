@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-11 15:57+11:00
 lastModified: 2022-04-11 15:57+11:00
 notes: ''
+prevPage: 38_tutorctf_executable_text_file
+nextPage: 40_tutorctf_bus_buddies
 tags:
 - capture the flag
 - tutor ctf

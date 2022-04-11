@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-10 15:30+11:00
 lastModified: 2022-04-10 15:30+11:00
 notes: ''
+prevPage: 32_tutorctf_shimmy
+nextPage: 34_tutorctf_block_game
 tags:
 - capture the flag
 - tutor ctf

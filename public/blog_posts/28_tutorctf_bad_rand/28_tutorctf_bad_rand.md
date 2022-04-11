@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-08 22:30+11:00
 lastModified: 2022-04-08 22:30+11:00
 notes: ''
+prevPage: 27_tutorctf_substitution
+nextPage: 29_tutorctf_shuffle
 tags:
 - capture the flag
 - tutor ctf

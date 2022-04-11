@@ -6,6 +6,8 @@ public: true
 uploadDate: 2022-04-11 01:21+11:00
 lastModified: 2022-04-11 01:21+11:00
 notes: ''
+prevPage: 36_tutorctf_subliminal_messaging
+nextPage: 38_tutorctf_executable_text_file
 tags:
 - capture the flag
 - tutor ctf

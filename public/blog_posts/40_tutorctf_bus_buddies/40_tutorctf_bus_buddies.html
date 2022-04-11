@@ -1,0 +1,80 @@
+<p>For this exercise, we’re given a <code>bus.zip</code> which contains 8 photos inside. We are asked to determine the bus route and use that to assemble the flag. Let’s take a look at our images in turn, and see what we can do with them. For a TLDR, here’s the final map. In this blog post, I’ll be breaking down my thought processes for cracking each location along the route.</p>
+<iframe src="https://www.google.com/maps/d/embed?mid=1P816GE2X-esayxF9sin1ElZ_N7_smM1_&amp;hl=en&amp;ehbc=2E312F" width="640" height="480">
+</iframe>
+<h2 id="photo-1">Photo 1</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/1.png" style="width:40.0%" alt="Image 1 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 1 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>Here we can clearly see a White Lady Funeral’s building. Typing this into google maps and looking around all the White Lady Funeral Homes in Sydney, we eventually find an exact match in Sutherland.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match1.png" style="width:70.0%" /></p>
+<h2 id="photo-2">Photo 2</h2>
+<p>Moving on, here’s our second image</p>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/2.png" style="width:40.0%" alt="Image 2 out of 8 (2.png)" /><figcaption aria-hidden="true"><em>Image 2 out of 8 (<code>2.png</code>)</em></figcaption>
+</figure>
+<p>I started by looking for nearby rivers and checking their bridges, but unfortunately no luck there. I ended up skipping this one and coming back to it later.</p>
+<h2 id="photo-3">Photo 3</h2>
+<p>Next up, image 3</p>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/3.png" style="width:40.0%" alt="Image 3 out of 8 (3.png)" /><figcaption aria-hidden="true"><em>Image 3 out of 8 (<code>3.png</code>)</em></figcaption>
+</figure>
+<p>This one appears to be some sort of “Library &amp; Leisure Centre”, based on the sign. We see there are few colorful blocks and a massive chessboard on the premises. Looking around for local libraries in the area, I ultimately settled on Padstow Library after catching a glimpse of a photo from Google maps.</p>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/match3.png" style="width:40.0%" alt="Padstow Library, 2017" /><figcaption aria-hidden="true">Padstow Library, 2017</figcaption>
+</figure>
+<p>We can see that the sign has changed, but this is undoubtedly the same library. This picture was taken in 2017, though it appears the sign has changed as of 2022. I was also wrong about my initial guess. The sign actually read “Padstow Library &amp; Knowledge Centre”, not “Leisure”. Goes to show that we shouldn’t make assumptions!</p>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/match32.png" style="width:70.0%" alt="Padstow Library, 2022" /><figcaption aria-hidden="true">Padstow Library, 2022</figcaption>
+</figure>
+<h2 id="photo-2-revisited">Photo 2 Revisited</h2>
+<p>Now given that we know the locations of 1 and 3, and assuming that these locations are given out in order along the bus route, this narrows down the places we need to search for the bridge, since it must be somewhere in between. Looking at their locations, it’s worth checking out the bridge between Alfords Point and Padstow Heights.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match2.png" style="width:70.0%" /></p>
+<p>And would you look at that! The railings on the bridge match perfectly as well as the sandy shoreline! Heading onto the bridge itself, it’s obvious that we have a match.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match22.png" style="width:70.0%" /></p>
+<h2 id="photo-4">Photo 4</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/4.png" style="width:40.0%" alt="Image 4 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 4 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>This one was pretty difficult. Clearly, we see a commbank next to a priceline, so I typed in priceline locations and commbank locations into Google maps. I then used image editting software to overlay the two markers, to try and see if I had any matches for two of them close to each other.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/comm.png" style="width:30.0%" /> <img src="/blog_posts/40_tutorctf_bus_buddies/images/price.png" style="width:30.0%" /></p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/comm_price.png" style="width:70.0%" /></p>
+<p>Unfortunately, I wasn’t able to find it using this method, so I skipped it.</p>
+<h2 id="photo-5">Photo 5</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/5.png" style="width:40.0%" alt="Image 5 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 5 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>This one was pretty easy, since there was a number in the photo. A quick google search lead me to Elders Real Estate, Lidcombe.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match5.png" style="width:70.0%" /></p>
+<h2 id="photo-4-revisited">Photo 4 Revisited</h2>
+<p>Using the same method, I started looking for pricelines between photos 3 and 5. Ultimately, I ended up with one in Bankstown near the train station, which matched the description:</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match4.png" style="width:40.0%" /></p>
+<h2 id="photo-6">Photo 6</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/6.png" style="width:40.0%" alt="Image 6 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 6 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>This one looks like a shopping centre of some kind. Typing in all the store names on the sign lead me to the Lidcombe Shopping Centre, on 92 Paramatta Rd. Browsing through the photos, I found the same one used in the Google Maps image.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match6.png" style="width:70.0%" /></p>
+<h2 id="photo-7">Photo 7</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/7.png" style="width:40.0%" alt="Image 7 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 7 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>This photo contains a Rydges building, which is a hotel and resort chain in Australia and New Zealand. Searching around for Rydges buildings in the area, I ultiamtely settled on the one in Paramatta, along James Ruse Drive.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match7.png" style="width:70.0%" /></p>
+<h2 id="photo-8">Photo 8</h2>
+<figure>
+<img src="/blog_posts/40_tutorctf_bus_buddies/images/8.png" style="width:40.0%" alt="Image 8 out of 8 (1.png)" /><figcaption aria-hidden="true"><em>Image 8 out of 8 (<code>1.png</code>)</em></figcaption>
+</figure>
+<p>Final one! This one doesn’t contain alot of information. Just that its next to a train line, and some random skyscrapers in the background. However, knowing that this is the final image, and hence probably close to the bus’s final destination, it makes sense that we are near a major train station. Looking at the current list of locations so far, it seems reasonable to assume this is somewhere near Paramatta station:</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/route7.png" style="width:60.0%" /></p>
+<p>Checking out the streetview near Paramatta station, we can see a skyscraper that looks quite similar to the one in the image.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match8.png" style="width:70.0%" /></p>
+<p>Walking down the street a bit in order to align the angle, we find the correct position just a little down the road.</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/match82.png" style="width:70.0%" /></p>
+<p>Thus our final photo is at Parammatta Station!</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>Marking out all the locations on a map, we get this:</p>
+<iframe src="https://www.google.com/maps/d/embed?mid=1P816GE2X-esayxF9sin1ElZ_N7_smM1_&amp;hl=en&amp;ehbc=2E312F" width="640" height="480">
+</iframe>
+<p>In other words, our bus starts in Sutherland and heads all the way to Paramatta. Doing a google search for this, we get the following:</p>
+<p><img src="/blog_posts/40_tutorctf_bus_buddies/images/final.png" style="width:70.0%" /></p>
+<p>It’s a perfect match! Entering this in the correct format gets us the flag.</p>

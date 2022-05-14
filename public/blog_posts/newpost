@@ -43,13 +43,8 @@ echo "---
 title: \"$title\"
 description: $description
 author: Kevin Zhu
-public: true
+public: false
 uploadDate: $now
-lastModified: $now
-notes: ''
-tags:
-menu:
-  groups: []
-  submenus: []
-name: $name
 ---" > "$name/$name.md"
+
+

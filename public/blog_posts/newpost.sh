@@ -45,6 +45,7 @@ description: $description
 author: Kevin Zhu
 public: false
 uploadDate: $now
----" > "$name/$name.md"
+---
+" > "$name/$name.md"
 
 

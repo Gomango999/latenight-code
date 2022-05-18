@@ -75,8 +75,11 @@ figcaption {
 
 /* comments */
 blockquote > p {
+  color: #cbccc6;
   border-left: 2px solid #acacac;
   padding-left: 1em;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 /* code */

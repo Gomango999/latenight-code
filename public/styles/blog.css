@@ -57,7 +57,7 @@ h1 {
   font-size: 1.1em;
 }
 figure > img {
-  max-width: 750px;
+  max-width: min(750px, 100%);
 }
 
 /* === Back Button === */

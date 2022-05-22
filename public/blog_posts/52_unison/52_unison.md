@@ -2,7 +2,7 @@
 title: "How To Exclude Folders When Syncing on Mac"
 description: Using Unison as to sync to the cloud.
 author: Kevin Zhu
-public: false
+public: true
 uploadDate: 2022-05-21 01:00+11:00
 ---
 

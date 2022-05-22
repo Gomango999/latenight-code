@@ -23,6 +23,7 @@ body {
 	box-sizing: border-box;
 	padding: 0px;
 	margin: 0px;
+	overflow-x: hidden;
 
 	background-color: #262b3e;
 	color: white;
@@ -39,19 +40,27 @@ h1 {
 h1, h2, h3, h4, h5, h6 {
   color: white;
   font-family: 'Georgia';
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+
+h2, h3, h4 {
+	font-weight: 900;
+}
+h4, h5, h6 {
+	font-weight: italic;
 }
 
 /* text */
 p,li,b,a {
+	color: #ebebeb;
 	padding: 0px;
 	font-variant-ligatures: none;
 	line-height: 1.5;
 }
 
 a,a:link,a:visited {
-	color: #abf0ff;
+	color: #a3efff;
 }
 
 /* tables and figures */
@@ -84,11 +93,18 @@ blockquote > p {
 
 /* code */
 tt,pre {
-	font-size: 16px;
+  font-size: 16px;
   overflow: auto;
 }
 code {
-  color: white;
+  color: #fc8aff; /* purple */
+  /* color: #98f1d1;*/
+  font-size: 0.95em;
+}
+code:not(pre code) {
+	padding: 3px 5px;
+	border-radius: 5px;
+	background-color: #3a4354;
 }
 
 /* === KATEX === */
@@ -109,10 +125,16 @@ pre {
 }
 div.sourceCode {
   background-color: #1f2430;
-  border-radius: 5px;
+  border-radius: 10px;
+  padding: 10px;
 }
-pre.sourceCode {
+pre {
   overflow:visible;
+}
+pre:not(div.sourceCode>pre.sourceCode) {
+  overflow:visible; 
+  border-radius: 10px; 
+  padding: 20px 20px;
 }
 
 /* fix code line numbering background */

@@ -24,8 +24,8 @@ a.back-button:hover {
 /* === TIME DISPLAY === */
 #time-div {
   position: absolute;
-  top: 3%;
-  left: 3%;
+  top: 5%;
+  left: 5%;
 }
 #time {
   font-family: 'Be Vietnam', sans-serif;
@@ -33,12 +33,12 @@ a.back-button:hover {
   font-weight: 600;
 }
 #date {
-  font-size: 1em;
-  font-weight: 100;
+  font-size: 0.75em;
+  font-weight: 60;
 }
 #day {
-  font-size: 1em;
-  font-weight: 100;
+  font-size: 0.75em;
+  font-weight: 60;
 }
 
 /* === HEADER TEXT === */
@@ -235,4 +235,5 @@ span.stretch {
 h2 {
   margin: 0px;
   color: #bcf2ff;
+  font-weight: normal;
 }

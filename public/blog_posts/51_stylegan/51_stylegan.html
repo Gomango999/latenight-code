@@ -3,7 +3,7 @@
 <li><a href="https://www.youtube.com/watch?v=kSLJriaOumA" target="_blank">Demo Video</a></li>
 <li><a href="https://youtu.be/4IInDT_S0ow?t=4763" target="_blank">CVPR 2019 Presentation</a></li>
 </ul>
-<h2 id="what-is-stylegan">What is StyleGAN?</h2>
+<h3 id="what-is-stylegan">What is StyleGAN?</h3>
 <p>StyleGAN is a new generator architecture for GANs made by NVIDIA, that generates pixel pictures of human faces of high quality. It borrows idea from style transfer literature, and applies it to generating faces from latent codes instead. Rhe network is able to separate out details at every level, allowing independent control over global features such as pose, as well as finer details such as skin tecture and hair placement.</p>
 <center>
 <figure>
@@ -11,14 +11,14 @@
 </figure>
 </center>
 <p>The network embeds the input latent code into an intermediate latent space, which is then passed into each layer of a synthesis network. The synthesis network takes in a constant tensor as input, and with the help of the intermediate latent code and some extra injected noise at each layer, it is able to progressible learn and upscale an image until we reach a human face.</p>
-<h2 id="outline">Outline</h2>
+<h3 id="outline">Outline</h3>
 <p>In the rest of this article, we’ll cover the following:</p>
 <ul>
 <li><a href="#what-makes-it-better-than-previous-works">What makes it better than previous works?</a></li>
 <li><a href="#how-does-it-work">How does it work?</a></li>
 <li><a href="#cool-things-the-paper-does">Cool things the paper does</a></li>
 </ul>
-<h2 id="what-makes-it-better-than-previous-works">What makes it better than previous works?</h2>
+<h3 id="what-makes-it-better-than-previous-works">What makes it better than previous works?</h3>
 <p>Previous networks focused alot on improving the discriminator, whereas on the generator side, they mainly worked with the distributions in input latent space to encourage certain results. StyleGAN takes a unique approach to all of this, giving it several big advantages:</p>
 <ol type="1">
 <li>The quality of images is high, both in resolution as well as <a href="https://en.wikipedia.org/wiki/Fr%C3%A9chet_inception_distance">FID score</a>.</li>
@@ -30,7 +30,7 @@
 </figure>
 </center>
 <p><em>Note: I don’t have enough experience with previous works to definitively say what is better about this than prior art.</em></p>
-<h2 id="how-does-it-work">How does it work?</h2>
+<h3 id="how-does-it-work">How does it work?</h3>
 <p>We start with a latent code <span class="math inline">\(\bf{z} \in \mathcal{Z}\)</span>, which is then passed through an 8 layer MLP (defined as <span class="math inline">\(f : \mathcal{Z} \to \mathcal{W}\)</span>) to obtain <span class="math inline">\(\bf{w} \in \mathcal{W}\)</span> in the intermediate latent space. This <span class="math inline">\(\bf{w}\)</span> is then passed into each of the layers of a synthesis network, with a different learned affine transformation in each layer. Each of these values are called “styles”, which we can define as <span class="math inline">\(\bf{y} = (y_s, y_b)\)</span>.</p>
 <center>
 <figure>
@@ -40,8 +40,8 @@
 <p>Meanwhile, we synthesis network starts off with a latent code. At each layer, we upscale the current image, inject some Gaussian noise, and then use Adaptive Instance Normalisation (AdaIN) to merge the style and image together. The formula for AdaIN is given as follows:</p>
 <p><span class="math display">\[\operatorname{AdaIN}(\bf{x}_i, \bf{y}) = \bf{y}_{s, i} \frac{\bf{x}_i - \mu(\bf{x}_i)}{\sigma(\bf{x}_i)} + \bf{y_{b, i}}.\]</span></p>
 <p>This has the effect of normalising each feature in the map <span class="math inline">\(\bf{x}_i\)</span> separately, before scaling and biasing using the corresponding scalar component in style <span class="math inline">\(\bf{y}\)</span>. This continues until the final image is generated.</p>
-<h2 id="cool-things-the-paper-does">Cool things the paper does</h2>
-<h4 id="mixing-together-different-styles"><em>Mixing together different styles</em></h4>
+<h3 id="cool-things-the-paper-does">Cool things the paper does</h3>
+<h4 id="mixing-together-different-styles">Mixing together different styles</h4>
 <p>To encourage styles to localise to each layer, the authors use a technique called mixing regularisation during training. In this procedure, a percentage of images are chosen to be generated using two latent codes. It works by using one latent code up to a point, and then switching to another one. This regularisation technique helps to prevent the network from assuming adjacent styles are correlated, and thus separates out the effects of styles in each layer.</p>
 <p>Doing this also has the great side effect that we can start mixing styles together between two completely different people. For example, we copy the coarse style from one generated image to another, we can start to see that features such as gender, age, pose and hair can be copied from one person to another.</p>
 <center>
@@ -49,7 +49,7 @@
 <img src="/blog_posts/51_stylegan/images/Screen%20Shot%202022-05-18%20at%2011.22.38%20pm.png" width="700" alt="Transposing styles from source A into source B, at different levels of detail." /><figcaption aria-hidden="true"><em>Transposing styles from source A into source B, at different levels of detail.</em></figcaption>
 </figure>
 </center>
-<h4 id="adding-stochastic-variation-with-noise"><em>Adding stochastic variation with noise</em></h4>
+<h4 id="adding-stochastic-variation-with-noise">Adding stochastic variation with noise</h4>
 <p>Typically hair tends to exhibit stochastic properties, even though the exact placement of each strand don’t matter.</p>
 <center>
 <figure>
@@ -66,7 +66,7 @@
 </blockquote>
 <p>If the network tries to control something like the pose using stochastic noise, then since the noise is by definition noisy, even close together pixels will get affected in dramatically different ways, causing a wildly incosistent poses across the iamge. This is easily picked up by the discriminiator, and thus is discouraged by the generator architecture.</p>
 <p>Furthermore, since there is a fresh set of noise added at each layer, there is no incentive for stochastic features to use noise from previous layers. Hence, the effects of noise is effectively localised to the layer it is injected in.</p>
-<h4 id="disentangling-the-latent-space"><em>Disentangling the latent space</em></h4>
+<h4 id="disentangling-the-latent-space">Disentangling the latent space</h4>
 <p>Ideally, we would like the transformation from our latent space to the final image to be one where various final picture attributes form linear subspaces in our input latent space (e.g. one element in the input code determines the final age). This is known as disentanglement of features.</p>
 <p>However, missing features in the training set can lead to a distorted latent space, as show in the paper. For example, consider two factors of variation (e.g. masculinity and hair length). Now assume the training data is missing one section (e.g. long haired males), as shown in (a).</p>
 <center>
@@ -89,7 +89,7 @@
 <li>Label 100,000 images using a separate trained classification network based on binary attributes (e.g. gender). Then, fit a linear SVM to predict the label based on the latent-space point <span class="math inline">\(z\)</span>. The calculated conditional entropy (i.e. how surprising finding out the correct label is given the linear SVM’s prediction) roughly translates to how well the binary attribute can be described as a linear subspace.</li>
 </ul></li>
 </ol>
-<h4 id="creating-antifaces"><em>Creating “antifaces”</em></h4>
+<h4 id="creating-antifaces">Creating “antifaces”</h4>
 <p>By taking the average of <span class="math inline">\(f(\bf{z})\)</span> over the probability distribution <span class="math inline">\(P(\bf{z}))\)</span>, we can work out the intermediate latent code <span class="math inline">\(\overline{\bf{w}}\)</span> that generates the “mean face”. It has very interesting properties, such as looking straight onto the camera, and being of an indeterminate gender.</p>
 <p>But we can do more. For any face <span class="math inline">\(\bf{w}\)</span>, we can work out the “antiface” <span class="math inline">\(\bf{w}&#39;\)</span> by reflecting it around <span class="math inline">\(\overline{\bf{w}}\)</span>. This let’s us generate the opposite of each face. It’s interesting to note that various attributes such as gender, age, glasses, and looking direction all swap to their opposites in the antiface.</p>
 <center>
@@ -97,5 +97,5 @@
 <img src="/blog_posts/51_stylegan/images/Screen%20Shot%202022-05-18%20at%2011.37.30%20pm.png" width="600" alt="Creating the antiface" /><figcaption aria-hidden="true"><em>Creating the antiface</em></figcaption>
 </figure>
 </center>
-<h2 id="updates">Updates</h2>
+<h3 id="updates">Updates</h3>
 <p><em>Since StyleGAN, there has been progressive updates to the paper. These can all be found in a blog here: <a href="https://www.stylegan.xyz/code" target="_blank">stylegan.xyz/code</a></em></p>

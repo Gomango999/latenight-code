@@ -1,0 +1,117 @@
+<h3 id="introduction">Introduction</h3>
+<p>Tools like Google Drive and Dropbox don’t let you exclude specific files that you don’t want to sync. For developers, this can lead to blindly backing up unwanted folders like <code>node_modules</code> and python virtual environments, leading to gigabytes of wasted space.</p>
+<p>Luckily for us, we have <a href="https://www.cis.upenn.edu/~bcpierce/unison/">Unison</a>. Unison is is a two-way file synchroniser that monitors your files and automatically syncs them when changes are made. This tutorial will teach you how to set up Unison to ignore unwanted directories.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>For the purposes of this tutorial, we’ll be using <a href="https://www.google.com/intl/en_au/drive/download/">Google Drive</a> as our cloud storage service with the directory we want to sync to as <code>/User/kevin/Drive/Macbook</code>. The directory we’ll be syncing from is <code>/User/kevin/sharing</code>, though these can be replaced with whatever directory you want to sync from and to.</p>
+<p>This tutorial was run on MacOS Monterey, Version 12.4, though it should work on almost any computer (Unison works for OSX, Unix and Windows).</p>
+<h3 id="what-is-unsion">What is Unsion?</h3>
+<p><a href="https://www.cis.upenn.edu/~bcpierce/unison/">Unison</a> is a powerful two-way file synchroniser that uses delta-transfer, which means that it only uploads the differences between files leading to major speed-ups. We can configure it to watch for file changes and automatically upload/download them to your local device, and last but not least, it has support for ignoring certain file patterns.</p>
+<p>Some common questions:</p>
+<ul>
+<li>Why not just use inbuilt features of Google Drive / Dropbox?
+<ul>
+<li>These require manual selection of folders to exclude. For general use, this is fine, but it requires you to go and update your list of folders each time you create a new coding project.</li>
+</ul></li>
+<li>What about rsync?
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Rsync">Rsync</a> is another synchroniser that can quickly sync files between two locations. However, rsync is only a one way sync, which means that changes on the drive will not be reflected in your local folder.</li>
+</ul></li>
+</ul>
+<h3 id="using-unison-to-sync-files">Using Unison to Sync Files</h3>
+<p>First, run the following commands to install unison:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> brew update 
+</span><span><span class="ex">$</span> brew install unison
+</span></code></pre>
+</div>
+<p>Then install <a href="brew%20install%20autozimu/homebrew-formulas/unison-fsmonitor">unison-fsmonitor</a>, which we’ll use to monitor our files. Download it by running the following command:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> brew install autozimu/homebrew-formulas/unison-fsmonitor
+</span></code></pre>
+</div>
+<p>Next change to your home directory and create a default profile:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> cd ~
+</span><span><span class="ex">$</span> mkdir .unison
+</span><span><span class="ex">$</span> cd .unison
+</span><span><span class="ex">$</span> touch default.prf
+</span></code></pre>
+</div>
+<p>Open <code>default.prf</code> in your favourite text editor and paste in the following code:</p>
+<pre><code># Roots
+root = /Users/kevin/sharing
+root = /Users/kevin/Drive/Macbook</code></pre>
+<p>Here, we define the two root directories we want to sync between. Here, we want to make sure that anything we put into <code>/Users/kevin/sharing</code> gets coiped into <code>/Users/kevin/Drive/Macbook</code> and vice versa. <strong>Make sure to use expand out the full path of your home directory</strong>. Unison does not recognise the path if you use <code>~</code>.</p>
+<p>Below that in the same text file, add the following flags:</p>
+<pre><code># Flags
+batch = true
+fat = true
+confirmbigdel = false
+fastcheck = true
+prefer = newer
+repeat = watch</code></pre>
+<p>Here’s a list of what these flags mean:</p>
+<ul>
+<li><code>batch</code>
+<ul>
+<li>Disable user input, so the script can run without requiring us interacting with it.</li>
+</ul></li>
+<li><code>fat</code>
+<ul>
+<li>Use appropriate options for FAT filesystems (which Google Drive uses)</li>
+</ul></li>
+<li><code>confirmbigdel</code>
+<ul>
+<li>Setting this to false means that we no longer require user input when deleting a large amount of files, which may be needed when syncing directories for the first time. Switch this back to true after setup is finished.</li>
+</ul></li>
+<li><code>fastcheck</code>
+<ul>
+<li>Makes Unison compute a fingerprint for each file, which it can use later in order to quickly check if a file is unchanged. This can greatly speed up file checking.</li>
+</ul></li>
+<li><code>prefer</code>
+<ul>
+<li>When there are conflicts between the two directories, prefer describes which one to use as the main one. Setting it to <code>newer</code> means we favour whichever file was changed last.</li>
+</ul></li>
+<li><code>repeat</code>
+<ul>
+<li>How often we want the script to rerun in seconds. If we set it to <code>watch</code>, we instead tell Unison to constantly watch for file changes and then update when necessary.</li>
+</ul></li>
+</ul>
+<p>For a full list of options, check out the Preferences Section of the <a href="https://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html#prefs">Unison User Manual</a></p>
+<p>Next, add the following lines:</p>
+<pre><code># Paths to synchronise
+path = .
+follow = Path *</code></pre>
+<p><code>path</code> tells Unison which directories within the roots you want to sync. <code>follow</code> tells Unison which symbolic links we want to follow. In this case, we only want to follow the symbolic links placed in the directory <code>/Users/kevin/sharing</code>. Unison will treat these symbolic links as if the files they link to are actually physically in the containing folder. All other symbolic links will remain unsynced.</p>
+<p>Finally, add the paths that you want to ignore:</p>
+<pre><code># Paths to ignore
+ignore = Name .DS_Store
+ignore = Name .vscode
+ignore = Name .git
+ignore = Name node_modules
+ignore = Name __pycache__
+ignore = Name *.py[cod]
+ignore = Name .venv
+ignore = Name venv
+ignore = Name *.zip</code></pre>
+<p>Save and exit. Finally, we’ll set up our sharing folder.</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> mkdir ~/sharing
+</span><span><span class="ex">$</span> cd ~/sharing
+</span></code></pre>
+</div>
+<p>Add symbolic links to any folder that you want to sync. For example:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> ln -s ~/projects projects
+</span><span><span class="ex">$</span> ln -s ~/coding coding
+</span><span><span class="ex">$</span> ln -s ~/work/assignment assignment
+</span></code></pre>
+</div>
+<p>Now, when you run the following command in terminal:</p>
+<div class="sourceCode">
+<pre class="sourceCode term"><code class="sourceCode term"><span><span class="ex">$</span> unison
+</span></code></pre>
+</div>
+<p>… Unison will automatically sync any differences between the two folders. In other words, it will copy over the contents of the folders pointed to by the links in <code>~/sharing</code> to the Drive folder. After that’s done, it will then remain watching for any changes in order to propagate them between folders. You can test this out by creating a new file in <code>~/sharing</code> and seeing your change automatically being reflected in <code>~/Drive/Macbook</code>.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Unison is a great tool for achieving two way syncs between files. For a tutorial on how we can setup Unison to run in the background, please see the Launchd tutorial (coming soon!).</p>

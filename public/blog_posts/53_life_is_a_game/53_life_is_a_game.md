@@ -29,7 +29,7 @@ Suppose we have a person who starts off at city $x$ with social skill $k$. Initi
 
 This process is $O(n+m)$ for each person, so doing this per person would give a time of $O(q(n+m))$. We can improve on this by taking advantage of small merge to handle all people at once. We start off with the no edge graph, where each one-node component also contains a set of the people which start at that node. We then run [Kruskal's algorithm](https://cp-algorithms.com/graph/mst_kruskal.html) on increasing edge weights to merge components together, maintaining each components sum of skills in the [DSU](https://cp-algorithms.com/data_structures/disjoint_set_union.html). Before each merge, we check the sets of both components and anyone who is unable to traverse the edge is removed and their final skill level is calculated, before merging the two sets together. If we sort the set by increasing skill level (e.g. using [C++ sets](https://cplusplus.com/reference/set/set/)), then we only need to remove off the front of the set, which takes $O(\log q)$ time per person. Also, since each person is added and removed from the set at most once, this gives an amortised complexity of $O(q \log q)$. Finally, we take care to always merge the smaller set into the larger one, so that we get an amortised complexity of $O(q \log (q)^2)$ as per [small merge](https://www.ralismark.xyz/posts/small-merge).
 
-The total complexity is $O(m)\log m + q\log (q)^2)$.
+The total complexity is $O(m\log m + q\log (q)^2)$.
 
 ```cpp
 #include <bits/stdc++.h>

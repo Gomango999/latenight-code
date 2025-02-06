@@ -1,4 +1,3 @@
-exports.index = function (req, res) {
-    // render the site
+export function index (_req, res) {
     res.render('spinner.pug', {});
 }

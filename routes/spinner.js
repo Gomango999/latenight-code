@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var spinnerController = require('../controllers/spinnerController');
+import express from 'express';
+import { index } from '../controllers/spinnerController';
 
-router.get('/', spinnerController.index);
+let router = express.Router();
 
-module.exports = router;
+router.get('/', index);
+
+export default router;

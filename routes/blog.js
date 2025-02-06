@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var blogController = require('../controllers/blogController');
+import express from 'express';
+import { index, blogs } from '../controllers/blogController';
 
-router.get('/', blogController.index);
-blogController.blogs.forEach(blog => {
-  router.get(blog.url, blog.renderer);
+let router = express.Router();
+
+router.get('/', index);
+
+blogs.forEach(blog => {
+    router.get(blog.url, blog.renderer);
 });
 
-module.exports = router;
+export default router;

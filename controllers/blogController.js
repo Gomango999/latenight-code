@@ -1,157 +1,131 @@
-const fs = require('fs');
-const path = require('path');
-const moment = require('moment');
-const metadataParser = require('markdown-yaml-metadata-parser');
-const os = require('os');
+import fs from 'fs';
+import path from 'path';
+import moment from 'moment';
+import metadataParser from 'markdown-yaml-metadata-parser';
+import os from 'os';
 
-// Get group and author metadata
-function getMetadata() {
 
-  const groupFilePath = './public/blog_posts/metadata/groups.json'
-  const groupRawData = fs.readFileSync(groupFilePath, 'utf-8');
-  const groups = JSON.parse(groupRawData);
+function getAllBlogPostNames() {
+    const dir = fs.opendirSync('./public/blog_posts/')
 
-  const authorFilePath = './public/blog_posts/metadata/authors/authors.json'
-  const authorRawData = fs.readFileSync(authorFilePath, 'utf-8');
-  const authors = JSON.parse(authorRawData);
+    let blogPostNames = []
+    let dirent
+    while ((dirent = dir.readSync()) !== null) {
+        if (!dirent.isDirectory()) continue;
+        if (dirent.name == "metadata") continue;
+        if (dirent.name == "filters") continue;
+        blogPostNames.push(dirent.name);
+    }
+    dir.closeSync()
 
-  return {groups, authors}
+    return blogPostNames
 }
 
-// Generate a list of compiled blog post filenames.
-function getBlogPostNames() {
-  const dir = fs.opendirSync('./public/blog_posts/')
-
-  let blogPostNames = []
-  let dirent
-  while ((dirent = dir.readSync()) !== null) {
-    if (!dirent.isDirectory()) continue;
-    if (dirent.name == "metadata") continue;
-    if (dirent.name == "filters") continue;
-    blogPostNames.push(dirent.name);
-  }
-  dir.closeSync()
-  return blogPostNames
-}
-
-function getBlogMetadata(filename) {
-  const filepath = path.join('./public/blog_posts/', filename, filename+".md");
-  const rawText = fs.readFileSync(filepath, 'utf-8');
-  const markdown = metadataParser(rawText);
-  return markdown.metadata;
+function getBlogMetadata(postName) {
+    const filepath = path.join('./public/blog_posts/', postName, postName + ".md");
+    const rawText = fs.readFileSync(filepath, 'utf-8');
+    const markdown = metadataParser(rawText);
+    return markdown.metadata;
 }
 
 // Populates the header with some additional information
 function populateHeader(blog, blogName, groups, authors) {
-  // Fill in some default values
-  if (!('public' in blog)) blog.public = false
-  if (!('hidden' in blog)) blog.hidden = false
-  if (!('lastModified' in blog)) blog.lastModified = blog.uploadDate
-  if (!('notes' in blog)) blog.notes = ""
-  if (!('prevPage' in blog)) blog.prevPage = ""
-  if (!('nextPage' in blog)) blog.nextPage = ""
-  if (!('tags' in blog)) blog.tags = []
-  if (!('name' in blog)) blog.name = blogName
-    
-  // Populate misc information
-  blog.url = '/'+blog.name;
-  blog.filepath = path.join('./public/blog_posts/', blog.name, blog.name+'.md');
-  blog.outpath = path.join('./public/blog_posts/', blog.name, blog.name+'.html');
-  
-  blog.timeFromUpload = moment(blog.uploadDate).fromNow();
-  blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
-  
-  currDate = moment.now();
-  blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
-  blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); // used to make spacers
+    // Fill in some default values
+    if (!('public' in blog)) blog.public = false
+    if (!('hidden' in blog)) blog.hidden = false
+    if (!('lastModified' in blog)) blog.lastModified = blog.uploadDate
+    if (!('notes' in blog)) blog.notes = ""
+    if (!('prevPage' in blog)) blog.prevPage = ""
+    if (!('nextPage' in blog)) blog.nextPage = ""
+    if (!('tags' in blog)) blog.tags = []
+    if (!('name' in blog)) blog.name = blogName
 
-  // Set default cover art
-  const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';
-  if (!blog.hasOwnProperty('coverArt')) {
-    blog.coverArt = defaultCoverArt
-  }
+    // Populate misc information
+    blog.url = '/' + blog.name;
+    blog.filepath = path.join('./public/blog_posts/', blog.name, blog.name + '.md');
+    blog.outpath = path.join('./public/blog_posts/', blog.name, blog.name + '.html');
 
-  // TODO: Add code to display the title of the previous and next page
+    blog.timeFromUpload = moment(blog.uploadDate).fromNow();
+    blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
 
-  // Populate authors
-  blog.author = authors[blog.author]
+    currDate = moment.now();
+    blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
+    blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); // used to make spacers
 
-  // Populate blog menu data based on the group
-  if ('menu' in blog && 'groups' in blog.menu) {
-    blog.menu.groups.forEach(groupName => {
-      group = groups[groupName];
-
-      let submenu = {};
-      submenu.title = group.title;
-      submenu.relatedLinks = [];
-      group.posts.forEach(post =>{
-        let relatedBlog = getBlogMetadata(post)
-        let link = {};
-        link.title = relatedBlog.title;
-        link.href = relatedBlog.name;
-        link.live = relatedBlog.public;
-        submenu.relatedLinks.push(link);
-      });
-      blog.menu.submenus.push(submenu);
-    });
-  }
-
-  return blog;
-}
-
-// Generate list of blogs, and populate with information
-function getBlogPosts(blogPostNames) {
-    
-  // Find all blogs and populate with information
-  let blogs = []
-  let {groups, authors} = getMetadata();
-  for (let i = 0; i < blogPostNames.length; i++) {
-      
-    // Get blog metadata and populate it's header
-    let blog = getBlogMetadata(blogPostNames[i])
-    blog = populateHeader(blog, blogPostNames[i], groups, authors)
-    
-    // Check to see whether we should display hidden blogs
-    if (blog.hidden) continue;
-    
-    // If not hidden, but not public, append an asterisk in the title.
-    let islocal = Boolean(os.hostname().indexOf("local") > -1);
-    if (!blog.public) {
-      if (islocal) blog.title = "* " + blog.title;
-      else continue;
+    // Set default cover art
+    const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';
+    if (!blog.hasOwnProperty('coverArt')) {
+        blog.coverArt = defaultCoverArt
     }
-    if (!fs.existsSync(blog.outpath)) continue;
-    
-    blog.content = fs.readFileSync(blog.outpath, 'utf-8');
 
-    blogs.push(blog);
-  }
+    // TODO: Add code to display the title of the previous and next page
 
-  // Sort blogs in reverse chronological order
-  blogs.sort((a, b) => {
-    return moment(a.uploadDate).isBefore(moment(b.uploadDate)) ? 1 : -1;
-  });
+    // Populate authors
+    blog.author = authors[blog.author]
 
-  // Add renderers to each blog
-  blogs.forEach(blog => {
-    blog.renderer = function (req, res) {
-      res.render('blog.pug', { blog: blog });
-    };
-  })
+    // Populate blog menu data based on the group
+    if ('menu' in blog && 'groups' in blog.menu) {
+        blog.menu.groups.forEach(groupName => {
+            group = groups[groupName];
 
-  return blogs
+            let submenu = {};
+            submenu.title = group.title;
+            submenu.relatedLinks = [];
+            group.posts.forEach(post => {
+                let relatedBlog = getBlogMetadata(post)
+                let link = {};
+                link.title = relatedBlog.title;
+                link.href = relatedBlog.name;
+                link.live = relatedBlog.public;
+                submenu.relatedLinks.push(link);
+            });
+            blog.menu.submenus.push(submenu);
+        });
+    }
+
+    return blog;
 }
 
-// Get all block post names
-const blogPostNames = getBlogPostNames();
+function loadMetadata() {
+    function readJSON(path) {
+        const data = fs.readFileSync(path, 'utf-8');
+        return JSON.parse(data);
+    }
 
-// Get all blog posts
-const blogs = getBlogPosts(blogPostNames);
+    const groups = readJSON('./public/blog_posts/metadata/groups.json');
+    const authors = readJSON('./public/blog_posts/metadata/authors/authors.json')
 
-// Export them
-exports.blogs = blogs;
-exports.index = function (req, res) {
-  res.render('blog_list.pug', {
-    blogs: blogs,
-  });
-};
+    return { groups, authors }
+}
+
+function loadBlogPosts(blogPostNames) {
+
+    const { groups, authors } = loadMetadata();
+
+    const blogs = blogPostNames.map(postName => {
+        let blog = getBlogMetadata(postName);
+        blog = populateHeader(blog, postName, groups, authors);
+        blog.content = fs.readFileSync(blog.outpath, 'utf-8');
+    }).filter(blog => {
+        return !blog.hidden;
+    }).sort((a, b) => {
+        return moment(a.uploadDate).isBefore(moment(b.uploadDate)) ? 1 : -1;
+    }).map(blog => {
+        blog.renderer = function (_req, res) {
+            res.render('blog.pug', { blog: blog });
+        };
+    });
+
+    return blogs
+}
+
+const blogPostNames = getAllBlogPostNames();
+const blogs = loadBlogPosts(blogPostNames);
+
+export { blogs as blogs };
+
+export function index(_req, res) {
+    res.render('blog_list.pug', {
+        blogs: blogs,
+    });
+}

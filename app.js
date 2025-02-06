@@ -1,28 +1,30 @@
-const dotenv = require('dotenv')
-const fs = require("fs")
-const path = require("path")
-const express = require("express");
-const favicon = require('serve-favicon');
+import path from "path";
+import express from "express";
+import favicon from 'serve-favicon';
 
-dotenv.config() // load from .env file
+import indexRouter from './routes/index';
+import blogRouter from './routes/blog';
+import spinnerRouter from './routes/spinner';
 
-let indexRouter = require('./routes/index');
-let blogRouter = require('./routes/blog');
-let spinnerRouter = require('./routes/spinner');
 
-const app = express();
+let app = express();
 
 app.set("view engine", "pug")
-app.set("views", path.join(__dirname, "views"))
+const viewsDir = path.join(__dirname, "views")
+app.set("views", viewsDir)
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+// provides access for all routes to everything in the public folder
+const publicDir = path.join(__dirname, 'public') 
+app.use(express.static(publicDir));
+
+const faviconPath = path.join(__dirname, 'public', 'images', 'favicon.ico');
+app.use(favicon(faviconPath));
+
 app.use("/", indexRouter);
 app.use("/blog", blogRouter);
 app.use("/spinner", spinnerRouter);
-
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8080;
-}
-app.listen(port, function() { console.log(`Listening on port ${port}`);})
+    
+const port = 8080;
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+})

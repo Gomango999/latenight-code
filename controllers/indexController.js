@@ -1,43 +1,39 @@
-const dotenv = require('dotenv')
-const { MongoClient } = require('mongodb');
-
-const result = dotenv.config() // load .env file
+import mongodb from 'mongodb';
 
 // set up connection to MongoDB server
 const uri = process.env.MONGODB_URI;
 if (!uri) {
-  console.error("URI not found");
+    // TODO: Display this error on the site itself
+    console.error("URI not found");
 }
-const mongoClient = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+
+const mongoClient = new mongodb.MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
-var clientPromise = mongoClient.connect();
 
-exports.index = function (req, res) {
-  // get the document
-  var documentPromise = clientPromise
-  .then((client, err) => {
-    if (err) console.error(err);
+const clientPromise = mongoClient.connect();
 
-    // retrieve site statistics
-    const collection = client.db("latenightcode").collection("main");
-    return collection.find({}).toArray()
-  });
+export function index(_req, res) {
+    clientPromise
+        .then((client, err) => {
+            if (err) console.error(err);
 
-  // update the server and display the site
-  Promise.all([clientPromise, documentPromise])
-  .then(([client, documents], err) => {
-    if (err) console.error(err);
-    const document = documents[0];
-    const visits = document.numSiteVisits;
+            const collection = client.db("latenightcode").collection("main");
+            return collection.find({}).toArray()
+        })
+        .then(([client, documents], err) => {
+            if (err) console.error(err);
 
-    // render the site
-    res.render('index.pug', {
-      visits: visits+1
-    });
+            const document = documents[0];
+            const visits = document.numSiteVisits;
+            const currVisits = visits + 1;
 
-    const collection = client.db("latenightcode").collection("main");
-    return collection.updateOne({}, {$set:{"numSiteVisits":visits+1}});
-  });
+            res.render('index.pug', {
+                visits: currVisits 
+            });
+
+            const collection = client.db("latenightcode").collection("main");
+            return collection.updateOne({}, { $set: { "numSiteVisits": currVisits } });
+        });
 }

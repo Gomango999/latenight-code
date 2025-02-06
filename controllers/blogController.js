@@ -62,7 +62,7 @@ function populateHeader(blog, blogName, groups) {
 
     blog.author = {
         name: "Kevin Zhu",
-        image: "/blog_posts/metadata/authors/profile_pictures/Terrarium.png",
+        image: "/images/profile_pictures/Terrarium.png",
         email: "kv.zhu999@gmail.com"
     }
 
@@ -95,9 +95,10 @@ function loadGroups() {
     return JSON.parse(data);
 }
 
-function loadBlogPosts(blogPostNames) {
+const groups = loadGroups();
 
-    const groups = loadGroups();
+// Loads all blog posts in order of most recent first
+function loadBlogPosts(blogPostNames) {
 
     const blogs = blogPostNames.map(postName => {
         let blog = getBlogMetadata(postName);
@@ -108,11 +109,6 @@ function loadBlogPosts(blogPostNames) {
         return !blog.hidden;
     }).sort((a, b) => {
         return moment(a.uploadDate).isBefore(moment(b.uploadDate)) ? 1 : -1;
-    }).map(blog => {
-        blog.renderer = function (_req, res) {
-            res.render('blog.pug', { blog: blog });
-        };
-        return blog;
     });
 
     return blogs
@@ -121,7 +117,17 @@ function loadBlogPosts(blogPostNames) {
 const blogPostNames = getAllBlogPostNames();
 const blogs = loadBlogPosts(blogPostNames);
 
-export { blogs as blogs };
+const posts = function (req, res) {
+    let blog = getBlogMetadata(req.params.post);
+    blog = populateHeader(blog, req.params.post, groups);
+
+    // TODO: Render a 404 not found page if the blog doesn't exist
+
+    blog.content = fs.readFileSync(blog.outpath, 'utf-8');
+    res.render('blog.pug', { blog: blog });
+}
+
+export { posts };
 
 export function index(_req, res) {
     res.render('blog_list.pug', {

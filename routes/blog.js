@@ -1,12 +1,9 @@
 import express from 'express';
-import { index, blogs } from '../controllers/blogController.js';
+import { index, posts } from '../controllers/blogController.js';
 
 let router = express.Router();
 
 router.get('/', index);
-
-blogs.forEach(blog => {
-    router.get(blog.url, blog.renderer);
-});
+router.get('/:post', posts);
 
 export default router;

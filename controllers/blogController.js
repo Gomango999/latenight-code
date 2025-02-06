@@ -48,7 +48,7 @@ function populateHeader(blog, blogName, groups, authors) {
     blog.timeFromUpload = moment(blog.uploadDate).fromNow();
     blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
 
-    currDate = moment.now();
+    let currDate = moment.now();
     blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
     blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); // used to make spacers
 
@@ -66,7 +66,7 @@ function populateHeader(blog, blogName, groups, authors) {
     // Populate blog menu data based on the group
     if ('menu' in blog && 'groups' in blog.menu) {
         blog.menu.groups.forEach(groupName => {
-            group = groups[groupName];
+            let group = groups[groupName];
 
             let submenu = {};
             submenu.title = group.title;
@@ -106,6 +106,7 @@ function loadBlogPosts(blogPostNames) {
         let blog = getBlogMetadata(postName);
         blog = populateHeader(blog, postName, groups, authors);
         blog.content = fs.readFileSync(blog.outpath, 'utf-8');
+        return blog;
     }).filter(blog => {
         return !blog.hidden;
     }).sort((a, b) => {
@@ -114,6 +115,7 @@ function loadBlogPosts(blogPostNames) {
         blog.renderer = function (_req, res) {
             res.render('blog.pug', { blog: blog });
         };
+        return blog;
     });
 
     return blogs

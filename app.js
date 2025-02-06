@@ -1,11 +1,14 @@
 import path from "path";
 import express from "express";
 import favicon from 'serve-favicon';
+import url from 'url';
 
-import indexRouter from './routes/index';
-import blogRouter from './routes/blog';
-import spinnerRouter from './routes/spinner';
+import indexRouter from './routes/index.js';
+import blogRouter from './routes/blog.js';
+import spinnerRouter from './routes/spinner.js';
 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let app = express();
 

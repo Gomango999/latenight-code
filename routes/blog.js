@@ -1,5 +1,5 @@
 import express from 'express';
-import { index, blogs } from '../controllers/blogController';
+import { index, blogs } from '../controllers/blogController.js';
 
 let router = express.Router();
 

@@ -1,26 +1,28 @@
+import dotenv from 'dotenv';
 import mongodb from 'mongodb';
 
-// set up connection to MongoDB server
+// loads environment variables from the `.env` file and populates `process`
+dotenv.config();
+
 const uri = process.env.MONGODB_URI;
 if (!uri) {
     // TODO: Display this error on the site itself
     console.error("URI not found");
 }
 
-const mongoClient = new mongodb.MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-const clientPromise = mongoClient.connect();
+const mongoClient = new mongodb.MongoClient(uri);
+const dbName = 'latenightcode'
 
 export function index(_req, res) {
-    clientPromise
+    mongoClient.connect()
         .then((client, err) => {
             if (err) console.error(err);
 
-            const collection = client.db("latenightcode").collection("main");
-            return collection.find({}).toArray()
+            const collection = client.db(dbName).collection('main');
+
+            return collection.find({}).toArray().then( documents => {
+                return [client, documents]
+            });
         })
         .then(([client, documents], err) => {
             if (err) console.error(err);
@@ -33,7 +35,7 @@ export function index(_req, res) {
                 visits: currVisits 
             });
 
-            const collection = client.db("latenightcode").collection("main");
-            return collection.updateOne({}, { $set: { "numSiteVisits": currVisits } });
+            const collection = client.db(dbName).collection('main');
+            return collection.updateOne({}, { $set: { 'numSiteVisits': currVisits } });
         });
 }

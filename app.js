@@ -16,7 +16,7 @@ app.set("view engine", "pug")
 app.set("views", path.join(__dirname, "views"))
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use("/", indexRouter);
 app.use("/blog", blogRouter);
 app.use("/spinner", spinnerRouter);

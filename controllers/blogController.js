@@ -2,27 +2,24 @@ import fs from 'fs';
 import path from 'path';
 import moment from 'moment';
 import metadataParser from 'markdown-yaml-metadata-parser';
-import os from 'os';
-
 
 function getAllBlogPostNames() {
-    const dir = fs.opendirSync('./public/blog_posts/')
+    const dir = fs.opendirSync('./public/blog/posts/');
 
-    let blogPostNames = []
-    let dirent
+    let names = [];
+    let dirent;
     while ((dirent = dir.readSync()) !== null) {
         if (!dirent.isDirectory()) continue;
-        if (dirent.name == "metadata") continue;
-        if (dirent.name == "filters") continue;
-        blogPostNames.push(dirent.name);
+        names.push(dirent.name);
     }
-    dir.closeSync()
 
-    return blogPostNames
+    dir.closeSync();
+
+    return names;
 }
 
 function getBlogMetadata(postName) {
-    const filepath = path.join('./public/blog_posts/', postName, postName + ".md");
+    const filepath = path.join('./public/blog/posts/', postName, postName + ".md");
     const rawText = fs.readFileSync(filepath, 'utf-8');
     const markdown = metadataParser(rawText);
     return markdown.metadata;
@@ -42,8 +39,8 @@ function populateHeader(blog, blogName, groups) {
 
     // Populate misc information
     blog.url = '/' + blog.name;
-    blog.filepath = path.join('./public/blog_posts/', blog.name, blog.name + '.md');
-    blog.outpath = path.join('./public/blog_posts/', blog.name, blog.name + '.html');
+    blog.filepath = path.join('./public/blog/posts/', blog.name, blog.name + '.md');
+    blog.outpath = path.join('./public/blog/posts/', blog.name, blog.name + '.html');
 
     blog.timeFromUpload = moment(blog.uploadDate).fromNow();
     blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
@@ -90,7 +87,7 @@ function populateHeader(blog, blogName, groups) {
 }
 
 function loadGroups() {
-    const groupsPath = './public/blog_posts/metadata/groups.json'
+    const groupsPath = './public/blog/metadata/groups.json'
     const data = fs.readFileSync(groupsPath, 'utf-8');
     return JSON.parse(data);
 }

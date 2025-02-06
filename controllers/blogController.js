@@ -29,7 +29,7 @@ function getBlogMetadata(postName) {
 }
 
 // Populates the header with some additional information
-function populateHeader(blog, blogName, groups, authors) {
+function populateHeader(blog, blogName, groups) {
     // Fill in some default values
     if (!('public' in blog)) blog.public = false
     if (!('hidden' in blog)) blog.hidden = false
@@ -55,13 +55,16 @@ function populateHeader(blog, blogName, groups, authors) {
     // Set default cover art
     const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';
     if (!blog.hasOwnProperty('coverArt')) {
-        blog.coverArt = defaultCoverArt
+        blog.coverArt = defaultCoverArt;
     }
 
     // TODO: Add code to display the title of the previous and next page
 
-    // Populate authors
-    blog.author = authors[blog.author]
+    blog.author = {
+        name: "Kevin Zhu",
+        image: "/blog_posts/metadata/authors/profile_pictures/Terrarium.png",
+        email: "kv.zhu999@gmail.com"
+    }
 
     // Populate blog menu data based on the group
     if ('menu' in blog && 'groups' in blog.menu) {
@@ -86,25 +89,19 @@ function populateHeader(blog, blogName, groups, authors) {
     return blog;
 }
 
-function loadMetadata() {
-    function readJSON(path) {
-        const data = fs.readFileSync(path, 'utf-8');
-        return JSON.parse(data);
-    }
-
-    const groups = readJSON('./public/blog_posts/metadata/groups.json');
-    const authors = readJSON('./public/blog_posts/metadata/authors/authors.json')
-
-    return { groups, authors }
+function loadGroups() {
+    const groupsPath = './public/blog_posts/metadata/groups.json'
+    const data = fs.readFileSync(groupsPath, 'utf-8');
+    return JSON.parse(data);
 }
 
 function loadBlogPosts(blogPostNames) {
 
-    const { groups, authors } = loadMetadata();
+    const groups = loadGroups();
 
     const blogs = blogPostNames.map(postName => {
         let blog = getBlogMetadata(postName);
-        blog = populateHeader(blog, postName, groups, authors);
+        blog = populateHeader(blog, postName, groups);
         blog.content = fs.readFileSync(blog.outpath, 'utf-8');
         return blog;
     }).filter(blog => {

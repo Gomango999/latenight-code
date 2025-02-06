@@ -42,8 +42,6 @@ mkdir "$name"
 echo "---
 title: \"$title\"
 description: $description
-author: Kevin Zhu
-public: false
 uploadDate: $now
 ---
 " > "$name/$name.md"

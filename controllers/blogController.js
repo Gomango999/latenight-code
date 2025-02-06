@@ -3,6 +3,7 @@ import path from 'path';
 import moment from 'moment';
 import metadataParser from 'markdown-yaml-metadata-parser';
 
+
 function getAllBlogPostNames() {
     const dir = fs.opendirSync('./public/blog/posts/');
 
@@ -28,14 +29,14 @@ function getBlogMetadata(postName) {
 // Populates the header with some additional information
 function populateHeader(blog, blogName, groups) {
     // Fill in some default values
-    if (!('public' in blog)) blog.public = false
-    if (!('hidden' in blog)) blog.hidden = false
-    if (!('lastModified' in blog)) blog.lastModified = blog.uploadDate
-    if (!('notes' in blog)) blog.notes = ""
-    if (!('prevPage' in blog)) blog.prevPage = ""
-    if (!('nextPage' in blog)) blog.nextPage = ""
-    if (!('tags' in blog)) blog.tags = []
-    if (!('name' in blog)) blog.name = blogName
+    if (!('public' in blog)) blog.public = true;
+    if (!('hidden' in blog)) blog.hidden = false;
+    if (!('lastModified' in blog)) blog.lastModified = blog.uploadDate;
+    if (!('notes' in blog)) blog.notes = "";
+    if (!('prevPage' in blog)) blog.prevPage = "";
+    if (!('nextPage' in blog)) blog.nextPage = "";
+    if (!('tags' in blog)) blog.tags = [];
+    if (!('name' in blog)) blog.name = blogName;
 
     // Populate misc information
     blog.url = '/' + blog.name;
@@ -61,7 +62,7 @@ function populateHeader(blog, blogName, groups) {
         name: "Kevin Zhu",
         image: "/images/profile_pictures/Terrarium.png",
         email: "kv.zhu999@gmail.com"
-    }
+    };
 
     // Populate blog menu data based on the group
     if ('menu' in blog && 'groups' in blog.menu) {

@@ -27,7 +27,3 @@ There is a list of custom filters that are applied to each markdown file before 
     ```
     ```
 
-
-## Resources for Command Line Arguments
-https://www.baeldung.com/linux/use-command-line-arguments-in-bash-script
-https://wiki.bash-hackers.org/howto/getopts_tutorial

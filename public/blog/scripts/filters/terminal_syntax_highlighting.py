@@ -8,7 +8,6 @@ if len(sys.argv) != 3:
 infile = sys.argv[1]
 outfile = sys.argv[2]
 
-# check file exists
 if not os.path.isfile(infile):
     print(infile, "does not exist")
     exit(1)

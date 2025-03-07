@@ -1,16 +1,18 @@
-# https://stackoverflow.com/questions/53136024/makefile-to-compile-all-c-files-without-needing-to-specify-them/53138757
-SRCS=$(wildcard */*.md)
+# Called to perform final post-processing to markdown files to convert them into HTML.
+
+SRCS=$(wildcard */*/*.md)
 HTMLS=$(patsubst %.md, %.html, $(SRCS))
 
 all: $(HTMLS)
 
-# convert to html
+# Replaces `!!! download` with an actual download link
+%1.md : %.md
+	python3 scripts/filters/add_downloads.py $^ $@
+
+# Add syntax highlighting to code blocks marked with "```term"
+%2.md : %1.md
+	python3 scripts/filters/terminal_syntax_highlighting.py $^ $@
+
+# Converts to HTML. We use pandoc to handle converting maths as well.
 %.html: %2.md
 	pandoc $^ -o $@ --mathjax
-
-# add download html for each download link
-%1.md : %.md
-	python3 filters/add_downloads.py $^ $@
-
-%2.md : %1.md
-	python3 filters/terminal_syntax_highlighting.py $^ $@

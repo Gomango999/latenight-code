@@ -3,6 +3,7 @@ import os
 import sys
 from pathlib import Path
 
+# The text that `!!! download` will be replaced with
 download_template = """<div class="row download-block">
 <a href="/{}" class="col-md-4 download-link mb-3" download>
 <div class="download-card">
@@ -22,6 +23,20 @@ download_template = """<div class="row download-block">
 </div></a></div>
 """
 
+if len(sys.argv) != 3:
+    print("Usage: python add_downloads.py infile outfile")
+infile = sys.argv[1]
+outfile = sys.argv[2]
+
+if not os.path.isfile(infile):
+    print(infile, "does not exist")
+    exit(1)
+
+lines = []
+with open(infile, 'r') as f:
+    for line in f:
+        lines.append(line)
+
 # get human readable bytes
 def sizeof_fmt(num, suffix='B'):
     for unit in ['','K','M','G','T','P','E','Z']:
@@ -29,22 +44,6 @@ def sizeof_fmt(num, suffix='B'):
             return "%3.1f%s%s" % (num, unit, suffix)
         num /= 1024.0
     return "%.1f%s%s" % (num, 'Yi', suffix)
-
-if len(sys.argv) != 3:
-    print("Usage: python add_downloads.py infile outfile")
-infile = sys.argv[1]
-outfile = sys.argv[2]
-
-# check file exists
-if not os.path.isfile(infile):
-    print(infile, "does not exist")
-    exit(1)
-
-# read file
-lines = []
-with open(infile, 'r') as f:
-    for line in f:
-        lines.append(line)
 
 # replace command with template
 for i in range(len(lines)):

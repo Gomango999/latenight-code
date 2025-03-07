@@ -5,8 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "devstart": "nodemon --delay 1 app.js"
+    "start": "make -C ./public/blog all && node app.js",
+    "devstart": "nodemon --delay 1 app.js",
+    "newpost": "bash ./public/blog/scripts/newpost.sh"
   },
   "author": "Kevin Zhu",
   "license": "ISC",

@@ -30,7 +30,6 @@ function getBlogMetadata(postName) {
 function populateHeader(blog, blogName, groups) {
     // Fill in some default values
     if (!('public' in blog)) blog.public = true;
-    if (!('hidden' in blog)) blog.hidden = false;
     if (!('lastModified' in blog)) blog.lastModified = blog.uploadDate;
     if (!('notes' in blog)) blog.notes = "";
     if (!('prevPage' in blog)) blog.prevPage = "";
@@ -104,7 +103,7 @@ function loadBlogPosts(blogPostNames) {
         blog.content = fs.readFileSync(blog.outpath, 'utf-8');
         return blog;
     }).filter(blog => {
-        return !blog.hidden;
+        return blog.public;
     }).sort((a, b) => {
         return moment(a.uploadDate).isBefore(moment(b.uploadDate)) ? 1 : -1;
     });

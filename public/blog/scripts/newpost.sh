@@ -1,49 +1,42 @@
+# A helper tool to create the template for a new post.
 #!/bin/bash
 
-# Read options
-title=""
-description=""
-num_options=0
-while getopts ":t:d:" opt; do
-    case $opt in
-        t)
-            title=${OPTARG}
-            let "num_options+=2"
-            ;;
-        d)
-            description=${OPTARG}
-            let "num_options+=2"
-            ;;
-        \?)
-            echo "Invalid option: -$OPTARG" >&2
-            exit 2
-            ;;
-        :)
-            echo "Option -$OPTARG requires an argument." >&2
-            exit 2
-            ;;
-    esac
-done
-
-# Read file name
-if (( $# - $num_options  != 1 )); then
-    echo "Usage: ./newpost [options] name" >&2
-    echo "Options:
-    -t Title
-    -d Description"
-    exit 2
+if [ -z "$1" ]; then
+    echo "Usage: $0 <name>"
+    exit 1
 fi
-name=${!#}
+name="$1"
 
+# Create the folder and file
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+posts_dir=$(realpath "$script_dir/../posts")
+
+# Find the highest numbered folder in post_dir and increment it by 1
+next_num=0
+for folder in "$posts_dir"/*/; do
+    folder=$(basename $folder)
+    if [[ "$folder" =~ ^([0-9]+)_ ]]; then
+        # get the number and remove leading zeros
+        num="${BASH_REMATCH[1]#0}" 
+        if (( num >= next_num )); then
+            next_num=$((num + 1))
+        fi
+    fi
+done
+name="${next_num}_$name"
+
+mkdir -p "$posts_dir/$name"
+file_path="$posts_dir/$name/$name.md"
+
+# Write template to file 
 now=$(date +"%Y-%m-%d %H:%M+11:00")
-
-# create file
-mkdir "$name"
-echo "---
-title: \"$title\"
-description: $description
+cat > "$file_path" <<EOF
+---
+title: 
+description: 
 uploadDate: $now
 ---
-" > "$name/$name.md"
 
+EOF
 
+echo "Created $file_path"

@@ -1,6 +1,7 @@
-import path from "path";
+import dotenv from 'dotenv';
 import express from "express";
 import favicon from 'serve-favicon';
+import path from "path";
 import url from 'url';
 
 import indexRouter from './routes/index.js';
@@ -27,7 +28,7 @@ app.use("/", indexRouter);
 app.use("/blog", blogRouter);
 app.use("/spinner", spinnerRouter);
     
-const port = 8080;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 })

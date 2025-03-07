@@ -5,6 +5,6 @@
   ],
   "ext": "js,json,md,html",
   "events": {
-    "restart": "make -C ./public/blog_posts all"
+    "restart": "make -C ./public/blog all"
   }
 }

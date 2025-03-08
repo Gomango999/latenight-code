@@ -25,8 +25,6 @@ On the other hand, if I ever performed above average, I got a massive dopamine r
 
 The problem with this way of thinking is that I had implicitly set an impossible expectation for myself that I would be able to achieve my top performance every time, if only I worked hard enough. Imagine trying to roll a 6 every time by willing it into existence, or hitting the bullseye every time by "focusing harder". Our performance is random, and that by the simple laws of probability, playing at your best every single time is simply impossible. Therefore inevitably, when the average and bad days came by, I would be left blindsided and frustrated every time, despondently wondering why I seemed to be doing so much worse than "that one time".
 
-TODO: Perceived skill level vs normal distribution
-
 And of course, this tended to have a snowball effect. My mood was typically so negative that it would turn some average days into bad days and some bad days into miserable ones. By adopting this mindset, I had unwittingly shifted my performance so that on average, I actually _was_ performing worse than normal. 
 Countless hours could have been saved if I had better understood this randomness, and instead of working on replicating my best performances, instead worked on increasing my worst.
 

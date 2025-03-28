@@ -1,0 +1,18 @@
+{
+  "name": "wasm-game-of-life",
+  "type": "module",
+  "collaborators": [
+    "Gomango999 <kv.zhu999@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "wasm_game_of_life_bg.wasm",
+    "wasm_game_of_life.js",
+    "wasm_game_of_life.d.ts"
+  ],
+  "main": "wasm_game_of_life.js",
+  "types": "wasm_game_of_life.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

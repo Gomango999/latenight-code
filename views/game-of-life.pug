@@ -1,0 +1,14 @@
+extends layout
+
+block head
+  title Game Of Life 
+  
+  link(rel='stylesheet' href='/styles/latenight-code.css')
+
+block content
+    noscript This page contains webassembly and javascript content, please enable javascript in your browser.
+    center
+        h1 Conwoy's Game of Life
+        canvas#game-of-life-canvas
+        script(type="module" src="/scripts/game-of-life.js")
+        p Implemented in Rust and compiled to WebAssembly.

@@ -1,5 +1,5 @@
 import express from 'express';
-import { index } from '../controllers/spinnerController.js';
+import { index } from '../controllers/spinner.js';
 
 let router = express.Router();
 

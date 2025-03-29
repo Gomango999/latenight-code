@@ -1,0 +1,50 @@
+extends layout
+
+block head
+  title Game Of Life 
+  
+  link(rel='stylesheet' href='/styles/latenight-code.css')
+  style.
+    #boids-canvas {
+      border: 1px solid white 
+    }
+
+block content
+  noscript This page contains webassembly and javascript content, please enable javascript in your browser.
+  center
+    h1 Boids
+    canvas#boids-canvas
+
+    pre Boids simulate the flocking behaviour of "bird-like objects", such as birds or fish. 
+      |
+      | Each triangle's movement is decided by three forces:
+      | 1. Don't crash into other triangles
+      | 2. Try to match the speed and direction of nearby triangles
+      | 3. Try to head towards the centre of mass of nearby triangles
+      | Move your mouse on screen and see what happens!
+      | Coded in Rust and compiled to WebAssembly.
+
+    script.
+      const canvas = document.getElementById("boids-canvas");
+      const ctx = canvas.getContext("2d"); // Get canvas context
+
+      window.mousePosition = { x: 0, y: 0 };
+      document.addEventListener("mousemove", (event) => {
+        // Check if the mouse is inside the canvas bounds
+        const rect = canvas.getBoundingClientRect();
+        if (event.clientX >= rect.left && event.clientX <= rect.right &&
+          event.clientY >= rect.top && event.clientY <= rect.bottom) {
+            
+          window.mousePosition.x = event.clientX - rect.left;
+          window.mousePosition.y = event.clientY - rect.top;
+        } else {
+          // Set the mouse position to a very far distance if outside the bounds
+          // so that it does not interfere with any boids. We don't use `Infinity`
+          // since it deletes all the boids for some reason. 
+          window.mousePosition.x = -10000;
+          window.mousePosition.y = -10000;
+        }
+      });
+
+    script(type="module" src="/scripts/boids.js")
+    p Implemented in Rust and compiled to WebAssembly.

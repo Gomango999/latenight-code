@@ -6,9 +6,9 @@ http://www.latenightcode.xyz/
 My personal site where I can post all things me: from helpful coding writeups, to fun visual projects. The making of the site was completely self-taught, and was built from the ground up using NodeJS and express. It is still under construction, and will be updated regularly.
 
 ### Screenshots
-![Home Page](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot1.png)
-![Blog List](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot2.png)
-![Writeup](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot3.png)
+![Home Page](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot1.jpg)
+![Blog List](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot2.jpg)
+![Writeup](https://github.com/Gomango999/latenight-code/blob/master/public/images/screenshots/screenshot3.jpg)
 
 ### Usage
 To run the server locally, run

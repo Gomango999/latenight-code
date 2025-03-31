@@ -14,9 +14,8 @@ block head
 block content
   .container.py-5.px-4
     .row
-      //- Background Dot Grid
+      //- Dot grid pattern 
       .col-1#dot-grid-col
-        //- Symbols
         .row#dot-grid-row.bottom-row.mb-3.noselect
           .col
             .row.dot-row
@@ -35,23 +34,18 @@ block content
               .col-3
                 span &middot;
       
-      //- Main Section
+      //- Header banner
       .col-11.col-lg-9
-      
-        //- Back button
         .row
           .col
             a(href="/").back-button
               i(aria-hidden="true").fa.fa-arrow-left 
               span.back-button-text &nbsp; back to homepage...
               
-        //- Header
         .row#header-row.mt-4
           .col
-            //- Illustration
             img(src='/images/background/lighthouse/lighthouse_cropped.jpg')#illustration.noselect
             
-            //- Time Display
             #time-div
               .row
                 .col
@@ -60,7 +54,6 @@ block content
                 .col
                   span#date 2021.09.14
                 
-            //- Header Text
             .row#header-text-row.text-right
               .col
                 .row
@@ -70,21 +63,20 @@ block content
                   .col
                     h1#display-header2 &nbsp;blog;&nbsp;
               
-            //- Github Logo
             #github-div
               a(href='https://github.com/Gomango999')
                 i.fa.fa-github.noselect  
         
-        //- Spacer
+        //- Top timeline trail 
         .row
           .col-11.py-3
             a
               i(aria-hidden="true")#moon-symbol.fa.fa-arrow-down.noselect 
-          .col-1
+          .col-1.d-none.d-sm-block
             .row.h-100
               .col-1.offset-6.timeline1.py-5
         
-        //- Blog List
+        //- Blog list
         .row#blog-list-row
           .col
             each blog, i in blogs
@@ -101,19 +93,19 @@ block content
                     i #{blog.displayUploadDate}
                   else
                     i #{blog.timeFromUpload}
-                .col-1
+                .col-1.d-none.d-sm-block
                   .row.h-100
                     .col-1.offset-6.timeline2
                       i.fa.fa-circle.timeline-circle
                 
               //- Add a spacer if different month
               if i+1 < blogs.length && blogs[i].monthYear != blogs[i+1].monthYear
-                .row
+                .row.d-none.d-sm-block
                   .col-1.offset-11
                     .row.h-100
                       .col-1.offset-6.timeline1.py-3
                                 
-            //- Final Spacer
+            //- Ending timeline trail
             .row
               .col-11.text-right
                 .row.py-5

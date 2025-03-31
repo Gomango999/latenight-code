@@ -37,19 +37,26 @@ function populateHeader(blog, blogName, groups) {
     if (!('tags' in blog)) blog.tags = [];
     if (!('name' in blog)) blog.name = blogName;
 
-    // Populate misc information
-    blog.url = '/' + blog.name;
+    // If the blog contains a 'redirect' field, we will ignore all it's contents and
+    // simply have the "blog post" link to whatever is specified in the field.
+    blog.is_redirect = ('redirect' in blog);
+    if (blog.is_redirect) {
+        blog.url = '/..' + blog.redirect;
+    } else {
+        blog.url = '/' + blog.name;
+    }
+
     blog.filepath = path.join('./public/blog/posts/', blog.name, blog.name + '.md');
     blog.outpath = path.join('./public/blog/posts/', blog.name, blog.name + '.html');
 
     blog.timeFromUpload = moment(blog.uploadDate).fromNow();
     blog.displayUploadDate = moment(blog.uploadDate).format('D MMM, YYYY');
 
+    // If a blog is made over a week part, we create a visual spacer in the blog list.
     let currDate = moment.now();
     blog.overOneWeek = moment(currDate).diff(moment(blog.uploadDate), 'days') >= 7;
-    blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); // used to make spacers
+    blog.monthYear = moment(blog.uploadDate).format('MMMYYYY'); 
 
-    // Set default cover art
     const defaultCoverArt = '/images/background/desk/desk5_cropped0_small.png';
     if (!blog.hasOwnProperty('coverArt')) {
         blog.coverArt = defaultCoverArt;
@@ -94,7 +101,7 @@ function loadGroups() {
 
 const groups = loadGroups();
 
-// Loads all blog posts in order of most recent first
+// Loads all blog posts in order of most recent first for the blog list
 function loadBlogPosts(blogPostNames) {
 
     const blogs = blogPostNames.map(postName => {

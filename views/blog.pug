@@ -20,7 +20,6 @@ block content
   .container.p-5
     .row
       .col
-        //- Back button
         .row
           .col
             a(href="/blog/").back-button
@@ -31,15 +30,17 @@ block content
         .row.cover-container.mt-3
           .col
             img(id='cover-art' src=blog.coverArt alt='Blog Cover Photo')
+
         .row.header-container
           .col
             h1.mb-0 #{blog.title}
+
         .row.blog-info.mt-3.pr-5
-          .col-6
-            img(id='profile-picture' class='float-left' src=blog.author.image alt='Profile Picture')
-            i.ml-3 by #{blog.author.name}
-          .col-6.text-right
-            i.pt-2 #{blog.displayUploadDate}
+          .col-12.col-sm-12
+            img(id='profile-picture' src=blog.author.image alt='Profile Picture')
+            i.ml-3 #{blog.author.name}
+          .col-12.col-sm-12.text-left.text-sm-right.mt-3
+            i #{blog.displayUploadDate}
         hr
           
         //- Content
@@ -49,7 +50,7 @@ block content
         
         hr.mt-5
         
-        //- Next and Previous Links
+        //- Next and previous Links
         .row.mt-4.next-prev-links
           .col-6
             if blog.prevPage
@@ -61,8 +62,6 @@ block content
               a(href=blog.nextPage) 
                 i(aria-hidden="true").fa.fa-arrow-right
                 span.ml-2 Next Post
-        
-        //- TODO: Add a cute illustration here
         
         //- Spacers
         .row.my-5
